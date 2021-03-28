@@ -5,12 +5,20 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QInputDialog>
-#include <QHBoxLayout>
-#include <QGroupBox>
 #include <QtCore/QVariant>
 #include <QTableView>
-#include <QApplication>
-#include <QWidget>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QWidget>
+#include <QDesktopServices>
+#include <QUrl>
 
 class GtMain : public QMainWindow
 {
@@ -18,8 +26,7 @@ class GtMain : public QMainWindow
 
 public:
     GtMain(QWidget *parent = nullptr);
-    ~GtMain();
-    inline void setupUi();
+    ~GtMain(); 
     void showHelp();
     QString getInputString();
     void showMessageDialog();
@@ -31,12 +38,15 @@ public:
     void selectRowFromTable();
     void getRowIndexFromSelectTable();
     void addButton();
+    void menuButtonAbout();
     QString getFilePath();
 
 
 private:
     int X;
     int Y;
+    void retranslateUi();
+    inline void setupUi();
     QAction* actionMenuAbout;
     QWidget* gtCentralWidget;
     QGroupBox* gtGroupBox;
@@ -47,7 +57,7 @@ private:
     QPushButton* addImageIconButton;
     QPushButton* setXYButton;
     QMenuBar* gtMenuBar;
-    QMenu* gtMenuAbout;
+    QMenu* gtMenuSystem;
     QStatusBar* gtStatusBar;
     QToolBar* gtToolBar;
     QTableView* gtTable;
