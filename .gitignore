@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+*.db
+*.ipch
+*.log
+*.pdb
+*.tlog
+*.txt
+*.ilk
+*.recipe
+.vs/GTerm/v16/.suo
+debug/qmake/temp/Makefile
+*.props
+*.idx
+*.cbt
+release/qmake/temp/Makefile
