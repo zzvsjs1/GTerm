@@ -1,4 +1,4 @@
-# GTern
+# GTerm
 2021.03.01
 GTerm allows you to create a GUI application using System.out.println-like statements.
 
