@@ -10,6 +10,7 @@
 #include <QtCore/QVariant>
 #include <QTableView>
 #include <QApplication>
+#include <QWidget>
 
 class GtMain : public QMainWindow
 {
@@ -18,7 +19,7 @@ class GtMain : public QMainWindow
 public:
     GtMain(QWidget *parent = nullptr);
     ~GtMain();
-    void setupUi();
+    inline void setupUi();
     void showHelp();
     QString getInputString();
     void showMessageDialog();
@@ -32,17 +33,23 @@ public:
     void addButton();
     QString getFilePath();
 
+
 private:
     int X;
     int Y;
-    QWidget* centralwidget;
-    QGroupBox* groupBox;
+    QAction* actionMenuAbout;
+    QWidget* gtCentralWidget;
+    QGroupBox* gtGroupBox;
     QPushButton* getInputStringButton;
     QPushButton* showHelpButton;
     QPushButton* showMessageDialogButton;
     QPushButton* showErrorDialogButton;
-    QPushButton* ddImageIconButton;
+    QPushButton* addImageIconButton;
     QPushButton* setXYButton;
+    QMenuBar* gtMenuBar;
+    QMenu* gtMenuAbout;
+    QStatusBar* gtStatusBar;
+    QToolBar* gtToolBar;
     QTableView* gtTable;
 };
 #endif // GTMAIN_H

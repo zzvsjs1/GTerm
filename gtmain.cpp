@@ -11,36 +11,41 @@ GtMain::~GtMain()
     delete getInputStringButton;
 }
 
-void GtMain::setupUi()
+inline void GtMain::setupUi()
 {
     setWindowTitle(QString("GTerm"));
     setObjectName(QString::fromUtf8("gtmain"));
     resize(1280, 720);
     setMaximumSize(QSize(1920, 1080));
+    
 
-    centralwidget = new QWidget(this);
-    centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-    centralwidget->setMaximumSize(QSize(1080, 1920));
+    gtCentralWidget = new QWidget(this);
+    gtCentralWidget->setObjectName(QString::fromUtf8("gtCentralWidget"));
+    gtCentralWidget->resize(QSize(1280, 720));
+    gtCentralWidget->setMaximumSize(QSize(1280, 720));
 
-    groupBox = new QGroupBox(centralwidget);
-    groupBox->setGeometry(QRect(0, 0, 1080, 1920));
-    groupBox->setVisible(true);
+    gtGroupBox = new QGroupBox(gtCentralWidget);
+    gtGroupBox->setGeometry(QRect(0, 0, 1280, 720));
+    gtGroupBox->setObjectName(QString::fromUtf8("groupBox"));
 
     QFont buttonFont;
     buttonFont.setFamily("Arial");
+    buttonFont.setBold(true);
+    buttonFont.setPixelSize(15);
 
-    getInputStringButton = new QPushButton(groupBox);
-    getInputStringButton->setGeometry(QRect(10, 10, 130, 60));
-    getInputStringButton->setText(QCoreApplication::translate("GTerm", "Get Input", nullptr));
+    getInputStringButton = new QPushButton(gtGroupBox);
+    getInputStringButton->setGeometry(QRect(0, 0, 130, 60));
+    getInputStringButton->setText(QCoreApplication::translate("gtmain", "Get Input", nullptr));
     getInputStringButton->setFont(buttonFont);
 
-    showMessageDialogButton = new QPushButton(groupBox);
-    showMessageDialogButton->setGeometry(QRect(20, 20, 130, 60));
-    showMessageDialogButton->setText(QCoreApplication::translate("GTerm", "Show Message Dialog", nullptr));
+    showMessageDialogButton = new QPushButton(gtGroupBox);
+    showMessageDialogButton->setGeometry(QRect(160, 0, 250, 60));
+    showMessageDialogButton->setText(QCoreApplication::translate("gtmain", "Show Message Dialog", nullptr));
     showMessageDialogButton->setFont(buttonFont);
 
     connect(getInputStringButton, &QPushButton::clicked, this, qOverload<>(&GtMain::getInputString));
     connect(showMessageDialogButton, &QPushButton::clicked, this, qOverload<>(&GtMain::showMessageDialog));
+    QMetaObject::connectSlotsByName(this);
 }
 
 void GtMain::showHelp()
