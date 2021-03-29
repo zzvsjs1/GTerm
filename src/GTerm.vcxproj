@@ -180,6 +180,7 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gtAboutDialog.cpp" />
     <ClCompile Include="gtmain.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -207,6 +208,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GTerm_en_AU.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="gtAboutDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GTerm.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\logo\logo.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

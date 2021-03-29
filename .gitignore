@@ -48,3 +48,7 @@ src/.vs/GTerm/v16/.suo
 src/debug/qmake/temp/Makefile
 src/.vs/GTerm/v16/.suo
 src/release/qmake/temp/Makefile
+src/.vs/GTerm/v16/.suo
+*.db-shm
+*.opendb
+*.db-wal

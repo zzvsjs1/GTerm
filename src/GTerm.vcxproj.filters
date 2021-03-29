@@ -43,9 +43,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gtAboutDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="gtmain.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="gtAboutDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -61,5 +67,16 @@
     <None Include="GTerm_en_AU.ts">
       <Filter>Translation Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GTerm.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\logo\logo.png" />
   </ItemGroup>
 </Project>

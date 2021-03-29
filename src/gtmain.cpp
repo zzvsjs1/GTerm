@@ -1,4 +1,5 @@
 #include "gtmain.h"
+#include "gtAboutDialog.h"
 
 GtMain::GtMain(QWidget *parent)
     : QMainWindow(parent)
@@ -144,8 +145,8 @@ void GtMain::addButton()
 
 void GtMain::menuButtonAbout()
 {
-    QMessageBox::about(this, tr("About GTerm"), 
-        tr("GTerm allows you to create a GUI application using System.out.println-like statements."));
+    GtAboutDialog about{ this };
+    about.exec();
 }
 
 QString GtMain::getFilePath()
