@@ -19,6 +19,7 @@
 #include <QtWidgets/QWidget>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QFileDialog>
 
 class GtMain : public QMainWindow
 {
@@ -28,23 +29,36 @@ public:
     GtMain(QWidget *parent = nullptr);
     ~GtMain(); 
     void showHelp();
-    QString getInputString();
+    void getInputString();
     void showMessageDialog();
     void showErrorDialog();
     void addImageIcon();
-    void setXY();
     void addTable();
     void addRowToTable();
-    void selectRowFromTable();
+    void getSelectRowFromTable();
     void getRowIndexFromSelectTable();
     void addButton();
     void menuButtonAbout();
+    void print();
+    void println();
+    void setFont();
+    void setFontSize();
+    void setBackgroundColor();
+    void setXY();
+    void setFilePath();
+    void clear();
+    void addTextArea();
+    void addTextField();
+    void clearRowsOfTable();
+    void getColorFromDialog();
+    void getPasswordFromDialog();
+    void getTextFromEntry();
+    void setTextInEntry();
+    void showWarningDialog();
     QString getFilePath();
 
 
 private:
-    int X;
-    int Y;
     void retranslateUi();
     inline void setupUi();
     QAction* actionMenuAbout;
@@ -61,5 +75,6 @@ private:
     QStatusBar* gtStatusBar;
     QToolBar* gtToolBar;
     QTableView* gtTable;
+    QFont* gtFont;
 };
 #endif // GTMAIN_H

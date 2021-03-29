@@ -1,8 +1,8 @@
 #include "gtmain.h"
 #include "gtAboutDialog.h"
 
-GtMain::GtMain(QWidget *parent)
-    : QMainWindow(parent)
+
+GtMain::GtMain(QWidget *parent): QMainWindow(parent)
 {
     setupUi();
     retranslateUi();
@@ -12,12 +12,16 @@ GtMain::~GtMain()
 {
     delete showHelpButton;
     delete getInputStringButton;
+    delete gtFont;
+    delete showMessageDialogButton;
 }
 
 inline void GtMain::setupUi()
 {
     setWindowTitle(QString("GTerm"));
     setObjectName(QString::fromUtf8("gtmain"));
+    setAcceptDrops(true);
+    setAttribute(Qt::WA_NativeWindow);
     resize(1280, 720);
     setMaximumSize(QSize(1920, 1080));
 
@@ -30,23 +34,20 @@ inline void GtMain::setupUi()
     gtGroupBox->setGeometry(QRect(0, 25, 1280, 720));
     gtGroupBox->setObjectName(QString::fromUtf8("groupBox"));
 
-    QFont buttonFont;
-    buttonFont.setFamily("Arial");
-    buttonFont.setBold(true);
-    buttonFont.setPixelSize(15);
+    gtFont = new QFont(QString("Arial"), 12, 1, false);
 
     getInputStringButton = new QPushButton(gtGroupBox);
     getInputStringButton->setGeometry(QRect(0, 0, 130, 60));
-    getInputStringButton->setFont(buttonFont);
+    getInputStringButton->setFont(*gtFont);
 
     showMessageDialogButton = new QPushButton(gtGroupBox);
     showMessageDialogButton->setGeometry(QRect(160, 0, 250, 60));
-    showMessageDialogButton->setFont(buttonFont);
+    showMessageDialogButton->setFont(*gtFont);
 
     showHelpButton = new QPushButton(gtGroupBox);
     showHelpButton->setGeometry(QRect(430, 0, 200, 60));
 
-    showHelpButton->setFont(buttonFont);
+    showHelpButton->setFont(*gtFont);
 
     actionMenuAbout = new QAction(this);
 
@@ -85,17 +86,19 @@ void GtMain::retranslateUi()
 
 void GtMain::showHelp()
 {
+    QMessageBox::about(this, tr("Show Help"),
+        tr("GTerm version 2021.03.01 by Gayan Wijesinghe\nhttps://jupiter.csit.rmit.edu.au/~e58140/GTerm/"));
     QDesktopServices::openUrl(QUrl("https://jupiter.csit.rmit.edu.au/~e58140/GTerm/"));
 }
 
-QString GtMain::getInputString()
+void GtMain::getInputString()
 {
-    return QInputDialog::getText(this, "GTerm Get Input String", "Please enter a String");
+    showMessageDialog();
 }
 
 void GtMain::showMessageDialog()
 {
-    QString userInput = getInputString();
+    QString userInput = QInputDialog::getText(this, QString("GTerm Input Dialog"), QString("Please enter a String"));
     if (userInput.isEmpty())
         userInput = QString("Null");
 
@@ -105,17 +108,12 @@ void GtMain::showMessageDialog()
 
 void GtMain::showErrorDialog()
 {
-
+    QMessageBox::critical(this, QString("Show Error Dialog"), "Error!", QMessageBox::Ok);
 }
 
 void GtMain::addImageIcon()
 {
    
-}
-
-void GtMain::setXY()
-{
-
 }
 
 void GtMain::addTable()
@@ -128,7 +126,7 @@ void GtMain::addRowToTable()
 
 }
 
-void GtMain::selectRowFromTable()
+void GtMain::getSelectRowFromTable()
 {
 
 }
@@ -143,13 +141,79 @@ void GtMain::addButton()
 
 }
 
+void GtMain::addTextArea()
+{
+}
+
+void GtMain::addTextField()
+{
+}
+
+void GtMain::clearRowsOfTable()
+{
+}
+
+void GtMain::getColorFromDialog()
+{
+}
+
+void GtMain::getPasswordFromDialog()
+{
+}
+
+void GtMain::getTextFromEntry()
+{
+}
+
+void GtMain::setTextInEntry()
+{
+}
+
+void GtMain::showWarningDialog()
+{
+}
+
 void GtMain::menuButtonAbout()
 {
     GtAboutDialog about{ this };
     about.exec();
 }
 
+void GtMain::print()
+{
+}
+
+void GtMain::println()
+{
+}
+
+void GtMain::setFont()
+{
+}
+
+void GtMain::setFontSize()
+{
+}
+
+void GtMain::setBackgroundColor()
+{
+    QPalette palette = QPalette();
+}
+
+void GtMain::setXY()
+{
+}
+
+void GtMain::setFilePath()
+{
+    QFileDialog::getSaveFileName(this);
+}
+
+void GtMain::clear()
+{
+}
+
 QString GtMain::getFilePath()
 {
-    return QString();
+    return QFileDialog::getOpenFileName(this);
 }

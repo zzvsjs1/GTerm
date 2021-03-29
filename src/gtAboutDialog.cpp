@@ -1,3 +1,6 @@
+// Copyright 2021 GTerm Project
+// Licensed under GPL-3.0 License
+
 #include "gtAboutDialog.h"
 
 #include <QLabel>
@@ -15,11 +18,15 @@ GtAboutDialog::GtAboutDialog(QWidget* parent) : QDialog(parent)
 <p style='font-size:38pt; font-weight:400;'>GTerm</p>
 
 <p style='font-size: small;'>
-Qt_Version: 6.02
+%QT_VERSION%
 </p>
 
 <p>
 Check for update: <a href='https://jupiter.csit.rmit.edu.au/~e58140/GTerm/'>https://jupiter.csit.rmit.edu.au/~e58140/GTerm/</a>
+</p>
+
+<p>
+%ABOUT_GTERM%
 </p>
 
 <p>
@@ -30,7 +37,10 @@ If you need an older version of GTerm, please contact Gayan.
 <a href='mailto: gayan.wijesinghe@rmit.edu.au'>Send Email</a>
 </p>
 
-)");
+)").replace(QStringLiteral("%QT_VERSION%"),
+    tr("Using Qt %1").arg(QStringLiteral(QT_VERSION_STR)))
+    .replace(QStringLiteral("%ABOUT_GTERM%"),
+             tr("GTerm allows you to create a GUI application using System.out.println-like statements."));
 
     QLabel* textLabel = new QLabel(text);
     textLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
