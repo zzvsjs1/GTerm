@@ -20,13 +20,14 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QFileDialog>
+#include "gtSubWindow.h"
 
 class GtMain : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    GtMain(QWidget *parent = nullptr);
+    GtMain(QWidget* parent = nullptr);
     ~GtMain(); 
     void showHelp();
     void getInputString();
@@ -56,14 +57,17 @@ public:
     void setTextInEntry();
     void showWarningDialog();
     QString getFilePath();
+    void newGTerm();
 
 
 private:
+    GtSubWindow* gtSubWindow;
     void retranslateUi();
     inline void setupUi();
     QAction* actionMenuAbout;
     QWidget* gtCentralWidget;
     QGroupBox* gtGroupBox;
+    QPushButton* newGTermObjectButton;
     QPushButton* getInputStringButton;
     QPushButton* showHelpButton;
     QPushButton* showMessageDialogButton;

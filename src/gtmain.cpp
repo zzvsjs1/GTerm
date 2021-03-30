@@ -2,7 +2,7 @@
 #include "gtAboutDialog.h"
 
 
-GtMain::GtMain(QWidget *parent): QMainWindow(parent)
+GtMain::GtMain(QWidget* parent): QMainWindow(parent)
 {
     setupUi();
     retranslateUi();
@@ -36,18 +36,23 @@ inline void GtMain::setupUi()
 
     gtFont = new QFont(QString("Arial"), 12, 1, false);
 
+    newGTermObjectButton = new QPushButton(gtGroupBox);
+    newGTermObjectButton->setGeometry(QRect(0, 0, 130, 60));
+    newGTermObjectButton->setFont(*gtFont);
+
     getInputStringButton = new QPushButton(gtGroupBox);
-    getInputStringButton->setGeometry(QRect(0, 0, 130, 60));
+    getInputStringButton->setGeometry(QRect(160, 0, 130, 60));
     getInputStringButton->setFont(*gtFont);
+    getInputStringButton->setDisabled(true);
 
     showMessageDialogButton = new QPushButton(gtGroupBox);
-    showMessageDialogButton->setGeometry(QRect(160, 0, 250, 60));
+    showMessageDialogButton->setGeometry(QRect(430, 0, 250, 60));
     showMessageDialogButton->setFont(*gtFont);
 
     showHelpButton = new QPushButton(gtGroupBox);
-    showHelpButton->setGeometry(QRect(430, 0, 200, 60));
-
+    showHelpButton->setGeometry(QRect(0, 80, 200, 60));
     showHelpButton->setFont(*gtFont);
+    showHelpButton->setDisabled(true);
 
     actionMenuAbout = new QAction(this);
 
@@ -63,6 +68,7 @@ inline void GtMain::setupUi()
     gtStatusBar = new QStatusBar(this);
     setStatusBar(gtStatusBar);
 
+    gtSubWindow = nullptr
 
     gtMenuBar->addAction(gtMenuSystem->menuAction());
     gtMenuSystem->addSeparator();
@@ -216,4 +222,9 @@ void GtMain::clear()
 QString GtMain::getFilePath()
 {
     return QFileDialog::getOpenFileName(this);
+}
+
+void GtMain::newGTerm()
+{
+    if ()
 }
