@@ -1,13 +1,14 @@
 # GTerm
 
 ## Class GTerm
-java.lang.Object\t
-  java.awt.Component
-    java.awt.Container
-      java.awt.Window
-        java.awt.Frame
-          javax.swing.JFrame
-            GTerm
+
+java.lang.Object  
+  java.awt.Component  
+    java.awt.Container  
+      java.awt.Window  
+        java.awt.Frame  
+          javax.swing.JFrame  
+            GTerm  
 
 public final class GTerm
 
