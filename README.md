@@ -3,12 +3,12 @@
 ## Class GTerm
 
 java.lang.Object  
-  java.awt.Component  
-    java.awt.Container  
-      java.awt.Window  
-        java.awt.Frame  
-          javax.swing.JFrame  
-            GTerm  
+>java.awt.Component  
+    >java.awt.Container  
+      >java.awt.Window  
+        >java.awt.Frame  
+          >javax.swing.JFrame  
+            >GTerm  
 
 public final class GTerm
 
