@@ -46,7 +46,7 @@ public QObject, public QPaintDevice
 >>public QMainWindow
 >>>GtMain::GtMain
 
-# GtMain::GtMain(QWidget* parent): QMainWindow(parent)
+# GtMain::GtMain(QWidget* parent = nullptr): QMainWindow(parent)
 
 ### This Version:
 
