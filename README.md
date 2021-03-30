@@ -9,7 +9,7 @@ java.lang.Object
           javax.swing.JFrame
             GTerm
 
-## public final class GTerm
+public final class GTerm
 
 ### This Version:
 
