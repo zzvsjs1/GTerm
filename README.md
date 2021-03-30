@@ -1,7 +1,7 @@
 # GTerm
 
 ## Class GTerm
-java.lang.Object
+java.lang.Object\t
   java.awt.Component
     java.awt.Container
       java.awt.Window
