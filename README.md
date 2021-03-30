@@ -55,7 +55,7 @@ GTerm allows you to create a GUI application using std::cout-like statements.
 
 Version History:
 
-2021.03.28: Original version
+2021.03.25: Original version
 
 2021.03.28: Sub GTerm window replace function in main GTerm window. Add GTerm gt = new GTerm(1024, 768); function.
 
