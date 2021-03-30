@@ -41,6 +41,11 @@ Gayan Wijesinghe
 
 # C GTerm, C++ GTerm, QT GTerm
 
+public QObject, public QPaintDevice
+>public QWidget
+>>public QMainWindow
+>>>GtMain::GtMain
+
 2021.03.28
 GTerm allows you to create a GUI application using std::cout-like statements.
 
