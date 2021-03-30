@@ -4,10 +4,10 @@
 
 java.lang.Object  
 >java.awt.Component  
->java.awt.Container  
->java.awt.Window  
->java.awt.Frame  
->GTerm  
+>>java.awt.Container  
+>>>java.awt.Window  
+>>>>java.awt.Frame  
+>>>>>GTerm  
 
 public final class GTerm
 
