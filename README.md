@@ -46,6 +46,10 @@ public QObject, public QPaintDevice
 >>public QMainWindow
 >>>GtMain::GtMain
 
+# GtMain::GtMain(QWidget* parent): QMainWindow(parent)
+
+### This Version:
+
 2021.03.28
 GTerm allows you to create a GUI application using std::cout-like statements.
 
