@@ -9,7 +9,7 @@ java.lang.Object
 >>>>java.awt.Frame  
 >>>>>GTerm  
 
-public final class GTerm
+# public final class GTerm
 
 ### This Version:
 
