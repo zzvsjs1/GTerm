@@ -11,6 +11,8 @@ GtSubWindow::GtSubWindow(QWidget* parent) : QWidget(parent)
 	gtTable = nullptr;
 	gtFont = nullptr;
 	gtGroupBox = nullptr;
+	x = 0;
+	y = 0;
 }
 
 GtSubWindow::~GtSubWindow()
@@ -42,6 +44,7 @@ void GtSubWindow::showMessageDialog()
 
 void GtSubWindow::showErrorDialog()
 {
+	QMessageBox::critical(this, QString("Show Error Dialog"), "Error!", QMessageBox::Ok);
 }
 
 void GtSubWindow::addImageIcon()
@@ -94,6 +97,7 @@ void GtSubWindow::setXY()
 
 void GtSubWindow::setFilePath()
 {
+	(void)QFileDialog::getSaveFileName(this);
 }
 
 void GtSubWindow::clear()
@@ -134,7 +138,7 @@ void GtSubWindow::showWarningDialog()
 
 QString GtSubWindow::getFilePath()
 {
-	return QString();
+	return QFileDialog::getOpenFileName(this);
 }
 
 void GtSubWindow::retranslateUi()

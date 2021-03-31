@@ -93,130 +93,10 @@ void GtMain::retranslateUi()
     actionMenuAbout->setText(QCoreApplication::translate("gtMain", "About", nullptr));
 }
 
-void GtMain::getInputString()
-{
-    showMessageDialog();
-}
-
-void GtMain::showMessageDialog()
-{
-    QString userInput = QInputDialog::getText(this, QString("GTerm Input Dialog"), QString("Please enter a String"));
-    if (userInput.isEmpty())
-        userInput = QString("Null");
-
-    (void)QMessageBox::information(this, QString("Show Message Dialog"), userInput, QMessageBox::Ok);
-}
-
-void GtMain::showErrorDialog()
-{
-    QMessageBox::critical(this, QString("Show Error Dialog"), "Error!", QMessageBox::Ok);
-}
-
-void GtMain::addImageIcon()
-{
-   
-}
-
-void GtMain::addTable()
-{
-
-}
-
-void GtMain::addRowToTable()
-{
-
-}
-
-void GtMain::getSelectRowFromTable()
-{
-
-}
-
-void GtMain::getRowIndexFromSelectTable()
-{
-
-}
-
-void GtMain::addButton()
-{
-
-}
-
-void GtMain::addTextArea()
-{
-}
-
-void GtMain::addTextField()
-{
-}
-
-void GtMain::clearRowsOfTable()
-{
-}
-
-void GtMain::getColorFromDialog()
-{
-}
-
-void GtMain::getPasswordFromDialog()
-{
-}
-
-void GtMain::getTextFromEntry()
-{
-}
-
-void GtMain::setTextInEntry()
-{
-}
-
-void GtMain::showWarningDialog()
-{
-}
-
 void GtMain::menuButtonAbout()
 {
     GtAboutDialog about{ this };
     about.exec();
-}
-
-void GtMain::print()
-{
-}
-
-void GtMain::println()
-{
-}
-
-void GtMain::setFont()
-{
-}
-
-void GtMain::setFontSize()
-{
-}
-
-void GtMain::setBackgroundColor()
-{
-    QPalette palette = QPalette();
-}
-
-void GtMain::setXY()
-{
-}
-
-void GtMain::setFilePath()
-{
-    QFileDialog::getSaveFileName(this);
-}
-
-void GtMain::clear()
-{
-}
-
-QString GtMain::getFilePath()
-{
-    return QFileDialog::getOpenFileName(this);
 }
 
 void GtMain::newGTerm()
@@ -250,6 +130,8 @@ void GtMain::closeGTerm()
 
 void GtMain::clearGtSub()
 {
+
+
     gtSubWindow = nullptr;
     getInputStringButton->setDisabled(true);
     showMessageDialogButton->setDisabled(true);

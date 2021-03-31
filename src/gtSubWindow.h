@@ -10,6 +10,8 @@
 #include <QInputDialog>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QFileDialog>
+#include <QPalette>
 
 class GtSubWindow : public QWidget
 {
@@ -47,6 +49,8 @@ public:
     QString getFilePath();
 
 private:
+    int x;
+    int y;
     void retranslateUi();
     inline void setupUi();
 	QTableView* gtTable;
