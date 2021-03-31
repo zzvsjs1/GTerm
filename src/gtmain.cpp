@@ -68,7 +68,7 @@ inline void GtMain::setupUi()
     gtStatusBar = new QStatusBar(this);
     setStatusBar(gtStatusBar);
 
-    gtSubWindow = nullptr
+    gtSubWindow = nullptr;
 
     gtMenuBar->addAction(gtMenuSystem->menuAction());
     gtMenuSystem->addSeparator();
