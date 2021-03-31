@@ -18,7 +18,7 @@ GtMain::~GtMain()
 
 inline void GtMain::setupUi()
 {
-    setWindowTitle(QString("GTerm"));
+    setWindowTitle(tr("GTerm Control"));
     setObjectName(QString::fromUtf8("gtmain"));
     setAcceptDrops(true);
     setAttribute(Qt::WA_NativeWindow);
@@ -37,23 +37,24 @@ inline void GtMain::setupUi()
     gtFont = new QFont(QString("Arial"), 12, 1, false);
 
     newGTermObjectButton = new QPushButton(gtGroupBox);
-    newGTermObjectButton->setGeometry(QRect(0, 0, 130, 60));
+    newGTermObjectButton->setGeometry(QRect(0, 0, 300, 60));
     newGTermObjectButton->setFont(*gtFont);
 
     getInputStringButton = new QPushButton(gtGroupBox);
-    getInputStringButton->setGeometry(QRect(160, 0, 130, 60));
+    getInputStringButton->setGeometry(QRect(330, 0, 130, 60));
     getInputStringButton->setFont(*gtFont);
     getInputStringButton->setDisabled(true);
 
     showMessageDialogButton = new QPushButton(gtGroupBox);
-    showMessageDialogButton->setGeometry(QRect(430, 0, 250, 60));
+    showMessageDialogButton->setGeometry(QRect(0, 150, 250, 60));
     showMessageDialogButton->setFont(*gtFont);
+    showMessageDialogButton->setDisabled(true);
 
     showHelpButton = new QPushButton(gtGroupBox);
     showHelpButton->setGeometry(QRect(0, 80, 200, 60));
     showHelpButton->setFont(*gtFont);
     showHelpButton->setDisabled(true);
-
+    
     actionMenuAbout = new QAction(this);
 
     gtMenuBar = new QMenuBar(this);
@@ -75,26 +76,21 @@ inline void GtMain::setupUi()
     gtMenuSystem->addSeparator();
     gtMenuSystem->addAction(actionMenuAbout);
 
-    connect(getInputStringButton, &QPushButton::clicked, this, qOverload<>(&GtMain::getInputString));
-    connect(showMessageDialogButton, &QPushButton::clicked, this, qOverload<>(&GtMain::showMessageDialog));
-    connect(showHelpButton, &QPushButton::clicked, this, qOverload<>(&GtMain::showHelp));
+
     connect(actionMenuAbout, &QAction::triggered, this, qOverload<>(&GtMain::menuButtonAbout));
+    connect(newGTermObjectButton, &QPushButton::clicked, this, qOverload<>(&GtMain::newGTerm));
+
+    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 void GtMain::retranslateUi()
 {
+    newGTermObjectButton->setText(QCoreApplication::translate("gtmain", "GTerm gt = new GTerm(1024, 768);", nullptr));
     showMessageDialogButton->setText(QCoreApplication::translate("gtmain", "Show Message Dialog", nullptr));
     getInputStringButton->setText(QCoreApplication::translate("gtmain", "Get Input", nullptr));
     showHelpButton->setText(QCoreApplication::translate("gtmain", "Show Help", nullptr));
     gtMenuSystem->setTitle(QCoreApplication::translate("gtMain", "System", nullptr));
     actionMenuAbout->setText(QCoreApplication::translate("gtMain", "About", nullptr));
-}
-
-void GtMain::showHelp()
-{
-    QMessageBox::about(this, tr("Show Help"),
-        tr("GTerm version 2021.03.01 by Gayan Wijesinghe\nhttps://jupiter.csit.rmit.edu.au/~e58140/GTerm/"));
-    QDesktopServices::openUrl(QUrl("https://jupiter.csit.rmit.edu.au/~e58140/GTerm/"));
 }
 
 void GtMain::getInputString()
@@ -108,8 +104,7 @@ void GtMain::showMessageDialog()
     if (userInput.isEmpty())
         userInput = QString("Null");
 
-    QMessageBox::StandardButton result = QMessageBox::information(this, QString("Show Message Dialog"), 
-        userInput, QMessageBox::Ok);
+    (void)QMessageBox::information(this, QString("Show Message Dialog"), userInput, QMessageBox::Ok);
 }
 
 void GtMain::showErrorDialog()
@@ -226,5 +221,37 @@ QString GtMain::getFilePath()
 
 void GtMain::newGTerm()
 {
-    if ()
+    if (gtSubWindow)
+    {
+        (void)QMessageBox::critical(this, tr("Error"),
+            tr("You only allow to create one GTerm object."), QMessageBox::Ok);
+        return;
+    }
+
+
+    gtSubWindow = new GtSubWindow();
+    gtSubWindow->setAttribute(Qt::WA_DeleteOnClose);
+    gtSubWindow->show();
+    getInputStringButton->setDisabled(false);
+    showMessageDialogButton->setDisabled(false);
+    showHelpButton->setDisabled(false);
+    connect(getInputStringButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::getInputString));
+    connect(showMessageDialogButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::showMessageDialog));
+    connect(showHelpButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::showHelp));
+    //connect(closeButton, &QPushButton::clicked, this, qOverload<>(&GtMain::closeGTerm));
+    connect(gtSubWindow, &QWidget::destroyed, this, qOverload<>(&GtMain::clearGtSub));
+}
+
+void GtMain::closeGTerm()
+{
+    if (gtSubWindow)
+        gtSubWindow->close();
+}
+
+void GtMain::clearGtSub()
+{
+    gtSubWindow = nullptr;
+    getInputStringButton->setDisabled(true);
+    showMessageDialogButton->setDisabled(true);
+    showHelpButton->setDisabled(true);
 }

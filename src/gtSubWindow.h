@@ -6,12 +6,19 @@
 #include <QLineEdit>
 #include <QGroupBox>
 #include <QTableView>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QDesktopServices>
+#include <QUrl>
 
 class GtSubWindow : public QWidget
 {
+    Q_OBJECT;
+
 public:
-	GtSubWindow(QWidget* parent = nullptr);
+    GtSubWindow(QWidget* parent = nullptr);
 	~GtSubWindow();
+    void showHelp();
     void getInputString();
     void showMessageDialog();
     void showErrorDialog();

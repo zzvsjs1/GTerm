@@ -17,9 +17,8 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-#include <QDesktopServices>
-#include <QUrl>
 #include <QFileDialog>
+
 #include "gtSubWindow.h"
 
 class GtMain : public QMainWindow
@@ -29,7 +28,6 @@ class GtMain : public QMainWindow
 public:
     GtMain(QWidget* parent = nullptr);
     ~GtMain(); 
-    void showHelp();
     void getInputString();
     void showMessageDialog();
     void showErrorDialog();
@@ -58,7 +56,10 @@ public:
     void showWarningDialog();
     QString getFilePath();
     void newGTerm();
+    void closeGTerm();
 
+public slots:
+    void clearGtSub();
 
 private:
     GtSubWindow* gtSubWindow;
@@ -70,6 +71,7 @@ private:
     QPushButton* newGTermObjectButton;
     QPushButton* getInputStringButton;
     QPushButton* showHelpButton;
+    QPushButton* closeButton;
     QPushButton* showMessageDialogButton;
     QPushButton* showErrorDialogButton;
     QPushButton* addImageIconButton;

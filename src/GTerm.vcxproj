@@ -214,7 +214,7 @@
     <QtMoc Include="gtAboutDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gtSubWindow.h" />
+    <QtMoc Include="gtSubWindow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
