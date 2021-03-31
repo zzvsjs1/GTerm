@@ -130,8 +130,6 @@ void GtMain::closeGTerm()
 
 void GtMain::clearGtSub()
 {
-
-
     gtSubWindow = nullptr;
     getInputStringButton->setDisabled(true);
     showMessageDialogButton->setDisabled(true);
