@@ -7,6 +7,7 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QtGlobal>
+#include "Version.h"
 
 GtAboutDialog::GtAboutDialog(QWidget* parent) : QDialog(parent)
 {

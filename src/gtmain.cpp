@@ -1,11 +1,19 @@
 #include "gtmain.h"
 #include "gtAboutDialog.h"
-
+#include "Version.h"
 
 GtMain::GtMain(QWidget* parent): QMainWindow(parent)
 {
+    setWindowTitle(QString::fromStdString(Common::gt_title_str));
+    setAcceptDrops(true);
+    setAttribute(Qt::WA_NativeWindow);
+    resize(1280, 720);
+    setMaximumSize(QSize(1920, 1080));
+
     setupUi();
     retranslateUi();
+    connectButtonSignal();
+    connectMenuSignal()
 }
 
 GtMain::~GtMain()
@@ -16,15 +24,8 @@ GtMain::~GtMain()
     delete showMessageDialogButton;
 }
 
-inline void GtMain::setupUi()
+void GtMain::setupUi()
 {
-    setWindowTitle(tr("GTerm Control"));
-    setObjectName(QString::fromUtf8("gtmain"));
-    setAcceptDrops(true);
-    setAttribute(Qt::WA_NativeWindow);
-    resize(1280, 720);
-    setMaximumSize(QSize(1920, 1080));
-
     gtCentralWidget = new QWidget(this);
     gtCentralWidget->setObjectName(QString::fromUtf8("gtCentralWidget"));
     gtCentralWidget->resize(QSize(1280, 720));
@@ -77,11 +78,22 @@ inline void GtMain::setupUi()
     gtMenuSystem->addAction(actionMenuAbout);
 
 
-    connect(actionMenuAbout, &QAction::triggered, this, qOverload<>(&GtMain::menuButtonAbout));
-    connect(newGTermObjectButton, &QPushButton::clicked, this, qOverload<>(&GtMain::newGTerm));
-
     //setAttribute(Qt::WA_QuitOnClose, false);
 }
+
+void GtMain::connectMenuSignal()
+{
+    connect(actionMenuAbout, &QAction::triggered, this, qOverload<>(&GtMain::menuButtonAbout));
+}
+
+
+void GtMain::connectButtonSignal()
+{
+    
+    connect(newGTermObjectButton, &QPushButton::clicked, this, qOverload<>(&GtMain::newGTerm));
+}
+
+
 
 void GtMain::retranslateUi()
 {

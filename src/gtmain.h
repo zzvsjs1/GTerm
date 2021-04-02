@@ -32,8 +32,10 @@ public:
 
 private:
     GtSubWindow* gtSubWindow;
+    void connectButtonSignal();
+    void connectMenuSignal();
     void retranslateUi();
-    inline void setupUi();
+    void setupUi();
     QAction* actionMenuAbout;
     QWidget* gtCentralWidget;
     QGroupBox* gtGroupBox;
