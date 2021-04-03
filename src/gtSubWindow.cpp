@@ -44,11 +44,18 @@ void GtSubWindow::showMessageDialog()
 
 void GtSubWindow::showErrorDialog()
 {
-	QMessageBox::critical(this, QString("Show Error Dialog"), "Error!", QMessageBox::Ok);
+	(void)QMessageBox::critical(this, QString("Show Error Dialog"), "Error!", QMessageBox::Ok);
 }
 
 void GtSubWindow::addImageIcon()
 {
+	QString imageIconPath = QFileDialog::getExistingDirectory(this, tr("Select a image icon"),
+		QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), QFileDialog::ShowDirsOnly);
+
+	if (imageIconPath.isNull())
+		return;
+
+	
 }
 
 void GtSubWindow::addTable()

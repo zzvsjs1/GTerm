@@ -191,7 +191,7 @@
     <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="gtmain.h">
+    <QtMoc Include="gtMain.h">
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="gtResource.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

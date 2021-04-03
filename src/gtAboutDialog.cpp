@@ -1,13 +1,13 @@
 // Copyright 2021 GTerm Project
 // Licensed under GPL-3.0 License
 
-#include "gtAboutDialog.h"
-
 #include <QLabel>
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QtGlobal>
 #include "Version.h"
+
+#include "gtAboutDialog.h"
 
 GtAboutDialog::GtAboutDialog(QWidget* parent) : QDialog(parent)
 {
@@ -31,13 +31,8 @@ Check for update: <a href='https://jupiter.csit.rmit.edu.au/~e58140/GTerm/'>http
 </p>
 
 <p>
-If you need an older version of GTerm, please contact Gayan.
+If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@rmit.edu.au'>contact Gayan</a> .
 </p>
-
-<p>
-<a href='mailto: gayan.wijesinghe@rmit.edu.au'>Send Email</a>
-</p>
-
 )").replace(QStringLiteral("%QT_VERSION%"),
     tr("Using Qt %1").arg(QStringLiteral(QT_VERSION_STR)))
     .replace(QStringLiteral("%ABOUT_GTERM%"),

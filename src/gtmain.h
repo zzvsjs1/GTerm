@@ -27,7 +27,7 @@ public:
     void menuButtonAbout();
     void newGTerm();
     void closeGTerm();
-    void clearGtSub();
+    void closeGtSub();
 
 private:
     GtSubWindow* gtSubWindow;

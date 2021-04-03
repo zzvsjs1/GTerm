@@ -1,4 +1,4 @@
-#include "gtmain.h"
+#include "gtMain.h"
 #include "gtAboutDialog.h"
 #include "Version.h"
 
@@ -47,15 +47,20 @@ void GtMain::setupUi()
     getInputStringButton->setFont(gtFont);
     getInputStringButton->setDisabled(true);
 
+    showHelpButton = new QPushButton(gtGroupBox);
+    showHelpButton->setGeometry(QRect(0, 80, 200, 60));
+    showHelpButton->setFont(gtFont);
+    showHelpButton->setDisabled(true);
+
     showMessageDialogButton = new QPushButton(gtGroupBox);
     showMessageDialogButton->setGeometry(QRect(0, 150, 250, 60));
     showMessageDialogButton->setFont(gtFont);
     showMessageDialogButton->setDisabled(true);
 
-    showHelpButton = new QPushButton(gtGroupBox);
-    showHelpButton->setGeometry(QRect(0, 80, 200, 60));
-    showHelpButton->setFont(gtFont);
-    showHelpButton->setDisabled(true);
+    addImageIconButton = new QPushButton(gtGroupBox);
+    addImageIconButton->setGeometry(QRect(0, 230, 200, 60));
+    addImageIconButton->setFont(gtFont);
+    addImageIconButton->setDisabled(true);
     
     actionMenuAbout = new QAction(this);
 
@@ -101,6 +106,7 @@ void GtMain::retranslateUi()
     showHelpButton->setText(QCoreApplication::translate("gtmain", "Show Help", nullptr));
     gtMenuSystem->setTitle(QCoreApplication::translate("gtMain", "System", nullptr));
     actionMenuAbout->setText(QCoreApplication::translate("gtMain", "About", nullptr));
+    addImageIconButton->setText(QCoreApplication::translate("gtMain", "Add Image Icon", nullptr));
 }
 
 void GtMain::menuButtonAbout()
@@ -125,11 +131,14 @@ void GtMain::newGTerm()
     getInputStringButton->setDisabled(false);
     showMessageDialogButton->setDisabled(false);
     showHelpButton->setDisabled(false);
+    addImageIconButton->setDisabled(false);
+
     connect(getInputStringButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::getInputString));
     connect(showMessageDialogButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::showMessageDialog));
     connect(showHelpButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::showHelp));
+    connect(addImageIconButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::addImageIcon));
     //connect(closeButton, &QPushButton::clicked, this, qOverload<>(&GtMain::closeGTerm));
-    connect(gtSubWindow, &QWidget::destroyed, this, qOverload<>(&GtMain::clearGtSub));
+    connect(gtSubWindow, &QWidget::destroyed, this, qOverload<>(&GtMain::closeGtSub));
 }
 
 void GtMain::closeGTerm()
@@ -138,10 +147,11 @@ void GtMain::closeGTerm()
         gtSubWindow->close();
 }
 
-void GtMain::clearGtSub()
+void GtMain::closeGtSub()
 {
     gtSubWindow = nullptr;
     getInputStringButton->setDisabled(true);
     showMessageDialogButton->setDisabled(true);
     showHelpButton->setDisabled(true);
+    addImageIconButton->setDisabled(true);
 }

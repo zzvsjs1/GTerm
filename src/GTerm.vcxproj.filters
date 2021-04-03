@@ -54,7 +54,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="gtmain.h">
+    <QtMoc Include="gtMain.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="gtAboutDialog.h">
@@ -90,5 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="gtResource.qrc" />
   </ItemGroup>
 </Project>

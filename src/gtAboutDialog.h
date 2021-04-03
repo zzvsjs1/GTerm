@@ -6,5 +6,5 @@ class GtAboutDialog final : public QDialog
 {
 	Q_OBJECT
 public:
-	GtAboutDialog(QWidget* parent = nullptr);
+	explicit GtAboutDialog(QWidget* parent = nullptr);
 };

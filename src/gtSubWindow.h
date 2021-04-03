@@ -12,6 +12,8 @@
 #include <QUrl>
 #include <QFileDialog>
 #include <QPalette>
+#include <QPixmap>
+#include <QStandardPaths>
 
 class GtSubWindow : public QWidget
 {

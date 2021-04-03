@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'gtmain.h'
+** Meta object code from reading C++ file 'gtMain.h'
 **
 ** Created by: The Qt Meta Object Compiler version 68 (Qt 6.0.3)
 **
@@ -7,12 +7,12 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../gtmain.h"
+#include "../gtMain.h"
 #include <QtGui/qtextcursor.h>
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'gtmain.h' doesn't include <QObject>."
+#error "The header file 'gtMain.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
 #error "This file was generated using the moc from 6.0.3. It"
 #error "cannot be used with the include files from this version of Qt."
