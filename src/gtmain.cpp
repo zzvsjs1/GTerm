@@ -5,6 +5,7 @@
 GtMain::GtMain(QWidget* parent): QMainWindow(parent)
 {
     setWindowTitle(QString::fromStdString(Common::gt_title_str));
+    setWindowIcon(QIcon("resources\\logo\\java.ico"));
     setAcceptDrops(true);
     setAttribute(Qt::WA_NativeWindow);
     resize(1280, 720);
@@ -30,6 +31,7 @@ void GtMain::setupUi()
     gtCentralWidget->resize(QSize(1280, 720));
     gtCentralWidget->setMaximumSize(QSize(1280, 720));
 
+
     gtGroupBox = new QGroupBox(gtCentralWidget);
     gtGroupBox->setGeometry(QRect(0, 25, 1280, 720));
     gtGroupBox->setObjectName(QString::fromUtf8("groupBox"));
@@ -42,7 +44,7 @@ void GtMain::setupUi()
 
     getInputStringButton = new QPushButton(gtGroupBox);
     getInputStringButton->setGeometry(QRect(330, 0, 130, 60));
-    getInputStringButton->setFont(*gtFont);
+    getInputStringButton->setFont(gtFont);
     getInputStringButton->setDisabled(true);
 
     showMessageDialogButton = new QPushButton(gtGroupBox);
