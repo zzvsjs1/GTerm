@@ -8,7 +8,7 @@ GtMain::GtMain(QWidget* parent): QMainWindow(parent)
     setAcceptDrops(true);
     setAttribute(Qt::WA_NativeWindow);
     resize(1280, 720);
-    setMaximumSize(QSize(1920, 1080));
+    setMaximumSize(QSize(1280, 720));
 
     setupUi();
     retranslateUi();
@@ -20,7 +20,6 @@ GtMain::~GtMain()
 {
     delete showHelpButton;
     delete getInputStringButton;
-    delete gtFont;
     delete showMessageDialogButton;
 }
 
@@ -35,11 +34,11 @@ void GtMain::setupUi()
     gtGroupBox->setGeometry(QRect(0, 25, 1280, 720));
     gtGroupBox->setObjectName(QString::fromUtf8("groupBox"));
 
-    gtFont = new QFont(QString("Arial"), 12, 1, false);
+    QFont gtFont{ QString("Arial"), 12, 1, false };
 
     newGTermObjectButton = new QPushButton(gtGroupBox);
     newGTermObjectButton->setGeometry(QRect(0, 0, 300, 60));
-    newGTermObjectButton->setFont(*gtFont);
+    newGTermObjectButton->setFont(gtFont);
 
     getInputStringButton = new QPushButton(gtGroupBox);
     getInputStringButton->setGeometry(QRect(330, 0, 130, 60));
@@ -48,12 +47,12 @@ void GtMain::setupUi()
 
     showMessageDialogButton = new QPushButton(gtGroupBox);
     showMessageDialogButton->setGeometry(QRect(0, 150, 250, 60));
-    showMessageDialogButton->setFont(*gtFont);
+    showMessageDialogButton->setFont(gtFont);
     showMessageDialogButton->setDisabled(true);
 
     showHelpButton = new QPushButton(gtGroupBox);
     showHelpButton->setGeometry(QRect(0, 80, 200, 60));
-    showHelpButton->setFont(*gtFont);
+    showHelpButton->setFont(gtFont);
     showHelpButton->setDisabled(true);
     
     actionMenuAbout = new QAction(this);
@@ -63,9 +62,6 @@ void GtMain::setupUi()
 
     gtMenuSystem = new QMenu(gtMenuBar);
     setMenuBar(gtMenuBar);
-
-    //gtToolBar = new QToolBar(this);
-    //addToolBar(Qt::TopToolBarArea, gtToolBar);
 
     gtStatusBar = new QStatusBar(this);
     setStatusBar(gtStatusBar);

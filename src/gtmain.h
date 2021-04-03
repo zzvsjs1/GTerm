@@ -13,7 +13,6 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
 #include "gtSubWindow.h"
@@ -50,7 +49,5 @@ private:
     QMenuBar* gtMenuBar;
     QMenu* gtMenuSystem;
     QStatusBar* gtStatusBar;
-    QToolBar* gtToolBar;
-    QFont* gtFont;
 };
 #endif // GTMAIN_H

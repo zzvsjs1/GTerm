@@ -9,7 +9,7 @@ GtSubWindow::GtSubWindow(QWidget* parent) : QWidget(parent)
 	gtCentralWidget->setMaximumSize(QSize(1024, 768));
 
 	gtTable = nullptr;
-	gtFont = nullptr;
+	gtFont =  new QFont(QString("Arial"), 10, 1, false);
 	gtGroupBox = nullptr;
 	x = 0;
 	y = 0;
@@ -17,7 +17,7 @@ GtSubWindow::GtSubWindow(QWidget* parent) : QWidget(parent)
 
 GtSubWindow::~GtSubWindow()
 {
-
+	delete gtFont;
 }
 
 void GtSubWindow::showHelp()
