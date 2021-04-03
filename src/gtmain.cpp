@@ -13,7 +13,7 @@ GtMain::GtMain(QWidget* parent): QMainWindow(parent)
     setupUi();
     retranslateUi();
     connectButtonSignal();
-    connectMenuSignal()
+    connectMenuSignal();
 }
 
 GtMain::~GtMain()
