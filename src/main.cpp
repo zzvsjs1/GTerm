@@ -1,14 +1,14 @@
 #include <QApplication>
-#include "gtmain.h"
+#include "gtMain.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication gterm(argc, argv);
+    QApplication GTerm(argc, argv);
 
 #ifdef _WIN32
-    gterm.setFont(QFont(QString("Arial")));
+    GTerm.setFont(QFont(QString("Arial")));
 #elif __APPLE__
-    gterm.setFont(QFont(QString("Helvetica")));
+    GTerm.setFont(QFont(QString("Helvetica")));
 #endif
 
     QCoreApplication::setApplicationName(QString("GTerm"));
@@ -16,5 +16,5 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationVersion(QT_VERSION_STR);
     GtMain gtMain;
     gtMain.show();
-    return gterm.exec();
+    return GTerm.exec();
 }

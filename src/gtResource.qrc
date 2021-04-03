@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/gtres">
         <file>resources/logo/java.ico</file>
+        <file>resources/logo/gy.png</file>
     </qresource>
 </RCC>

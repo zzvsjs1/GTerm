@@ -59,4 +59,5 @@ private:
 	QFont* gtFont;
 	QWidget* gtCentralWidget;
 	QGroupBox* gtGroupBox;
+    void showDialog();
 };

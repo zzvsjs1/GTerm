@@ -45,7 +45,7 @@ If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@
     QLabel* gtCopyright = new QLabel(QStringLiteral("<small>%1</small>").arg(tr("\u00A9 2020-2021. Gayan Wijesinghe")));
 
     QLabel* gtLogo = new QLabel();
-    gtLogo->setPixmap(QPixmap(QString("resources\\logo\\logo.png")));
+    gtLogo->setPixmap(QPixmap(QString(":/gtres/resources/logo/gy.png")));
     gtLogo->setContentsMargins(30, 0, 30, 0);
 
     QVBoxLayout* gtMainLayout = new QVBoxLayout;

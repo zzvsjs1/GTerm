@@ -3,6 +3,7 @@
 GtSubWindow::GtSubWindow(QWidget* parent) : QWidget(parent)
 {
 	setWindowTitle(tr("GTerm"));
+	setWindowIcon(QIcon(":/gtres/resources/logo/java.ico"));
 	resize(QSize(1024, 768));
 	gtCentralWidget = new QWidget(this);
 	gtCentralWidget->resize(QSize(1024, 768));
@@ -38,8 +39,7 @@ void GtSubWindow::showMessageDialog()
 	if (userInput.isEmpty())
 		userInput = QString("Null");
 
-	QMessageBox::StandardButton result = QMessageBox::information(this, QString("Show Message Dialog"),
-		userInput, QMessageBox::Ok);
+	(void)QMessageBox::information(this, QString("Show Message Dialog"), userInput, QMessageBox::Ok);
 }
 
 void GtSubWindow::showErrorDialog()
@@ -49,8 +49,8 @@ void GtSubWindow::showErrorDialog()
 
 void GtSubWindow::addImageIcon()
 {
-	QString imageIconPath = QFileDialog::getExistingDirectory(this, tr("Select a image icon"),
-		QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), QFileDialog::ShowDirsOnly);
+	QString imageIconPath = QFileDialog::getOpenFileName(this, tr("Select a image icon"), 
+		QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), tr("Image Icon (*.png *.xpm *.jpg)"));
 
 	if (imageIconPath.isNull())
 		return;
@@ -100,6 +100,7 @@ void GtSubWindow::setBackgroundColor()
 
 void GtSubWindow::setXY()
 {
+
 }
 
 void GtSubWindow::setFilePath()
@@ -153,5 +154,9 @@ void GtSubWindow::retranslateUi()
 }
 
 inline void GtSubWindow::setupUi()
+{
+}
+
+void GtSubWindow::showDialog()
 {
 }

@@ -5,7 +5,7 @@
 GtMain::GtMain(QWidget* parent): QMainWindow(parent)
 {
     setWindowTitle(QString::fromStdString(Common::gt_title_str));
-    setWindowIcon(QIcon("resources\\logo\\java.ico"));
+    setWindowIcon(QIcon(":/gtres/resources/logo/java.ico"));
     setAcceptDrops(true);
     setAttribute(Qt::WA_NativeWindow);
     resize(1280, 720);
