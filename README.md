@@ -59,5 +59,7 @@ Version History:
 
 2021.03.28: Sub GTerm window replace function in main GTerm window. Add GTerm gt = new GTerm(1024, 768); function.
 
+2021.04.03: QResource replace hard coding path in icon and image. Add addImageIcon function. Fix QFon issue.
+
 ### Author:
 Gayan Wijesinghe
