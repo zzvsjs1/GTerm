@@ -213,6 +213,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GTerm.pro" />
     <None Include="GTerm_en_AU.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -222,9 +223,6 @@
     <ClInclude Include="Version.h" />
     <QtMoc Include="gtSubWindow.h" />
     <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GTerm.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />

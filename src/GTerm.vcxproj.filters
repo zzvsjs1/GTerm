@@ -76,6 +76,7 @@
     <None Include="GTerm_en_AU.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="GTerm.pro" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -84,9 +85,6 @@
     <ClInclude Include="Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GTerm.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />
