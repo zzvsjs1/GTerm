@@ -79,19 +79,25 @@ Please note that you must not use this for A1 because it requires the creation o
 
 Class MyClass :: public QWidget
 {
+  Q_OBJECT;
 public:
-  MyClass(QWidget* parent = nullptr) :: QWidget(parent);
+  MyClass(QWidget* parent = nullptr);
   ~MyClass();
   void doSomething();
 
 private:
   QPushButton* gtButton;
+  QWidget* gtCentralWidget;
 }
 
 MyClass::MyClass()
 {
-  gtButton = new QPushButton(this);
-  connect(gtButton, &QPushButton::clicked, this, MyClass::doSomething);
+  gtCentralWidget = new QWidget(this);
+	 gtCentralWidget->resize(QSize(1024, 768));
+	 gtCentralWidget->setMaximumSize(QSize(1024, 768));
+  
+  gtButton = new QPushButton(gtCentralWidget);
+  connect(gtButton, &QPushButton::clicked, this, qOverload<>(&MyClass::doSomething));
 }
 
 MyClass::~MyClass()
@@ -101,7 +107,7 @@ MyClass::~MyClass()
 
 void MyClass::MyClass()
 {
-  std::cout << "Hello GTerm" << std::endl;
+  std::cout << "Hello GTerm, you clicked me." << std::endl;
 }
 ```
 
