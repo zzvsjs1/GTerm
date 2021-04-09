@@ -105,7 +105,7 @@ MyClass::~MyClass()
   delete gtButton;
 }
 
-void MyClass::MyClass()
+void MyClass::doSomething()
 {
   std::cout << "Hello GTerm, you clicked me." << std::endl;
 }
