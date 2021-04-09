@@ -39,6 +39,78 @@ Version History:
 ### Author:
 Gayan Wijesinghe
 
+# Q&A
+
+### Q: How do I install GTerm?
+
+A: Refer to Lecture 1 recording from the 13:59 point on the clock in the shared screen:
+
+https://rmit.instructure.com/courses/67194/discussion_topics/802227
+
+ 
+
+###  Q: What are GTerm methods and how do I use the documentation?
+
+A: More examples of how to use GTerm methods and documentation have been shown in Tutorial 1 recording (same link as above). More examples will be given over the coming weeks also.
+
+ 
+
+###  Q: What's this forum?
+
+A: Use this forum for all questions relating to GTerm
+
+### Klemens Chung
+
+Hello,
+
+I was wondering if this command:" zt.addButton(); " to be explained how it works?
+
+### Gayan Wijesinghe
+
+Hi Klemens,
+
+Please note that you must not use this for A1 because it requires the creation of methods. For your future understanding, here's a simple program that does the job.
+
+
+```C++
+#include <iostream>
+#include <QPushButton>
+#include <QWidget>
+
+Class MyClass :: public QWidget
+{
+public:
+  MyClass(QWidget* parent = nullptr) :: QWidget(parent);
+  ~MyClass();
+  void doSomething();
+
+private:
+  QPushButton* gtButton;
+}
+
+MyClass::MyClass()
+{
+  gtButton = new QPushButton(this);
+  connect(gtButton, &QPushButton::clicked, this, MyClass::doSomething);
+}
+
+MyClass::~MyClass()
+{
+  delete gtButton;
+}
+
+void MyClass::MyClass()
+{
+  std::cout << "Hello GTerm" << std::endl;
+}
+```
+
+Remember to come to pracs and I can give you more help on such features.
+
+Regards,
+
+Gayan
+
 # C GTerm, C++ GTerm, QT GTerm
 
 public QObject, public QPaintDevice
