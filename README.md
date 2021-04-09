@@ -93,8 +93,8 @@ private:
 MyClass::MyClass()
 {
   gtCentralWidget = new QWidget(this);
-	 gtCentralWidget->resize(QSize(1024, 768));
-	 gtCentralWidget->setMaximumSize(QSize(1024, 768));
+  gtCentralWidget->resize(QSize(1024, 768));
+  gtCentralWidget->setMaximumSize(QSize(1024, 768));
   
   gtButton = new QPushButton(gtCentralWidget);
   connect(gtButton, &QPushButton::clicked, this, qOverload<>(&MyClass::doSomething));
