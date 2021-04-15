@@ -54,7 +54,6 @@ void GtSubWindow::addImageIcon()
 
 	if (imageIconPath.isNull())
 		return;
-
 	
 }
 

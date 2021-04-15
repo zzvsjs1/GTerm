@@ -14,6 +14,7 @@
 #include <QPalette>
 #include <QPixmap>
 #include <QStandardPaths>
+#include <QGraphicsView>
 
 class GtSubWindow : public QWidget
 {
