@@ -42,6 +42,7 @@ private:
     QPushButton* getInputStringButton;
     QPushButton* showHelpButton;
     QPushButton* closeButton;
+    QPushButton* printButton;
     QPushButton* showMessageDialogButton;
     QPushButton* showErrorDialogButton;
     QPushButton* addImageIconButton;

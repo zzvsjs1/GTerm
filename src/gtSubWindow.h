@@ -1,6 +1,8 @@
 #pragma once
 
+#include <QVector>
 #include <QWidget>
+#include <QMainWindow>
 #include <QLabel>
 #include <QTextEdit>
 #include <QLineEdit>
@@ -15,8 +17,19 @@
 #include <QPixmap>
 #include <QStandardPaths>
 #include <QGraphicsView>
+#include <QImage>
+#include <QGuiApplication>
+#include <QLayout>
 
-class GtSubWindow : public QWidget
+QT_BEGIN_NAMESPACE
+class QAction;
+class QLabel;
+class QMenu;
+class QScrollArea;
+class QScrollBar;
+QT_END_NAMESPACE
+
+class GtSubWindow : public QMainWindow
 {
     Q_OBJECT;
 
@@ -25,7 +38,7 @@ public:
 	~GtSubWindow();
     void showHelp();
     void getInputString();
-    void showMessageDialog();
+    void showMessageDialog(QString& inputString);
     void showErrorDialog();
     void addImageIcon();
     void addTable();
@@ -56,9 +69,13 @@ private:
     int y;
     void retranslateUi();
     inline void setupUi();
-	QTableView* gtTable;
+    
+    QLabel* gtLabel;
+    QScrollArea* gtScrollArea;
+	QTableView* gtTable1;
 	QFont* gtFont;
-	QWidget* gtCentralWidget;
 	QGroupBox* gtGroupBox;
+    QVector<QTableView*> gtTable;
+    
     void showDialog();
 };
