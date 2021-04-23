@@ -35,8 +35,7 @@ If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@
 </p>
 )").replace(QStringLiteral("%QT_VERSION%"),
     tr("Using Qt %1").arg(QStringLiteral(QT_VERSION_STR)))
-    .replace(QStringLiteral("%ABOUT_GTERM%"),
-             tr("GTerm allows you to create a GUI application using System.out.println-like statements."));
+    .replace(QStringLiteral("%ABOUT_GTERM%"), tr("GTerm allows you to create a GUI application using System.out.println-like statements."));
 
     QLabel* textLabel = new QLabel(text);
     textLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
