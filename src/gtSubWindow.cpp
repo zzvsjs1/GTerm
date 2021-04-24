@@ -5,6 +5,7 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QScreen>
+#include "gtImageView.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent) 
 	: QMainWindow(parent), gtLabel(new QLabel)
@@ -68,6 +69,7 @@ void GtSubWindow::showErrorDialog()
 
 void GtSubWindow::addImageIcon()
 {
+	/*
 	const QString imageIconPath = QFileDialog::getOpenFileName(this, tr("Select a image icon"), 
 		QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), tr("Image Icon (*.png *.xpm *.jpg)"));
 
@@ -85,6 +87,8 @@ void GtSubWindow::addImageIcon()
 
 	if (image.colorSpace().isValid())
 		image.convertToColorSpace(QColorSpace::SRgb);
+
+		*/
 
 
 }

@@ -185,6 +185,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gtAboutDialog.cpp" />
+    <ClCompile Include="gtImageView.cpp" />
     <ClCompile Include="gtMain.cpp" />
     <ClCompile Include="gtSubWindow.cpp" />
     <ClCompile Include="main.cpp" />
@@ -220,6 +221,7 @@
     <QtMoc Include="gtAboutDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="gtImageView.h" />
     <ClInclude Include="Version.h" />
     <QtMoc Include="gtSubWindow.h" />
     <ClInclude Include="resource.h" />
