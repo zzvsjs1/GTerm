@@ -18,6 +18,8 @@
 #include <QStandardPaths>
 #include <QStatusBar>
 
+#include "gtAboutDialog.h"
+
 GtImageViewer::GtImageViewer(QWidget* parent)
     : QMainWindow(parent), imageLabel(new QLabel)
     , scrollArea(new QScrollArea)
@@ -64,11 +66,10 @@ void GtImageViewer::setImage(const QImage& newImage)
     if (image.colorSpace().isValid())
         image.convertToColorSpace(QColorSpace::SRgb);
     imageLabel->setPixmap(QPixmap::fromImage(image));
-    //! [4]
+
     scaleFactor = 1.0;
 
     scrollArea->setVisible(true);
-    printAct->setEnabled(true);
     fitToWindowAct->setEnabled(true);
     updateActions();
 
@@ -86,6 +87,7 @@ bool GtImageViewer::saveFile(const QString& fileName)
             .arg(QDir::toNativeSeparators(fileName)), writer.errorString());
         return false;
     }
+
     const QString message = tr("Wrote \"%1\"").arg(QDir::toNativeSeparators(fileName));
     statusBar()->showMessage(message);
     return true;
@@ -110,6 +112,7 @@ static void initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMo
     dialog.setMimeTypeFilters(mimeTypeFilters);
     dialog.selectMimeTypeFilter("image/jpeg");
     dialog.setAcceptMode(acceptMode);
+
     if (acceptMode == QFileDialog::AcceptSave)
         dialog.setDefaultSuffix("jpg");
 }
@@ -122,11 +125,19 @@ void GtImageViewer::open()
     while (dialog.exec() == QDialog::Accepted && !loadFile(dialog.selectedFiles().constFirst())) {}
 }
 
+void GtImageViewer::saveAs()
+{
+    QFileDialog dialog(this, tr("Save File As"));
+    initializeImageFileDialog(dialog, QFileDialog::AcceptSave);
+
+    while (dialog.exec() == QDialog::Accepted && !saveFile(dialog.selectedFiles().constFirst())) {}
+}
+
 void GtImageViewer::copy()
 {
 #ifndef QT_NO_CLIPBOARD
     QGuiApplication::clipboard()->setImage(image);
-#endif // !QT_NO_CLIPBOARD
+#endif
 }
 
 #ifndef QT_NO_CLIPBOARD
@@ -139,16 +150,17 @@ static QImage clipboardImage()
                 return image;
         }
     }
+
     return QImage();
 }
-#endif // !QT_NO_CLIPBOARD
+#endif
 
 void GtImageViewer::paste()
 {
 #ifndef QT_NO_CLIPBOARD
     const QImage newImage = clipboardImage();
     if (newImage.isNull()) {
-        statusBar()->showMessage(tr("No image in clipboard"));
+        statusBar()->showMessage(tr("No image in clipboard."));
     }
     else {
         setImage(newImage);
@@ -157,7 +169,7 @@ void GtImageViewer::paste()
             .arg(newImage.width()).arg(newImage.height()).arg(newImage.depth());
         statusBar()->showMessage(message);
     }
-#endif // !QT_NO_CLIPBOARD
+#endif
 }
 
 void GtImageViewer::zoomIn()
@@ -187,8 +199,8 @@ void GtImageViewer::fitToWindow()
 
 void GtImageViewer::about()
 {
-    QMessageBox::about(this, tr("About Image Viewer"),
-        tr("<p>The <b>GTerm Image Viewer</b></p>"));
+    GtAboutDialog about{ this };
+    about.exec();
 }
 
 void GtImageViewer::createActions()
@@ -197,6 +209,9 @@ void GtImageViewer::createActions()
 
     QAction* openAct = fileMenu->addAction(tr("&Open..."), this, &GtImageViewer::open);
     openAct->setShortcut(QKeySequence::Open);
+
+    saveAsAct = fileMenu->addAction(tr("&Save As..."), this, &GtImageViewer::saveAs);
+    saveAsAct->setEnabled(false);
 
     fileMenu->addSeparator();
 
@@ -236,11 +251,11 @@ void GtImageViewer::createActions()
     QMenu* helpMenu = menuBar()->addMenu(tr("&Help"));
 
     helpMenu->addAction(tr("&About"), this, &GtImageViewer::about);
-    helpMenu->addAction(tr("About &Qt"), this, &QApplication::aboutQt);
 }
 
 void GtImageViewer::updateActions()
 {
+    saveAsAct->setEnabled(!image.isNull());
     copyAct->setEnabled(!image.isNull());
     zoomInAct->setEnabled(!fitToWindowAct->isChecked());
     zoomOutAct->setEnabled(!fitToWindowAct->isChecked());

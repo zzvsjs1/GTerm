@@ -5,7 +5,7 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QScreen>
-#include "gtImageView.h"
+
 
 GtSubWindow::GtSubWindow(QWidget* parent) 
 	: QMainWindow(parent), gtLabel(new QLabel)
@@ -35,7 +35,6 @@ GtSubWindow::~GtSubWindow()
 			delete e;
 		}
 	}
-
 
 	delete gtFont;
 }
@@ -69,28 +68,16 @@ void GtSubWindow::showErrorDialog()
 
 void GtSubWindow::addImageIcon()
 {
-	/*
 	const QString imageIconPath = QFileDialog::getOpenFileName(this, tr("Select a image icon"), 
 		QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), tr("Image Icon (*.png *.xpm *.jpg)"));
 
 	if (imageIconPath.isNull())
 		return;
 	
-	QImageReader reader(imageIconPath);
-	QImage image = reader.read();
-	if (image.isNull())
-	{
-		(void)QMessageBox::information(this, QGuiApplication::applicationDisplayName(), 
-			tr("Not GTerm error, cannot load %1: %2").arg(QDir::toNativeSeparators(imageIconPath), reader.errorString()));
-		return;
-	}
-
-	if (image.colorSpace().isValid())
-		image.convertToColorSpace(QColorSpace::SRgb);
-
-		*/
-
-
+	gtImageViewer = new GtImageViewer();
+	gtImageViewer->setAttribute(Qt::WA_DeleteOnClose);
+	gtImageViewer->loadFile(imageIconPath);
+	gtImageViewer->show();
 }
 
 void GtSubWindow::addTable()

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IMAGEVIEWER_H
+#define IMAGEVIEWER_H
+
 #include <QMainWindow>
 #include <QImage>
 
@@ -20,6 +22,7 @@ public:
 
 private slots:
     void open();
+    void saveAs();
     void copy();
     void paste();
     void zoomIn();
@@ -41,7 +44,6 @@ private:
     QScrollArea* scrollArea;
     double scaleFactor = 1;
 
-
     QAction* saveAsAct;
     QAction* printAct;
     QAction* copyAct;
@@ -50,3 +52,4 @@ private:
     QAction* normalSizeAct;
     QAction* fitToWindowAct;
 };
+#endif

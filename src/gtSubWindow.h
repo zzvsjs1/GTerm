@@ -21,6 +21,8 @@
 #include <QGuiApplication>
 #include <QLayout>
 
+#include "gtImageView.h"
+
 QT_BEGIN_NAMESPACE
 class QAction;
 class QLabel;
@@ -76,6 +78,7 @@ private:
 	QFont* gtFont;
 	QGroupBox* gtGroupBox;
     QVector<QTableView*> gtTable;
+    GtImageViewer* gtImageViewer;
     
     void showDialog();
 };
