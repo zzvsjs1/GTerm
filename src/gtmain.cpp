@@ -98,7 +98,6 @@ void GtMain::connectMenuSignal()
 
 void GtMain::connectButtonSignal()
 {
-    
     connect(newGTermObjectButton, &QPushButton::clicked, this, qOverload<>(&GtMain::newGTerm));
 }
 
@@ -131,10 +130,10 @@ void GtMain::newGTerm()
         return;
     }
 
-
     gtSubWindow = new GtSubWindow();
     gtSubWindow->setAttribute(Qt::WA_DeleteOnClose);
     gtSubWindow->show();
+
     getInputStringButton->setDisabled(false);
     showMessageDialogButton->setDisabled(false);
     showHelpButton->setDisabled(false);

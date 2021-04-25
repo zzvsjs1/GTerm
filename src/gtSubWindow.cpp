@@ -20,6 +20,7 @@ GtSubWindow::GtSubWindow(QWidget* parent)
 	
 	setCentralWidget(gtScrollArea);
 
+	gtImageViewer = nullptr;
 	gtFont =  new QFont(QString("Arial"), 10, 1, false);
 	gtGroupBox = nullptr;
 	x = 0;
@@ -49,7 +50,7 @@ void GtSubWindow::showHelp()
 
 void GtSubWindow::getInputString()
 {
-	QString userInput = QInputDialog::getText(this, QString("GTerm Input Dialog"), QString("Please enter a String"));
+	QString userInput = QInputDialog::getText(this, tr("GTerm Input Dialog"), tr("Please enter a String"));
 	if (userInput.isEmpty())
 		userInput = QString("Null");
 
@@ -58,12 +59,12 @@ void GtSubWindow::getInputString()
 
 void GtSubWindow::showMessageDialog(QString& inputString)
 {
-	(void)QMessageBox::information(this, QString("Show Message Dialog"), inputString, QMessageBox::Ok);
+	(void)QMessageBox::information(this, tr("Show Message Dialog"), inputString, QMessageBox::Ok);
 }
 
 void GtSubWindow::showErrorDialog()
 {
-	(void)QMessageBox::critical(this, QString("Show Error Dialog"), "Error!", QMessageBox::Ok);
+	(void)QMessageBox::critical(this, tr("Show Error Dialog"), "Error!", QMessageBox::Ok);
 }
 
 void GtSubWindow::addImageIcon()
@@ -74,10 +75,20 @@ void GtSubWindow::addImageIcon()
 	if (imageIconPath.isNull())
 		return;
 	
-	gtImageViewer = new GtImageViewer();
-	gtImageViewer->setAttribute(Qt::WA_DeleteOnClose);
+	if (!gtImageViewer)
+	{
+		gtImageViewer = new GtImageViewer();
+		gtImageViewer->setAttribute(Qt::WA_DeleteOnClose);
+		connect(gtImageViewer, &QWidget::destroyed, this, qOverload<>(&GtSubWindow::deleteImageView));
+	}
+
 	gtImageViewer->loadFile(imageIconPath);
 	gtImageViewer->show();
+}
+
+void GtSubWindow::deleteImageView()
+{
+	gtImageViewer = nullptr;
 }
 
 void GtSubWindow::addTable()

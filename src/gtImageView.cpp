@@ -11,7 +11,6 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QPainter>
 #include <QScreen>
 #include <QScrollArea>
 #include <QScrollBar>
@@ -43,7 +42,8 @@ bool GtImageViewer::loadFile(const QString& fileName)
     QImageReader reader(fileName);
     reader.setAutoTransform(true);
     const QImage newImage = reader.read();
-    if (newImage.isNull()) {
+    if (newImage.isNull()) 
+    {
         QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
             tr("Cannot load %1: %2")
             .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
@@ -81,7 +81,8 @@ bool GtImageViewer::saveFile(const QString& fileName)
 {
     QImageWriter writer(fileName);
 
-    if (!writer.write(image)) {
+    if (!writer.write(image)) 
+    {
         QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
             tr("Cannot write %1: %2")
             .arg(QDir::toNativeSeparators(fileName)), writer.errorString());
@@ -106,8 +107,10 @@ static void initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMo
     QStringList mimeTypeFilters;
     const QByteArrayList supportedMimeTypes = acceptMode == QFileDialog::AcceptOpen
         ? QImageReader::supportedMimeTypes() : QImageWriter::supportedMimeTypes();
+
     for (const QByteArray& mimeTypeName : supportedMimeTypes)
         mimeTypeFilters.append(mimeTypeName);
+
     mimeTypeFilters.sort();
     dialog.setMimeTypeFilters(mimeTypeFilters);
     dialog.selectMimeTypeFilter("image/jpeg");
@@ -143,8 +146,10 @@ void GtImageViewer::copy()
 #ifndef QT_NO_CLIPBOARD
 static QImage clipboardImage()
 {
-    if (const QMimeData* mimeData = QGuiApplication::clipboard()->mimeData()) {
-        if (mimeData->hasImage()) {
+    if (const QMimeData* mimeData = QGuiApplication::clipboard()->mimeData()) 
+    {
+        if (mimeData->hasImage()) 
+        {
             const QImage image = qvariant_cast<QImage>(mimeData->imageData());
             if (!image.isNull())
                 return image;
@@ -159,10 +164,12 @@ void GtImageViewer::paste()
 {
 #ifndef QT_NO_CLIPBOARD
     const QImage newImage = clipboardImage();
-    if (newImage.isNull()) {
+    if (newImage.isNull()) 
+    {
         statusBar()->showMessage(tr("No image in clipboard."));
     }
-    else {
+    else 
+    {
         setImage(newImage);
         setWindowFilePath(QString());
         const QString message = tr("Obtained image from clipboard, %1x%2, Depth: %3")
@@ -246,7 +253,6 @@ void GtImageViewer::createActions()
     fitToWindowAct = viewMenu->addAction(tr("&Fit to Window"), this, &GtImageViewer::fitToWindow);
     fitToWindowAct->setEnabled(false);
     fitToWindowAct->setCheckable(true);
-    fitToWindowAct->setShortcut(tr("Ctrl+F"));
 
     QMenu* helpMenu = menuBar()->addMenu(tr("&Help"));
 

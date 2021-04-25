@@ -71,6 +71,7 @@ private:
     int y;
     void retranslateUi();
     inline void setupUi();
+    void deleteImageView();
     
     QLabel* gtLabel;
     QScrollArea* gtScrollArea;
