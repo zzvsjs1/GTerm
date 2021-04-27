@@ -139,5 +139,7 @@ Version History:
 
 2021.04.03: QResource replace hard coding path in icon and image. Add addImageIcon function. Fix QFon issue.
 
+2021.04.26: Support addImageIcon feature.
+
 ### Author:
 Gayan Wijesinghe
