@@ -1,11 +1,10 @@
-#include "gtSubWindow.h"
-
 #include <QColorSpace>
 #include <QImageReader>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QScreen>
 
+#include "gtSubWindow.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent) 
 	: QMainWindow(parent), gtLabel(new QLabel)
@@ -35,6 +34,12 @@ GtSubWindow::~GtSubWindow()
 		{
 			delete e;
 		}
+	}
+
+	if (gtImageViewer)
+	{
+		gtImageViewer->close();
+		delete gtImageViewer;
 	}
 
 	delete gtFont;

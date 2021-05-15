@@ -24,9 +24,9 @@ class GtMain : public QMainWindow
 public:
     GtMain(QWidget* parent = nullptr);
     ~GtMain(); 
-    void menuButtonAbout();
+    void menuAboutButtonAction();
     void newGTerm();
-    void closeGTerm();
+    void closeGTermButtonAction();
     void closeGtSub();
 
 private:
@@ -34,6 +34,7 @@ private:
     void connectButtonSignal();
     void connectMenuSignal();
     void retranslateUi();
+    void connectGTWindowSignal();
     void setupUi();
     QAction* actionMenuAbout;
     QWidget* gtCentralWidget;

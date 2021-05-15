@@ -85,23 +85,17 @@ void GtMain::setupUi()
     gtMenuSystem->addSeparator();
     gtMenuSystem->addSeparator();
     gtMenuSystem->addAction(actionMenuAbout);
-
-
-    //setAttribute(Qt::WA_QuitOnClose, false);
 }
 
 void GtMain::connectMenuSignal()
 {
-    connect(actionMenuAbout, &QAction::triggered, this, qOverload<>(&GtMain::menuButtonAbout));
+    connect(actionMenuAbout, &QAction::triggered, this, qOverload<>(&GtMain::menuAboutButtonAction));
 }
-
 
 void GtMain::connectButtonSignal()
 {
     connect(newGTermObjectButton, &QPushButton::clicked, this, qOverload<>(&GtMain::newGTerm));
 }
-
-
 
 void GtMain::retranslateUi()
 {
@@ -115,7 +109,28 @@ void GtMain::retranslateUi()
     printButton->setText(QCoreApplication::translate("gtMain", "print", nullptr));
 }
 
-void GtMain::menuButtonAbout()
+void GtMain::connectGTWindowSignal()
+{
+    getInputStringButton->setDisabled(!gtSubWindow);
+    showMessageDialogButton->setDisabled(!gtSubWindow);
+    showHelpButton->setDisabled(!gtSubWindow);
+    addImageIconButton->setDisabled(!gtSubWindow);
+    printButton->setDisabled(!gtSubWindow);
+    newGTermObjectButton->setDisabled(gtSubWindow);
+
+    if (gtSubWindow)
+    {
+        connect(getInputStringButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::getInputString));
+        connect(showMessageDialogButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::getInputString));
+        connect(showHelpButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::showHelp));
+        connect(addImageIconButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::addImageIcon));
+        connect(printButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::print));
+        //connect(closeButton, &QPushButton::clicked, this, qOverload<>(&GtMain::closeGTermButtonAction));
+        connect(gtSubWindow, &QWidget::destroyed, this, qOverload<>(&GtMain::closeGtSub));
+    }
+}
+
+void GtMain::menuAboutButtonAction()
 {
     GtAboutDialog about{ this };
     about.exec();
@@ -132,25 +147,11 @@ void GtMain::newGTerm()
 
     gtSubWindow = new GtSubWindow();
     gtSubWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connectGTWindowSignal();
     gtSubWindow->show();
-
-    getInputStringButton->setDisabled(false);
-    showMessageDialogButton->setDisabled(false);
-    showHelpButton->setDisabled(false);
-    addImageIconButton->setDisabled(false);
-    printButton->setDisabled(false);
-    newGTermObjectButton->setDisabled(true);
-
-    connect(getInputStringButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::getInputString));
-    connect(showMessageDialogButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::getInputString));
-    connect(showHelpButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::showHelp));
-    connect(addImageIconButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::addImageIcon));
-    connect(printButton, &QPushButton::clicked, gtSubWindow, qOverload<>(&GtSubWindow::print));
-    //connect(closeButton, &QPushButton::clicked, this, qOverload<>(&GtMain::closeGTerm));
-    connect(gtSubWindow, &QWidget::destroyed, this, qOverload<>(&GtMain::closeGtSub));
 }
 
-void GtMain::closeGTerm()
+void GtMain::closeGTermButtonAction()
 {
     if (gtSubWindow)
         gtSubWindow->close();
@@ -159,10 +160,5 @@ void GtMain::closeGTerm()
 void GtMain::closeGtSub()
 {
     gtSubWindow = nullptr;
-    newGTermObjectButton->setDisabled(false);
-    getInputStringButton->setDisabled(true);
-    showMessageDialogButton->setDisabled(true);
-    showHelpButton->setDisabled(true);
-    addImageIconButton->setDisabled(true);
-    printButton->setDisabled(true);
+    connectGTWindowSignal();
 }
