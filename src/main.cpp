@@ -1,4 +1,5 @@
 #include <QApplication>
+
 #include "gtMain.h"
 
 int main(int argc, char *argv[])

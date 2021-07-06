@@ -33,11 +33,29 @@ QT_END_NAMESPACE
 
 class GtSubWindow : public QMainWindow
 {
-    Q_OBJECT;
+    Q_OBJECT
+	Q_DISABLE_COPY_MOVE(GtSubWindow)
+
+private:
+    int x;
+    int y;
+    void retranslateUi();
+    inline void setupUi();
+    void deleteImageView();
+
+    QLabel* gtLabel;
+    QScrollArea* gtScrollArea;
+    QTableView* gtTable1;
+    QFont* gtFont;
+    QGroupBox* gtGroupBox;
+    QVector<QTableView*> gtTable;
+    GtImageViewer* gtImageViewer;
+
+    void showDialog();
 
 public:
     GtSubWindow(QWidget* parent = nullptr);
-	~GtSubWindow();
+	~GtSubWindow() override;
     void showHelp();
     void getInputString();
     void showMessageDialog(QString& inputString);
@@ -66,20 +84,5 @@ public:
     void showWarningDialog();
     QString getFilePath();
 
-private:
-    int x;
-    int y;
-    void retranslateUi();
-    inline void setupUi();
-    void deleteImageView();
-    
-    QLabel* gtLabel;
-    QScrollArea* gtScrollArea;
-	QTableView* gtTable1;
-	QFont* gtFont;
-	QGroupBox* gtGroupBox;
-    QVector<QTableView*> gtTable;
-    GtImageViewer* gtImageViewer;
-    
-    void showDialog();
+
 };

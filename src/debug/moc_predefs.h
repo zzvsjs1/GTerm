@@ -1,7 +1,7 @@
 #define _MSC_EXTENSIONS 
-#define _MSC_VER 1928
-#define _MSC_FULL_VER 192829915
-#define _MSC_BUILD 0
+#define _MSC_VER 1929
+#define _MSC_FULL_VER 192930038
+#define _MSC_BUILD 1
 #define _M_AMD64 100
 #define _M_X64 100
 #define _WIN64 

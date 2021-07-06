@@ -4,7 +4,7 @@
 
 GtMain::GtMain(QWidget* parent): QMainWindow(parent)
 {
-    setWindowTitle(QString::fromStdString(Common::gt_title_str));
+    setWindowTitle(Common::gt_title_str);
     setWindowIcon(QIcon(":/gtres/resources/logo/java.ico"));
     setAcceptDrops(true);
     setAttribute(Qt::WA_NativeWindow);
@@ -36,7 +36,7 @@ void GtMain::setupUi()
     gtGroupBox->setGeometry(QRect(0, 25, 1280, 720));
     gtGroupBox->setObjectName(QString::fromUtf8("groupBox"));
 
-    QFont gtFont{ QString("Arial"), 12, 1, false };
+    const QFont gtFont{ QString("Arial"), 12, 1, false };
 
     newGTermObjectButton = new QPushButton(gtGroupBox);
     newGTermObjectButton->setGeometry(QRect(0, 0, 300, 60));
@@ -140,12 +140,12 @@ void GtMain::newGTerm()
 {
     if (gtSubWindow)
     {
-        (void)QMessageBox::critical(this, tr("Error"),
-            tr("You only allow to create one GTerm object."), QMessageBox::Ok);
+        static_cast<void>(QMessageBox::critical(this, tr("Error"),
+            tr("You only allow to create one GTerm object."), QMessageBox::Ok));
         return;
     }
 
-    gtSubWindow = new GtSubWindow();
+    gtSubWindow = new GtSubWindow;
     gtSubWindow->setAttribute(Qt::WA_DeleteOnClose);
     connectGTWindowSignal();
     gtSubWindow->show();
@@ -154,7 +154,9 @@ void GtMain::newGTerm()
 void GtMain::closeGTermButtonAction()
 {
     if (gtSubWindow)
+    {
         gtSubWindow->close();
+    }
 }
 
 void GtMain::closeGtSub()

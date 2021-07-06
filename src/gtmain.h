@@ -15,15 +15,18 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
+#include <memory>
+
 #include "gtSubWindow.h"
 
 class GtMain : public QMainWindow
 {
     Q_OBJECT
+	Q_DISABLE_COPY_MOVE(GtMain)
 
 public:
     GtMain(QWidget* parent = nullptr);
-    ~GtMain(); 
+    ~GtMain() override; 
     void menuAboutButtonAction();
     void newGTerm();
     void closeGTermButtonAction();

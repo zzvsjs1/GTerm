@@ -66,3 +66,4 @@ src/release/moc_gtMain.cpp
 src/release/moc_gtSubWindow.cpp
 src/release/moc_predefs.h
 src/release/rcc/qrc_gtResource.cpp
+src/_ReSharper.Caches

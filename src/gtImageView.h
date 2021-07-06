@@ -37,7 +37,7 @@ private:
     bool saveFile(const QString& fileName);
     void setImage(const QImage& newImage);
     void scaleImage(double factor);
-    void adjustScrollBar(QScrollBar* scrollBar, double factor);
+    static void adjustScrollBar(QScrollBar* scrollBar, double factor);
 
     QImage image;
     QLabel* imageLabel;

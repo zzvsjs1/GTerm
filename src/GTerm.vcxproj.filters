@@ -49,9 +49,6 @@
     <ClCompile Include="gtSubWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Version.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gtImageView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -83,6 +80,7 @@
       <Filter>Translation Files</Filter>
     </None>
     <None Include="GTerm.pro" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
