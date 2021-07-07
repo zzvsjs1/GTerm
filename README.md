@@ -77,13 +77,13 @@ Please note that you must not use this for A1 because it requires the creation o
 #include <QPushButton>
 #include <QWidget>
 
-Class MyClass :: public QWidget
+Class MyClass : public QWidget
 {
   Q_OBJECT;
 public:
-  MyClass(QWidget* parent = nullptr);
-  ~MyClass();
-  void doSomething();
+  MyClass(QWidget* parent = Q_NULLPTR);
+  ~MyClass() override;
+  void doSomething() const;
 
 private:
   QPushButton* gtButton;
@@ -105,7 +105,7 @@ MyClass::~MyClass()
   delete gtButton;
 }
 
-void MyClass::doSomething()
+void MyClass::doSomething() const
 {
   std::cout << "Hello GTerm, you clicked me." << std::endl;
 }
@@ -117,14 +117,14 @@ Regards,
 
 Gayan
 
-# C GTerm, C++ GTerm, QT GTerm
+# C GTerm, C++ GTerm, Qt GTerm
 
 public QObject, public QPaintDevice
 >public QWidget
 >>public QMainWindow
 >>>GtMain::GtMain
 
-# GtMain::GtMain(QWidget* parent = nullptr): QMainWindow(parent)
+# GtMain::GtMain(QWidget* parent = Q_NULLPTR): QMainWindow(parent)
 
 ### This Version:
 
@@ -140,6 +140,8 @@ Version History:
 2021.04.03: QResource replace hard coding path in icon and image. Add addImageIcon function. Fix QFon issue.
 
 2021.04.26: Support addImageIcon feature.
+
+2021.07.07: Add MVC design, replace all the functions and increase perfromence. Qt version update from 6.03 to 6.12.
 
 ### Author:
 Gayan Wijesinghe
