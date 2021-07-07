@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef VERSION
+#define VERSION
 #include <QString>
 
 namespace Common
@@ -9,3 +10,6 @@ namespace Common
 	const QString gt_author_str("Gayan Wijesinghe");
 	const QString gt_github_url("https://github.com/kkskzz/GTerm");
 }
+
+
+#endif //VERSION

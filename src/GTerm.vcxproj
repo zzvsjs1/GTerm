@@ -71,7 +71,7 @@
     <QtQMLDebugEnable>false</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtInstall>6.0.3_msvc2019_64</QtInstall>
+    <QtInstall>6.1.2_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtQMLDebugEnable>false</QtQMLDebugEnable>
   </PropertyGroup>
@@ -235,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="gtResource.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GTMainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

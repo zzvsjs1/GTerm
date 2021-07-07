@@ -35,6 +35,9 @@
       <Extensions>ts;xlf</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Froms">
+      <UniqueIdentifier>{96cecb32-0f47-463f-92fd-3b98c22f5e62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gtMain.cpp">
@@ -95,5 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="gtResource.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GTMainWindow.ui">
+      <Filter>Froms</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

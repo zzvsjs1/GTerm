@@ -23,17 +23,25 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GtMain_t {
-    const uint offsetsAndSize[2];
-    char stringdata0[7];
+    const uint offsetsAndSize[14];
+    char stringdata0[100];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_GtMain_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_GtMain_t qt_meta_stringdata_GtMain = {
     {
-QT_MOC_LITERAL(0, 6) // "GtMain"
+QT_MOC_LITERAL(0, 6), // "GtMain"
+QT_MOC_LITERAL(7, 21), // "menuSystemAboutAction"
+QT_MOC_LITERAL(29, 0), // ""
+QT_MOC_LITERAL(30, 23), // "menuSystemAboutQtAction"
+QT_MOC_LITERAL(54, 11), // "newGTermBtn"
+QT_MOC_LITERAL(66, 22), // "closeGTermButtonAction"
+QT_MOC_LITERAL(89, 10) // "closeGtSub"
 
     },
-    "GtMain"
+    "GtMain\0menuSystemAboutAction\0\0"
+    "menuSystemAboutQtAction\0newGTermBtn\0"
+    "closeGTermButtonAction\0closeGtSub"
 };
 #undef QT_MOC_LITERAL
 
@@ -43,21 +51,44 @@ static const uint qt_meta_data_GtMain[] = {
        9,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   44,    2, 0x0a,    0 /* Public */,
+       3,    0,   45,    2, 0x0a,    1 /* Public */,
+       4,    0,   46,    2, 0x0a,    2 /* Public */,
+       5,    0,   47,    2, 0x0a,    3 /* Public */,
+       6,    0,   48,    2, 0x0a,    4 /* Public */,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+
        0        // eod
 };
 
 void GtMain::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
-    (void)_c;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<GtMain *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->menuSystemAboutAction(); break;
+        case 1: _t->menuSystemAboutQtAction(); break;
+        case 2: _t->newGTermBtn(); break;
+        case 3: _t->closeGTermButtonAction(); break;
+        case 4: _t->closeGtSub(); break;
+        default: ;
+        }
+    }
     (void)_a;
 }
 
@@ -67,7 +98,12 @@ const QMetaObject GtMain::staticMetaObject = { {
     qt_meta_data_GtMain,
     qt_static_metacall,
     nullptr,
-    nullptr,
+qt_incomplete_metaTypeArray<qt_meta_stringdata_GtMain_t
+
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+
+
+>,
     nullptr
 } };
 
@@ -88,6 +124,17 @@ void *GtMain::qt_metacast(const char *_clname)
 int GtMain::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 5)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 5;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 5)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 5;
+    }
     return _id;
 }
 QT_WARNING_POP
