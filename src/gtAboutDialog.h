@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef GTABOUTDIALOG
+#define GTABOUTDIALOG
 #include <QDialog>
 
 class GtAboutDialog final : public QDialog
@@ -8,3 +9,5 @@ class GtAboutDialog final : public QDialog
 public:
 	explicit GtAboutDialog(QWidget* parent = nullptr);
 };
+
+#endif // GTABOUTDIALOG

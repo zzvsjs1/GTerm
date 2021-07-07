@@ -2,6 +2,7 @@
 #define GTMAIN
 
 #include <QMainWindow>
+
 #include "gtSubWindow.h"
 #include "ui_GTMainWindow.h"
 
@@ -18,15 +19,11 @@ public slots:
     void menuSystemAboutAction();
     void menuSystemAboutQtAction();
     void newGTermBtn();
-    void closeGTermButtonAction();
     void closeGtSub();
 
 private:
     Ui::GTMainWindow ui;
     GtSubWindow* gtSubWindow;
-    void connectButtonSignal();
-    void connectMenuSignal();
-    void retranslateUi();
     void connectGTWindowSignal();
 };
 #endif // GTMAIN

@@ -238,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="GTMainWindow.ui" />
+    <QtUic Include="GTsubWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

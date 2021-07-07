@@ -10,14 +10,10 @@ GtMain::GtMain(QWidget* parent)
     ui.setupUi(this);
 }
 
-void GtMain::retranslateUi()
-{
-	
-}
-
 void GtMain::connectGTWindowSignal()
 {
-    
+    ui.newGTerm->setEnabled(!gtSubWindow);
+    ui.print->setEnabled(gtSubWindow);
 }
 
 void GtMain::menuSystemAboutAction()
@@ -33,25 +29,12 @@ void GtMain::menuSystemAboutQtAction()
 
 void GtMain::newGTermBtn()
 {
-    if (gtSubWindow)
-    {
-        static_cast<void>(QMessageBox::critical(this, tr("Error"),
-            tr("You only allow to create one GTerm object."), QMessageBox::Ok));
-        return;
-    }
-
-    gtSubWindow = new GtSubWindow;
-    gtSubWindow->setAttribute(Qt::WA_DeleteOnClose);
+    gtSubWindow = new GtSubWindow(this);
+    gtSubWindow->setAttribute(Qt::WidgetAttribute::WA_DeleteOnClose);
     connectGTWindowSignal();
     gtSubWindow->show();
-}
-
-void GtMain::closeGTermButtonAction()
-{
-    if (gtSubWindow)
-    {
-        gtSubWindow->close();
-    }
+    connect(gtSubWindow, &GtSubWindow::destroyed, this, &GtMain::closeGtSub);
+    connect(ui.print, &QAbstractButton::clicked, gtSubWindow, &GtSubWindow::print);
 }
 
 void GtMain::closeGtSub()

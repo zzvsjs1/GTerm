@@ -103,5 +103,8 @@
     <QtUic Include="GTMainWindow.ui">
       <Filter>Froms</Filter>
     </QtUic>
+    <QtUic Include="GTsubWindow.ui">
+      <Filter>Froms</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

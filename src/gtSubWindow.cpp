@@ -3,48 +3,43 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QScreen>
+#include <QLabel>
+#include <QMessageBox>
+#include <QInputDialog>
 
 #include "gtSubWindow.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent) 
-	: QMainWindow(parent), gtLabel(new QLabel)
-	, gtScrollArea(new QScrollArea)
+	: QMainWindow(parent), ui(), x(0), y(0)
 {
-	setWindowTitle(tr("GTerm"));
-	setWindowIcon(QIcon(":/gtres/resources/logo/java.ico"));
-	resize(QSize(1024, 768));
-	
-	gtScrollArea->setWidget(gtLabel);
-	gtScrollArea->setVisible(true);
-	
-	setCentralWidget(gtScrollArea);
-
-	gtImageViewer = nullptr;
-	gtFont =  new QFont(QString("Arial"), 10, 1, false);
-	gtGroupBox = nullptr;
-	x = 0;
-	y = 0;
+	ui.setupUi(this);
 }
 
 GtSubWindow::~GtSubWindow()
 {
-	if (!gtTable.isEmpty())
-	{
-		for (auto& e : gtTable)
-		{
-			delete e;
-		}
-	}
-
-	if (gtImageViewer)
-	{
-		gtImageViewer->close();
-		delete gtImageViewer;
-	}
-
-	delete gtFont;
+	
 }
 
+void GtSubWindow::print()
+{
+	auto newLabel = new QLabel(ui.widget);
+	newLabel->setText(getInputString());
+	
+	newLabel->setGeometry(QRect(x, y, 20, 20));
+	newLabel->show();
+	x += 20;
+}
+
+QString GtSubWindow::getInputString()
+{
+	QString userInput = QInputDialog::getText(this, tr("GTerm Input Dialog"), tr("Please enter a String"));
+	if (userInput.isEmpty())
+		userInput = QString("Null");
+
+	return userInput;
+}
+
+/*
 void GtSubWindow::showHelp()
 {
 	QMessageBox::about(this, tr("Show Help"),
@@ -53,14 +48,8 @@ void GtSubWindow::showHelp()
 	QDesktopServices::openUrl(QUrl("https://jupiter.csit.rmit.edu.au/~e58140/GTerm/"));
 }
 
-void GtSubWindow::getInputString()
-{
-	QString userInput = QInputDialog::getText(this, tr("GTerm Input Dialog"), tr("Please enter a String"));
-	if (userInput.isEmpty())
-		userInput = QString("Null");
 
-	showMessageDialog(userInput);
-}
+
 
 void GtSubWindow::showMessageDialog(QString& inputString)
 {
@@ -90,116 +79,4 @@ void GtSubWindow::addImageIcon()
 	gtImageViewer->loadFile(imageIconPath);
 	gtImageViewer->show();
 }
-
-void GtSubWindow::deleteImageView()
-{
-	gtImageViewer = nullptr;
-}
-
-void GtSubWindow::addTable()
-{
-
-}
-
-void GtSubWindow::addRowToTable()
-{
-
-}
-
-void GtSubWindow::getSelectRowFromTable()
-{
-
-}
-
-void GtSubWindow::getRowIndexFromSelectTable()
-{
-}
-
-void GtSubWindow::addButton()
-{
-
-}
-
-void GtSubWindow::print()
-{
-	
-}
-
-void GtSubWindow::println()
-{
-}
-
-void GtSubWindow::setFont()
-{
-}
-
-void GtSubWindow::setFontSize()
-{
-}
-
-void GtSubWindow::setBackgroundColor()
-{
-}
-
-void GtSubWindow::setXY()
-{
-
-}
-
-void GtSubWindow::setFilePath()
-{
-	(void)QFileDialog::getSaveFileName(this);
-}
-
-void GtSubWindow::clear()
-{
-}
-
-void GtSubWindow::addTextArea()
-{
-}
-
-void GtSubWindow::addTextField()
-{
-}
-
-void GtSubWindow::clearRowsOfTable()
-{
-}
-
-void GtSubWindow::getColorFromDialog()
-{
-}
-
-void GtSubWindow::getPasswordFromDialog()
-{
-}
-
-void GtSubWindow::getTextFromEntry()
-{
-}
-
-void GtSubWindow::setTextInEntry()
-{
-}
-
-void GtSubWindow::showWarningDialog()
-{
-}
-
-QString GtSubWindow::getFilePath()
-{
-	return QFileDialog::getOpenFileName(this);
-}
-
-void GtSubWindow::retranslateUi()
-{
-}
-
-inline void GtSubWindow::setupUi()
-{
-}
-
-void GtSubWindow::showDialog()
-{
-}
+*/
