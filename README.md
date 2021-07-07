@@ -141,7 +141,7 @@ Version History:
 
 2021.04.26: Support addImageIcon feature.
 
-2021.07.07: Add MVC design, replace all the functions and increase perfromence. Qt version update from 6.03 to 6.12.
+2021.07.07: Add MVC design, replace all the functions and increase performance. Qt version update from 6.03 to 6.12.
 
 ### Author:
 Gayan Wijesinghe
