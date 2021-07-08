@@ -1,5 +1,7 @@
 # GTerm
 
+![alt text](https://github.com/kkskzz/GTerm/blob/main/src/GTClassDiagram.png)
+
 ## Class GTerm
 
 java.lang.Object  
