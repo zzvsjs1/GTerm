@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QFont>
 #include <QFontMetrics>
-#include <tuple>
+//#include <tuple>
 #include <memory>
 
 #include "gtImageView.h"
@@ -36,6 +36,7 @@ public slots:
 	void showMessageDialog();
 	void showErrorDialog();
 	void showWarningDialog();
+	void setXY();
 
 private:
 	Ui::GTSubWindow ui;
@@ -44,7 +45,7 @@ private:
 	std::unique_ptr<QFont> gtFont;
 	std::unique_ptr<QFontMetrics> gtFontMetrics;
 	inline QString getInputStringImpl();
-	static inline std::tuple<QString::size_type, QString::size_type, QString> calNumOfStAndSn(const QString &string);
+	// inline std::tuple<QString::size_type, QString::size_type, QString> calNumOfStAndSn(const QString &string);
 
 };
 

@@ -7,7 +7,7 @@
 namespace GTRE
 {
 	const QRegularExpression findSlasht(QString("\\\\t"));
-	const QRegularExpression findSlashn("\\\\n");
+	const QRegularExpression findSlashn(QString("\\\\n"));
 }
 
 namespace GTSPE

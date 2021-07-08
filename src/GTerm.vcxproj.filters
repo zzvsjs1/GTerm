@@ -109,5 +109,8 @@
     <QtUic Include="GTsubWindow.ui">
       <Filter>Froms</Filter>
     </QtUic>
+    <QtUic Include="DialogButtonBottom.ui">
+      <Filter>Froms</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

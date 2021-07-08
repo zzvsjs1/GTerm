@@ -8,9 +8,9 @@ int main(int argc, char *argv[])
     QApplication GTerm(argc, argv);
 
 #ifdef _WIN32
-    GTerm.setFont(QFont(QString("Segoe UI")));
+    GTerm.setFont(QFont(QString("Segoe UI"), 12));
 #elif __APPLE__
-    GTerm.setFont(QFont(QString("Helvetica")));
+    GTerm.setFont(QFont(QString("Helvetica"), 12));
 #endif
 
 

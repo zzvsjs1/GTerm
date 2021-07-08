@@ -42,22 +42,22 @@ void GtSubWindow::printImpl(QString& input)
 	if (x + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(x)>::max)()) ||
 				y + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(y)>::max)()))
 	{
-		// TODO
 		static_cast<void>(QMessageBox::critical(this, tr("Show Error Dialog"), "Overflow", QMessageBox::Ok));
 		return;
 	}
 
 	input.replace(GTRE::findSlasht, GTSPE::tab);
 
-	auto height = gtFontMetrics->height();
-	auto width = gtFontMetrics->horizontalAdvance(input);
+	const auto height = gtFontMetrics->height();
+	const auto width = gtFontMetrics->horizontalAdvance(input);
 
-	auto newLabel = new (std::nothrow) QLabel(ui.scrollAreaWidgetContents);
+	const auto newLabel = new (std::nothrow) QLabel(ui.scrollAreaWidgetContents);
+	newLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 
 	if (!newLabel)
 	{
-		//TODO
-		return;
+		static_cast<void>(QMessageBox::critical(this, tr("Show Error Dialog"), "No enough memory space", QMessageBox::Ok));
+		QApplication::exit(1);
 	}
 
 	newLabel->setText(input);
@@ -67,46 +67,10 @@ void GtSubWindow::printImpl(QString& input)
 	newLabel->show();
 
 	x += width;
-
-	/*
-	int backUpx = x;
-	auto eachLine = input.split(GTRE::findSlashn);
-	auto height = gtFontMetrics->height();
-	try
+	if (x > ui.scrollArea->width())
 	{
-		for (auto start = eachLine.cbegin(), end = eachLine.cend(); start != end; ++start)
-		{
-			if (start->isEmpty())
-			{
-				y += height;
-				continue;
-			}
-
-			x = 0;
-			auto width = gtFontMetrics->horizontalAdvance(*start);
-			auto newLabel = new QLabel(ui.subCentralwidget);
-
-			newLabel->setText(*start);
-			newLabel->setFont(*gtFont);
-
-			newLabel->setGeometry(x, y, width, height);
-			newLabel->show();
-
-			x += width;
-			y += height;
-		}
+		ui.scrollAreaWidgetContents->setFixedWidth(x);
 	}
-	catch (const std::exception&)
-	{
-		x = backUpx;
-	}
-
-	if (eachLine.size() < 2)
-	{
-		y -= height;
-	}
-	*/
-
 }
 
 void GtSubWindow::printlnImpl(QString& input)
@@ -114,6 +78,10 @@ void GtSubWindow::printlnImpl(QString& input)
 	printImpl(input);
 	x = 0;
 	y += gtFontMetrics->height();
+	if (y > ui.scrollArea->height())
+	{
+		ui.scrollAreaWidgetContents->setFixedHeight(y);
+	}
 }
 
 void GtSubWindow::getInputString()
@@ -145,6 +113,11 @@ void GtSubWindow::showWarningDialog()
 	static_cast<void>(QMessageBox::warning(this, tr("Show Warning Dialog"), getInputStringImpl(), QMessageBox::Ok));
 }
 
+void GtSubWindow::setXY()
+{
+	
+}
+
 inline QString GtSubWindow::getInputStringImpl()
 {
 	QString userInput(std::move(QInputDialog::getText(this, tr("GTerm Input Dialog"), tr("Please enter a String"))));
@@ -156,6 +129,7 @@ inline QString GtSubWindow::getInputStringImpl()
 	return userInput;
 }
 
+/*
 inline std::tuple<QString::size_type, QString::size_type, QString> GtSubWindow::calNumOfStAndSn(const QString& string)
 {
 	QString reString;
@@ -198,6 +172,7 @@ inline std::tuple<QString::size_type, QString::size_type, QString> GtSubWindow::
 
 	return { numberOfSlashT, numberOfSlashN, reString };
 }
+*/
 
 /*
 
@@ -218,5 +193,44 @@ void GtSubWindow::addImageIcon()
 
 	gtImageViewer->loadFile(imageIconPath);
 	gtImageViewer->show();
+}
+*/
+
+/*
+int backUpx = x;
+auto eachLine = input.split(GTRE::findSlashn);
+auto height = gtFontMetrics->height();
+try
+{
+	for (auto start = eachLine.cbegin(), end = eachLine.cend(); start != end; ++start)
+	{
+		if (start->isEmpty())
+		{
+			y += height;
+			continue;
+		}
+
+		x = 0;
+		auto width = gtFontMetrics->horizontalAdvance(*start);
+		auto newLabel = new QLabel(ui.subCentralwidget);
+
+		newLabel->setText(*start);
+		newLabel->setFont(*gtFont);
+
+		newLabel->setGeometry(x, y, width, height);
+		newLabel->show();
+
+		x += width;
+		y += height;
+	}
+}
+catch (const std::exception&)
+{
+	x = backUpx;
+}
+
+if (eachLine.size() < 2)
+{
+	y -= height;
 }
 */

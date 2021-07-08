@@ -238,6 +238,7 @@
     <QtRcc Include="gtResource.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="DialogButtonBottom.ui" />
     <QtUic Include="GTMainWindow.ui" />
     <QtUic Include="GTsubWindow.ui" />
   </ItemGroup>
