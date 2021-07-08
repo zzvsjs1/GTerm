@@ -215,7 +215,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_10">
+      <widget class="QPushButton" name="setXY">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -226,12 +226,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setXY()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_11">
+      <widget class="QPushButton" name="setFontNameStyleSize">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -242,7 +242,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setFont​</string>
        </property>
       </widget>
      </item>
@@ -259,7 +259,7 @@
     </property>
     <layout class="QHBoxLayout" name="row3">
      <item>
-      <widget class="QPushButton" name="pushButton_12">
+      <widget class="QPushButton" name="setFonRGB">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -270,12 +270,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>	setFontColor​(rgb)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_13">
+      <widget class="QPushButton" name="setFontColorColorChooser">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -286,12 +286,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>	setFontColor​(fontColor)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_14">
+      <widget class="QPushButton" name="setFontName">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -302,12 +302,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setFontName​()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_15">
+      <widget class="QPushButton" name="setFontSize">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -318,12 +318,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setFontSize​()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_16">
+      <widget class="QPushButton" name="setFontStyle">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -334,7 +334,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setFontStyle​()</string>
        </property>
       </widget>
      </item>
@@ -351,7 +351,7 @@
     </property>
     <layout class="QHBoxLayout" name="row4">
      <item>
-      <widget class="QPushButton" name="pushButton_17">
+      <widget class="QPushButton" name="setTabSize">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -362,12 +362,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setTabSize​()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_18">
+      <widget class="QPushButton" name="setFilePath">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -378,12 +378,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setFilePath()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_19">
+      <widget class="QPushButton" name="setBackgroundColorColorChooser">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -394,12 +394,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setBackgroundColor​(Color)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_20">
+      <widget class="QPushButton" name="setBackgroundColorRGB">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -410,12 +410,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>setBackgroundColor​(rgb)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_21">
+      <widget class="QPushButton" name="getFilePath">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -426,7 +426,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>getFilePath()</string>
        </property>
       </widget>
      </item>
@@ -443,7 +443,7 @@
     </property>
     <layout class="QHBoxLayout" name="row5">
      <item>
-      <widget class="QPushButton" name="pushButton_22">
+      <widget class="QPushButton" name="addImageIcon">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -454,12 +454,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>addImageIcon​()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_23">
+      <widget class="QPushButton" name="addPasswordField">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -470,12 +470,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>addPasswordField()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_24">
+      <widget class="QPushButton" name="addTable">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -486,12 +486,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>addTable​()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_25">
+      <widget class="QPushButton" name="addRowToTable">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -502,12 +502,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>addRowToTable()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_26">
+      <widget class="QPushButton" name="getIndexOfSelectedRowFromTable">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -517,8 +517,13 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>getIndexOfSelectedRowFromTable​()</string>
        </property>
       </widget>
      </item>
@@ -535,7 +540,7 @@
     </property>
     <layout class="QHBoxLayout" name="row6">
      <item>
-      <widget class="QPushButton" name="pushButton_27">
+      <widget class="QPushButton" name="getSelectedRowFromTable">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -546,12 +551,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>getSelectedRowFromTable</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_28">
+      <widget class="QPushButton" name="getPasswordFromDialog">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -562,12 +567,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>getPasswordFromDialog()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_29">
+      <widget class="QPushButton" name="addTextArea">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -578,12 +583,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>addTextArea</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_30">
+      <widget class="QPushButton" name="clear">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -594,12 +599,12 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>clear()</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_31">
+      <widget class="QPushButton" name="close">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -610,7 +615,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>close()</string>
        </property>
       </widget>
      </item>

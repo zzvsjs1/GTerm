@@ -188,14 +188,15 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="gtAboutDialog.cpp" />
-    <ClCompile Include="gtImageView.cpp" />
-    <ClCompile Include="gtMain.cpp" />
-    <ClCompile Include="gtSubWindow.cpp" />
+    <ClCompile Include="GTAboutDialog.cpp" />
+    <ClCompile Include="GTImageView.cpp" />
+    <ClCompile Include="GTMainWindow.cpp" />
+    <ClCompile Include="GTSubWindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="gtMain.h">
+    <QtMoc Include="GTMainWindow.h">
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -217,20 +218,21 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GTClassDiagram.cd" />
     <None Include="cpp.hint" />
     <None Include="GTerm.pro" />
     <None Include="GTerm_en_AU.ts" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="gtAboutDialog.h" />
+    <QtMoc Include="GTAboutDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="gtImageView.h" />
+    <QtMoc Include="GTImageView.h" />
     <ClInclude Include="MyDialog.h" />
     <ClInclude Include="PreComRE.h" />
-    <ClInclude Include="SetXYDialog.h" />
+    <QtMoc Include="SetXYDialog.h" />
     <ClInclude Include="Version.h" />
-    <QtMoc Include="gtSubWindow.h" />
+    <QtMoc Include="GTSubWindow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

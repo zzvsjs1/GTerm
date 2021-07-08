@@ -9,8 +9,8 @@
 //#include <tuple>
 #include <memory>
 
-#include "gtImageView.h"
-#include "gtAboutDialog.h"
+#include "GTImageView.h"
+#include "GTAboutDialog.h"
 #include "ui_GTsubWindow.h"
 
 class GtSubWindow final : public QMainWindow
@@ -20,7 +20,7 @@ class GtSubWindow final : public QMainWindow
 
 public:
     explicit GtSubWindow(QWidget* parent = Q_NULLPTR);
-	~GtSubWindow() override;
+	~GtSubWindow() override = default;
 
 public slots:
 	void print();
@@ -45,6 +45,7 @@ private:
 	std::unique_ptr<QFont> gtFont;
 	std::unique_ptr<QFontMetrics> gtFontMetrics;
 	inline QString getInputStringImpl();
+	static bool isAddingOverFlow(int a, int b, int first, int second);
 	// inline std::tuple<QString::size_type, QString::size_type, QString> calNumOfStAndSn(const QString &string);
 
 };

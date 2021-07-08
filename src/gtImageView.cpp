@@ -1,4 +1,4 @@
-#include "gtImageView.h"
+#include "GTImageView.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -17,7 +17,7 @@
 #include <QStandardPaths>
 #include <QStatusBar>
 
-#include "gtAboutDialog.h"
+#include "GTAboutDialog.h"
 
 GtImageViewer::GtImageViewer(QWidget* parent)
     : QMainWindow(parent), imageLabel(new QLabel)
@@ -206,7 +206,7 @@ void GtImageViewer::fitToWindow()
 
 void GtImageViewer::about()
 {
-    GtAboutDialog about{ this };
+    GTAboutDialog about{ this };
     about.exec();
 }
 

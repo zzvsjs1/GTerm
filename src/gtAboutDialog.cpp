@@ -8,7 +8,7 @@
 
 #include "gtAboutDialog.h"
 
-GtAboutDialog::GtAboutDialog(QWidget* parent) : QDialog(parent)
+GTAboutDialog::GTAboutDialog(QWidget* parent) : QDialog(parent)
 {
 	setWindowTitle(tr("About GTerm"));
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);

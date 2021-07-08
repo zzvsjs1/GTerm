@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GtMain">
+    <Position X="1.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAEABACAAAAAAAAAAAAAAAgAAAAAAIAEA=</HashCode>
+      <FileName>GTMainWindow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GtImageViewer">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIAkAACACQAWAAAAASkBBAAAEIAEAAIAIAAEAAAwAAY=</HashCode>
+      <FileName>GTImageView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GtSubWindow">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQBIAAMAAAAEAAAAYAAAAAAACAAAAAAAABgEQEgAAA=</HashCode>
+      <FileName>GTSubWindow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SetXYDialog">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEgAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SetXYDialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyDialog">
+    <Position X="10" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="MyDialog::GetXYFlag" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyDialog.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyDialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

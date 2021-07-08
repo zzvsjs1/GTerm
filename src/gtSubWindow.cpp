@@ -6,25 +6,24 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QInputDialog>
-#include <QDebug>
 #include <QStringList>
 #include <QRegularExpression>
+#include <QPair>
 
-#include "gtSubWindow.h"
+#ifdef QT_DEBUG
+#include <climits>
+#endif // QT_DEBUG
+
+#include "GTSubWindow.h"
 #include "PreComRE.h"
 #include "Version.h"
-#include "SetXYDialog.h"
+#include "MyDialog.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent) 
 	: QMainWindow(parent), ui(), x(), y(),
 	gtFont(new QFont("Segoe UI", 12)), gtFontMetrics(new QFontMetrics(*gtFont))
 {
 	ui.setupUi(this);
-}
-
-GtSubWindow::~GtSubWindow()
-{
-	
 }
 
 void GtSubWindow::print()
@@ -67,6 +66,10 @@ void GtSubWindow::printImpl(QString& input)
 
 	newLabel->setGeometry(x, y, width, height);
 	newLabel->show();
+
+#ifdef QT_DEBUG
+	Q_ASSERT(x + width < INT_MAX);
+#endif // QT_DEBUG
 
 	x += width;
 	if (x > ui.scrollArea->width())
@@ -115,7 +118,15 @@ void GtSubWindow::showWarningDialog()
 
 void GtSubWindow::setXY()
 {
-	
+	const auto xAndY = MyDialog::getXY();
+	if (xAndY.first == MyDialog::GetXYFlag::ERROR)
+	{
+		static_cast<void>(QMessageBox::critical(this, tr("Error raise"), "The error occurs when getting the XY.", QMessageBox::Ok));
+		return;
+	}
+
+	x = xAndY.first;
+	y = xAndY.second;
 }
 
 inline QString GtSubWindow::getInputStringImpl()
@@ -127,6 +138,11 @@ inline QString GtSubWindow::getInputStringImpl()
 	}
 
 	return userInput;
+}
+
+bool GtSubWindow::isAddingOverFlow(int a, int b, int first, int second)
+{
+	return (a > 0 && a > std::numeric_limits<int>::max() - first) || (b > 0 && b > std::numeric_limits<int>::max() - second);
 }
 
 /*

@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QRegularExpression>
 
-#include "gtMain.h"
+#include "GTMainWindow.h"
 
 int main(int argc, char *argv[])
 {

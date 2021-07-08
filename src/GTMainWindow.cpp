@@ -1,7 +1,7 @@
 #include <Qmessagebox>
 
-#include "gtMain.h"
-#include "gtAboutDialog.h"
+#include "GTMainWindow.h"
+#include "GTAboutDialog.h"
 #include "Version.h"
 
 GtMain::GtMain(QWidget* parent)
@@ -20,6 +20,7 @@ void GtMain::resetBtnState()
     ui.showMessageDialog->setEnabled(gtSubWindow);
     ui.showErrorDialog->setEnabled(gtSubWindow);
     ui.showWarningDialog->setEnabled(gtSubWindow);
+    ui.setXY->setEnabled(gtSubWindow);
 }
 
 void GtMain::connectSignalToSubWin()
@@ -32,11 +33,12 @@ void GtMain::connectSignalToSubWin()
     connect(ui.showMessageDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showMessageDialog);
     connect(ui.showErrorDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showErrorDialog);
     connect(ui.showWarningDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showWarningDialog);
+    connect(ui.setXY, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setXY);
 }
 
 void GtMain::menuSystemAboutAction()
 {
-    GtAboutDialog about(this);
+    GTAboutDialog about(this);
     about.exec();
 }
 

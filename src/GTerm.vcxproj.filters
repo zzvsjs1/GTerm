@@ -40,33 +40,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gtMain.cpp">
+    <ClCompile Include="GTMainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gtAboutDialog.cpp">
+    <ClCompile Include="GTSubWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gtSubWindow.cpp">
+    <ClCompile Include="GTImageView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gtImageView.cpp">
+    <ClCompile Include="GTAboutDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="gtMain.h">
+    <QtMoc Include="GTMainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="gtAboutDialog.h">
+    <QtMoc Include="GTAboutDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="gtSubWindow.h">
+    <QtMoc Include="GTSubWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="gtImageView.h">
+    <QtMoc Include="GTImageView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SetXYDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -84,6 +90,7 @@
     </None>
     <None Include="GTerm.pro" />
     <None Include="cpp.hint" />
+    <None Include="GTClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -93,9 +100,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PreComRE.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SetXYDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MyDialog.h">
