@@ -12,6 +12,8 @@
 
 #include "gtSubWindow.h"
 #include "PreComRE.h"
+#include "Version.h"
+#include "SetXYDialog.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent) 
 	: QMainWindow(parent), ui(), x(), y(),
@@ -91,10 +93,8 @@ void GtSubWindow::getInputString()
 
 void GtSubWindow::showHelp()
 {
-	QString a("GTerm version 2021.03.01 by Gayan Wijesinghe");
-	QString b("https://jupiter.csit.rmit.edu.au/~e58140/GTerm/");
-	printlnImpl(a);
-	printlnImpl(b);
+	printlnImpl(Common::show_help1);
+	printlnImpl(Common::show_help2);
 }
 
 void GtSubWindow::showMessageDialog()

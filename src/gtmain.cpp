@@ -56,6 +56,6 @@ void GtMain::newGTermBtn()
 
 void GtMain::closeGTSub()
 {
-    gtSubWindow = nullptr;
+    gtSubWindow = Q_NULLPTR;
     resetBtnState();
 }

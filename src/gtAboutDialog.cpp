@@ -5,7 +5,6 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QtGlobal>
-#include "Version.h"
 
 #include "gtAboutDialog.h"
 

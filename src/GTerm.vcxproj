@@ -226,7 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="gtImageView.h" />
+    <ClInclude Include="MyDialog.h" />
     <ClInclude Include="PreComRE.h" />
+    <ClInclude Include="SetXYDialog.h" />
     <ClInclude Include="Version.h" />
     <QtMoc Include="gtSubWindow.h" />
     <ClInclude Include="resource.h" />
@@ -238,7 +240,7 @@
     <QtRcc Include="gtResource.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="DialogButtonBottom.ui" />
+    <QtUic Include="SetXYDialog.ui" />
     <QtUic Include="GTMainWindow.ui" />
     <QtUic Include="GTsubWindow.ui" />
   </ItemGroup>

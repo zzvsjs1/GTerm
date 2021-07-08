@@ -95,6 +95,12 @@
     <ClInclude Include="PreComRE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SetXYDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />
@@ -109,7 +115,7 @@
     <QtUic Include="GTsubWindow.ui">
       <Filter>Froms</Filter>
     </QtUic>
-    <QtUic Include="DialogButtonBottom.ui">
+    <QtUic Include="SetXYDialog.ui">
       <Filter>Froms</Filter>
     </QtUic>
   </ItemGroup>
