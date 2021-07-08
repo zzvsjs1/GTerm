@@ -44,9 +44,11 @@
 *.cbt
 
 src/debug
+
 *.db-shm
 *.opendb
 *.db-wal
+
 src/.vs/GTerm/v16/.suo
 src/release
 
