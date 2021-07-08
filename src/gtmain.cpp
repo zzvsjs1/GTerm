@@ -10,10 +10,28 @@ GtMain::GtMain(QWidget* parent)
     ui.setupUi(this);
 }
 
-void GtMain::connectGTWindowSignal()
+void GtMain::resetBtnState()
 {
     ui.newGTerm->setEnabled(!gtSubWindow);
+    ui.getInputString->setEnabled(gtSubWindow);
+    ui.showHelp->setEnabled(gtSubWindow);
     ui.print->setEnabled(gtSubWindow);
+    ui.println->setEnabled(gtSubWindow);
+    ui.showMessageDialog->setEnabled(gtSubWindow);
+    ui.showErrorDialog->setEnabled(gtSubWindow);
+    ui.showWarningDialog->setEnabled(gtSubWindow);
+}
+
+void GtMain::connectSignalToSubWin()
+{
+    connect(gtSubWindow, &GtSubWindow::destroyed, this, &GtMain::closeGTSub);
+    connect(ui.getInputString, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getInputString);
+    connect(ui.showHelp, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showHelp);
+    connect(ui.print, &QPushButton::clicked, gtSubWindow, &GtSubWindow::print);
+    connect(ui.println, &QPushButton::clicked, gtSubWindow, &GtSubWindow::println);
+    connect(ui.showMessageDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showMessageDialog);
+    connect(ui.showErrorDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showErrorDialog);
+    connect(ui.showWarningDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showWarningDialog);
 }
 
 void GtMain::menuSystemAboutAction()
@@ -31,14 +49,13 @@ void GtMain::newGTermBtn()
 {
     gtSubWindow = new GtSubWindow(this);
     gtSubWindow->setAttribute(Qt::WidgetAttribute::WA_DeleteOnClose);
-    connectGTWindowSignal();
+    resetBtnState();
+    connectSignalToSubWin();
     gtSubWindow->show();
-    connect(gtSubWindow, &GtSubWindow::destroyed, this, &GtMain::closeGtSub);
-    connect(ui.print, &QAbstractButton::clicked, gtSubWindow, &GtSubWindow::print);
 }
 
-void GtMain::closeGtSub()
+void GtMain::closeGTSub()
 {
     gtSubWindow = nullptr;
-    connectGTWindowSignal();
+    resetBtnState();
 }

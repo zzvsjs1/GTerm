@@ -12,18 +12,19 @@ class GtMain final: public QMainWindow
 	Q_DISABLE_COPY_MOVE(GtMain)
 
 public:
-    GtMain(QWidget* parent = Q_NULLPTR);
-    ~GtMain()override = default;
+    explicit GtMain(QWidget* parent = Q_NULLPTR);
+    ~GtMain() override = default;
 
 public slots:
     void menuSystemAboutAction();
     void menuSystemAboutQtAction();
     void newGTermBtn();
-    void closeGtSub();
+    void closeGTSub();
 
 private:
     Ui::GTMainWindow ui;
     GtSubWindow* gtSubWindow;
-    void connectGTWindowSignal();
+    void resetBtnState();
+    void connectSignalToSubWin();
 };
 #endif // GTMAIN

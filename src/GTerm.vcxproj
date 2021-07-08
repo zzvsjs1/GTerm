@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="gtImageView.h" />
+    <ClInclude Include="PreComRE.h" />
     <ClInclude Include="Version.h" />
     <QtMoc Include="gtSubWindow.h" />
     <ClInclude Include="resource.h" />

@@ -167,6 +167,22 @@
     </property>
     <layout class="QHBoxLayout" name="row2">
      <item>
+      <widget class="QPushButton" name="showWarningDialog">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>showWarningDialog()</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="print">
        <property name="enabled">
         <bool>false</bool>
@@ -195,22 +211,6 @@
        </property>
        <property name="text">
         <string>println()</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_9">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
        </property>
       </widget>
      </item>
@@ -685,22 +685,6 @@
     <hint type="destinationlabel">
      <x>238</x>
      <y>35</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>showHelp</sender>
-   <signal>clicked()</signal>
-   <receiver>GTMainWindow</receiver>
-   <slot>menuSystemAboutAction()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>606</x>
-     <y>124</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>613</x>
-     <y>44</y>
     </hint>
    </hints>
   </connection>

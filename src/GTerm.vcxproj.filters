@@ -92,6 +92,9 @@
     <ClInclude Include="Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PreComRE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />
