@@ -3,4 +3,18 @@
         <file>resources/logo/gw.png</file>
         <file>resources/logo/java.ico</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>resources/fonts/segoeui.ttf</file>
+        <file>resources/fonts/segoeuib.ttf</file>
+        <file>resources/fonts/segoeuii.ttf</file>
+        <file>resources/fonts/segoeuil.ttf</file>
+        <file>resources/fonts/segoeuisl.ttf</file>
+        <file>resources/fonts/segoeuiz.ttf</file>
+        <file>resources/fonts/seguibl.ttf</file>
+        <file>resources/fonts/seguibli.ttf</file>
+        <file>resources/fonts/seguili.ttf</file>
+        <file>resources/fonts/seguisb.ttf</file>
+        <file>resources/fonts/seguisbi.ttf</file>
+        <file>resources/fonts/seguisli.ttf</file>
+    </qresource>
 </RCC>

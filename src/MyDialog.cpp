@@ -9,10 +9,27 @@ QPair<int, int> MyDialog::getXY()
 		return dialog->getXY();
 	}
 
-	if (ret == -1)
+	if (ret == Status::ERROR)
 	{
-		return { -1, -1 };
+		return { Status::ERROR, Status::ERROR };
 	}
 
-	return { -2, -2 };
+	return { Status::CANCEL, Status::CANCEL };
+}
+
+std::tuple<int, int, int> MyDialog::getRGB()
+{
+	std::unique_ptr<GTRGBChooser> dialog(new GTRGBChooser);
+	const int ret = dialog->exec();
+	if (ret)
+	{
+		return dialog->getRGB();
+	}
+
+	if (ret == Status::ERROR)
+	{
+		return { Status::ERROR, Status::ERROR, Status::ERROR };
+	}
+
+	return { Status::CANCEL, Status::CANCEL, Status::CANCEL };
 }

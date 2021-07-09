@@ -75,6 +75,9 @@
     <QtMoc Include="SetXYDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="GTRGBChooser.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -120,6 +123,9 @@
       <Filter>Froms</Filter>
     </QtUic>
     <QtUic Include="SetXYDialog.ui">
+      <Filter>Froms</Filter>
+    </QtUic>
+    <QtUic Include="GTRGBChooser.ui">
       <Filter>Froms</Filter>
     </QtUic>
   </ItemGroup>

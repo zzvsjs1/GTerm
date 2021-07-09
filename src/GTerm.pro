@@ -1,28 +1,27 @@
-QT       += widgets
-
-greaterThan(QT_MAJOR_VERSION, 6): QT += widgets
+QT       += core widgets gui
 
 CONFIG += c++17
-
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-# disables all the APIs deprecated before Qt 6.0.0
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 SOURCES += \
     main.cpp \
-    gtMain.cpp \
-    gtSubWindow.cpp \
-    gtAboutDialog.cpp \
-    Version.cpp
+    GTMainWindow.cpp \
+    GTSubWindow.cpp \
+    GTAboutDialog.cpp \
+    MyDialog.cpp \
+    GTImageView.cpp
 
 
 HEADERS += \
-    gtMain.h \
-    gtSubWindow.h \
-    gtAboutDialog.h \
-    Version.cpp
+    SetXYDialog.h \
+    Version.h \
+    PreComRE.h \
+    MyDialog.h \
+    GTSubWindow.h \
+    GTMainWindow.h \
+    GTImageView.h \
+    GTAboutDialog.h
 
 TRANSLATIONS += \
     GTerm_en_AU.ts
@@ -30,7 +29,7 @@ TRANSLATIONS += \
 RESOURCES += \
     gtResource.qrc
 
-RC_ICONS = :/gtres/resources/logo/java.ico
+RC_ICONS = /gtres/resources/logo/java.ico
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

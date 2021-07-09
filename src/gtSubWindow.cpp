@@ -1,41 +1,58 @@
 #include <QColorSpace>
+#include <QInputDialog>
 #include <QImageReader>
+#include <QImageWriter>
+#include <QInputDialog>
+#include <QLabel>
+#include <QMessageBox>
+#include <QPair>
+#include <QRegularExpression>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QScreen>
-#include <QLabel>
-#include <QMessageBox>
-#include <QInputDialog>
 #include <QStringList>
-#include <QRegularExpression>
-#include <QPair>
+#include <QStandardPaths>
+#include <QFontDialog>
+#include <QFontDatabase>
+#include <QColorDialog>
 
-#ifdef QT_DEBUG
-#include <climits>
-#endif // QT_DEBUG
+#include <tuple>
 
 #include "GTSubWindow.h"
 #include "PreComRE.h"
 #include "Version.h"
 #include "MyDialog.h"
 
-GtSubWindow::GtSubWindow(QWidget* parent) 
+GtSubWindow::GtSubWindow(QWidget* parent)
 	: QMainWindow(parent), ui(), x(), y(),
-	gtFont(new QFont("Segoe UI", 12)), gtFontMetrics(new QFontMetrics(*gtFont))
+	gtFont(new QFont(QApplication::font())),
+	gtFontMetrics(new QFontMetrics(*gtFont)),
+	gtTab(GTSPE::t), gtColor(new QColor(Qt::black))
 {
 	ui.setupUi(this);
 }
 
 void GtSubWindow::print()
 {
-	QString string(std::move(getInputStringImpl()));
-	printImpl(string);
+	auto input = getInputStringImpl();
+	if (input.isEmpty())
+	{
+		return;
+	}
+
+	printImpl(input);
 }
 
 void GtSubWindow::println()
 {
-	QString string(std::move(getInputStringImpl()));
-	printlnImpl(string);
+	auto input = getInputStringImpl();
+	if (input.isEmpty())
+	{
+		return;
+	}
+
+	printImpl(input);
+	setNewLine();
 }
 
 void GtSubWindow::printImpl(QString& input)
@@ -43,11 +60,11 @@ void GtSubWindow::printImpl(QString& input)
 	if (x + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(x)>::max)()) ||
 				y + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(y)>::max)()))
 	{
-		static_cast<void>(QMessageBox::critical(this, tr("Show Error Dialog"), "Overflow", QMessageBox::Ok));
+		static_cast<void>(QMessageBox::critical(this, tr("Show Error Dialog"), tr("Overflow"), QMessageBox::Ok));
 		return;
 	}
 
-	input.replace(GTRE::findSlasht, GTSPE::tab);
+	input.replace(GTRE::findSlasht, gtTab);
 
 	const auto height = gtFontMetrics->height();
 	const auto width = gtFontMetrics->horizontalAdvance(input);
@@ -57,18 +74,20 @@ void GtSubWindow::printImpl(QString& input)
 
 	if (!newLabel)
 	{
-		static_cast<void>(QMessageBox::critical(this, tr("Show Error Dialog"), "No enough memory space", QMessageBox::Ok));
+		static_cast<void>(QMessageBox::critical(this, tr("Show Error Dialog"), tr("No enough memory space"), QMessageBox::Ok));
 		QApplication::exit(1);
 	}
 
 	newLabel->setText(input);
 	newLabel->setFont(*gtFont);
+	auto a = gtColor->name();
+	newLabel->setStyleSheet(tr("color: %1").arg(gtColor->name()));
 
 	newLabel->setGeometry(x, y, width, height);
 	newLabel->show();
 
 #ifdef QT_DEBUG
-	Q_ASSERT(x + width < INT_MAX);
+	Q_ASSERT(x < std::numeric_limits<int>::max() - width);
 #endif // QT_DEBUG
 
 	x += width;
@@ -76,11 +95,16 @@ void GtSubWindow::printImpl(QString& input)
 	{
 		ui.scrollAreaWidgetContents->setFixedWidth(x);
 	}
+
+	if (y > ui.scrollArea->height())
+	{
+		y += height;
+		ui.scrollAreaWidgetContents->setFixedHeight(y);
+	}
 }
 
-void GtSubWindow::printlnImpl(QString& input)
+void GtSubWindow::setNewLine()
 {
-	printImpl(input);
 	x = 0;
 	y += gtFontMetrics->height();
 	if (y > ui.scrollArea->height())
@@ -96,8 +120,10 @@ void GtSubWindow::getInputString()
 
 void GtSubWindow::showHelp()
 {
-	printlnImpl(Common::show_help1);
-	printlnImpl(Common::show_help2);
+	printImpl(Common::show_help1);
+	setNewLine();
+	printImpl(Common::show_help2);
+	setNewLine();
 }
 
 void GtSubWindow::showMessageDialog()
@@ -119,9 +145,9 @@ void GtSubWindow::showWarningDialog()
 void GtSubWindow::setXY()
 {
 	const auto xAndY = MyDialog::getXY();
-	if (xAndY.first == MyDialog::GetXYFlag::ERROR)
+	if (xAndY.first == MyDialog::Status::ERROR)
 	{
-		static_cast<void>(QMessageBox::critical(this, tr("Error raise"), "The error occurs when getting the XY.", QMessageBox::Ok));
+		static_cast<void>(QMessageBox::critical(this, tr("Error raise"), tr("The error occurs when getting the XY."), QMessageBox::Ok));
 		return;
 	}
 
@@ -129,20 +155,232 @@ void GtSubWindow::setXY()
 	y = xAndY.second;
 }
 
-inline QString GtSubWindow::getInputStringImpl()
+void GtSubWindow::setFontNameStyleSize()
 {
-	QString userInput(std::move(QInputDialog::getText(this, tr("GTerm Input Dialog"), tr("Please enter a String"))));
+	bool ok;
+	auto newFont = QFontDialog::getFont(&ok, *gtFont, this, tr("GTrem Font Chooser"));
+	if (ok)
+	{
+		*gtFont = newFont;
+		*gtFontMetrics = QFontMetrics(*gtFont);
+	}
+}
+
+void GtSubWindow::setFontColorRGB()
+{
+	auto colorTuple = MyDialog::getRGB();
+	if (std::get<MyDialog::ColorPos::R>(colorTuple) == MyDialog::Status::ERROR)
+	{
+		static_cast<void>(QMessageBox::critical(this, tr("Error raise"), tr("The error occurs when getting the RGB."), QMessageBox::Ok));
+		return;
+	}
+
+	gtColor->setRgb(
+		std::get<MyDialog::ColorPos::R>(colorTuple), std::get<MyDialog::ColorPos::G>(colorTuple), std::get<MyDialog::ColorPos::B>(colorTuple));
+}
+
+void GtSubWindow::setFontColorColorChooser()
+{
+	auto color = QColorDialog::getColor(Qt::white, this, tr("GTerm Color Chooser"));
+	if (color.isValid())
+	{
+		*gtColor = std::move(color);
+	}
+}
+
+void GtSubWindow::setFontName()
+{
+	auto newName = getInputStringImpl();
+	if (newName.isEmpty())
+	{
+		return;
+	}
+
+	gtFont->setFamily(getInputStringImpl());
+	*gtFontMetrics = QFontMetrics(*gtFont);
+}
+
+void GtSubWindow::setFontSize()
+{
+	const auto pointSizeList = QFontDatabase::pointSizes(gtFont->family(), gtFont->styleName());
+	if (pointSizeList.isEmpty())
+	{
+		static_cast<void>(QMessageBox::critical(this, tr("Error raise"), tr("Size is empty."), QMessageBox::Ok));
+		return;
+	}
+
+	bool ok;
+	const auto newSize = QInputDialog::getInt(
+		this, tr("GTerm Font Size Chooser"), tr("Please enter a font size"), 0, gtFont->pointSize(), pointSizeList.last(), 1, &ok);
+	if (ok)
+	{
+		gtFont->setPointSize(newSize);
+		*gtFontMetrics = QFontMetrics(*gtFont);
+	}
+}
+
+void GtSubWindow::setFontStyle()
+{
+	
+
+
+
+}
+
+void GtSubWindow::setTabSize()
+{
+	bool ok;
+	const auto newTabSize = static_cast<QString::size_type>(
+		QInputDialog::getInt(this, tr("Set Tab Size"), tr("Please enter a new tab size"), 1, 1, 50, 1, &ok));
+
+	if (ok)
+	{
+		gtTab = QString(newTabSize, GTSPE::space);
+	}
+}
+
+void GtSubWindow::setFilePath()
+{	
+	const auto filePath = QFileDialog::getOpenFileName(
+		this, QString(), QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+
+	if (filePath.isEmpty())
+	{
+		return;
+	}
+
+	static_cast<void>(QMessageBox::information(this, tr("File Path"), filePath, QMessageBox::StandardButton::Ok));
+}
+
+void GtSubWindow::setBackgroundColorColorChooser()
+{
+	auto color = QColorDialog::getColor(Qt::white, this, tr("GTerm Color Chooser"));
+	if (color.isValid())
+	{
+		ui.subCentralwidget->setStyleSheet(tr("background-color: %1").arg(color.name()));
+	}
+}
+
+void GtSubWindow::setBackgroundColorRGB()
+{
+	auto colorTuple = MyDialog::getRGB();
+	if (std::get<MyDialog::ColorPos::R>(colorTuple) == MyDialog::Status::ERROR)
+	{
+		static_cast<void>(QMessageBox::critical(this, tr("Error raise"), tr("The error occurs when getting the RGB."), QMessageBox::Ok));
+		return;
+	}
+
+	ui.subCentralwidget->setStyleSheet(tr("background-color: %1").arg(
+		QColor(std::get<MyDialog::ColorPos::R>(colorTuple), 
+			std::get<MyDialog::ColorPos::G>(colorTuple), 
+			std::get<MyDialog::ColorPos::B>(colorTuple)).name()));
+}
+
+void GtSubWindow::getFilePath()
+{
+	const auto filePath = QFileDialog::getSaveFileName(
+		this, QString(), QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+
+	if (filePath.isEmpty())
+	{
+		return;
+	}
+
+	static_cast<void>(QMessageBox::information(this, tr("File Path"), filePath, QMessageBox::StandardButton::Ok));
+}
+
+/*
+void GtSubWindow::addImageIcon​​()
+{
+
+}
+*/
+
+void GtSubWindow::getPasswordFromDialog()
+{
+	bool ok;
+	auto userInput = QInputDialog::getText(
+		this, tr("GTerm Password Dialog"), tr("Please enter a Password"), QLineEdit::Password, QString(), &ok);
+
+	if (!ok)
+	{
+		return;
+	}
+
 	if (userInput.isEmpty())
 	{
-		return QString("null");
+		userInput = "null";
+	}
+
+	static_cast<void>(QMessageBox::information(this, tr("You enter password"), userInput, QMessageBox::Ok));
+}
+
+void GtSubWindow::addTextArea()
+{
+
+}
+
+void GtSubWindow::clear()
+{
+	ui.subCentralwidget->deleteLater();
+	ui.setupUi(this);
+	x = 0;
+	y = 0;
+}
+
+inline QString GtSubWindow::getInputStringImpl()
+{
+	bool ok = false;
+	QString userInput = QInputDialog::getText(
+		this, tr("GTerm Input Dialog"), tr("Please enter a String"), QLineEdit::Normal, QString(), &ok);
+
+	if (!ok)
+	{
+		return QString();
+	}
+
+	if (userInput.isEmpty())
+	{
+		return tr("null");
 	}
 
 	return userInput;
 }
 
-bool GtSubWindow::isAddingOverFlow(int a, int b, int first, int second)
+inline bool GtSubWindow::isAddingOverFlow(int a, int b, int first, int second) noexcept
 {
 	return (a > 0 && a > std::numeric_limits<int>::max() - first) || (b > 0 && b > std::numeric_limits<int>::max() - second);
+}
+
+void GtSubWindow::initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMode acceptMode)
+{
+	static bool firstDialog = true;
+
+	if (firstDialog) 
+	{
+		firstDialog = false;
+		const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+		dialog.setDirectory(picturesLocations.isEmpty() ? QDir::home() : picturesLocations.last());
+	}
+
+	QStringList mimeTypeFilters;
+	const QByteArrayList supportedMimeTypes = acceptMode == QFileDialog::AcceptOpen
+		? QImageReader::supportedMimeTypes() : QImageWriter::supportedMimeTypes();
+
+	for (const QByteArray& mimeTypeName : supportedMimeTypes)
+	{
+		mimeTypeFilters.append(mimeTypeName);
+	}
+
+	mimeTypeFilters.sort();
+	dialog.setMimeTypeFilters(mimeTypeFilters);
+	dialog.selectMimeTypeFilter("image/jpeg");
+	dialog.setAcceptMode(acceptMode);
+
+	if (acceptMode == QFileDialog::AcceptSave)
+	{
+		dialog.setDefaultSuffix("jpg");
+	}
 }
 
 /*
@@ -161,7 +399,7 @@ inline std::tuple<QString::size_type, QString::size_type, QString> GtSubWindow::
 				if (string[i + 1] == GTSPE::t)
 				{
 					++numberOfSlashT;
-					reString += GTSPE::tab;
+					reString += gtTab;
 					++i;
 				}
 				else if (string[i + 1] == GTSPE::n)

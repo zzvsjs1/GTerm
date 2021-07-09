@@ -83,7 +83,8 @@ Please note that you must not use this for A1 because it requires the creation o
 
 Class MyClass : public QWidget
 {
-  Q_OBJECT;
+  Q_OBJECT
+
 public:
   MyClass(QWidget* parent = Q_NULLPTR);
   ~MyClass() override;
@@ -146,6 +147,8 @@ Version History:
 2021.04.26: Support addImageIcon feature.
 
 2021.07.07: Add MVC design, replace all the functions and increase performance. Qt version update from 6.03 to 6.12.
+
+2021.07.08: Improved performance and implementation of setXY function.
 
 ### Author:
 Gayan Wijesinghe

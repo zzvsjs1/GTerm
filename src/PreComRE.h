@@ -6,19 +6,19 @@
 
 namespace GTRE
 {
-	const QRegularExpression findSlasht(QString("\\\\t"));
-	const QRegularExpression findSlashn(QString("\\\\n"));
+	static const QRegularExpression findSlasht(QString("\\\\t"));
+	static const QRegularExpression findSlashn(QString("\\\\n"));
 }
 
 namespace GTSPE
 {
-	const QString tab("    ");
-	const QChar dslasht('\\t');
-	const QChar newline(u'\n');
-	const QChar dslashn('\\n');
-	const QChar slash(u'\\');
-	const QChar n(u'n');
-	const QChar t(u't');
+	static const QChar dslasht('\\t');
+	static const QChar newline(u'\n');
+	static const QChar dslashn('\\n');
+	static const QChar slash(u'\\');
+	static const QChar n(u'n');
+	static const QChar t(u't');
+	static const QChar space(u' ');
 }
 
 #endif // !MYRE

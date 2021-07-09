@@ -86,7 +86,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>newGTerm</string>
+        <string>newGTerm(900, 600)</string>
        </property>
       </widget>
      </item>
@@ -102,7 +102,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>getInputString</string>
+        <string>getInputString()</string>
        </property>
       </widget>
      </item>
@@ -118,7 +118,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>showHelp</string>
+        <string>showHelp()</string>
        </property>
       </widget>
      </item>
@@ -134,7 +134,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>showMessageDialog</string>
+        <string>showMessageDialog()</string>
        </property>
       </widget>
      </item>
@@ -150,7 +150,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>showErrorDialog</string>
+        <string>showErrorDialog()</string>
        </property>
       </widget>
      </item>
@@ -242,7 +242,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>setFont​</string>
+        <string>setFont​()</string>
        </property>
       </widget>
      </item>
@@ -259,7 +259,7 @@
     </property>
     <layout class="QHBoxLayout" name="row3">
      <item>
-      <widget class="QPushButton" name="setFonRGB">
+      <widget class="QPushButton" name="setFontColorRGB">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -551,7 +551,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>getSelectedRowFromTable</string>
+        <string>getSelectedRowFromTable()</string>
        </property>
       </widget>
      </item>
@@ -583,7 +583,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>addTextArea</string>
+        <string>addTextArea()</string>
        </property>
       </widget>
      </item>
@@ -637,9 +637,18 @@
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionAboutQt"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuGTermTools">
+    <property name="title">
+     <string>GTerm Tools</string>
+    </property>
+    <addaction name="actionGTermTimer"/>
+    <addaction name="actionGTermInformation"/>
+   </widget>
    <addaction name="menuSystem"/>
+   <addaction name="menuGTermTools"/>
   </widget>
   <action name="actionAbout">
    <property name="text">
@@ -654,6 +663,16 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionGTermTimer">
+   <property name="text">
+    <string>GTerm Timer</string>
+   </property>
+  </action>
+  <action name="actionGTermInformation">
+   <property name="text">
+    <string>GTerm Information</string>
    </property>
   </action>
  </widget>

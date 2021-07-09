@@ -103,6 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\Qt6Widgets.lib;$(QTDIR)\lib\Qt6Gui.lib;$(QTDIR)\lib\Qt6Core.lib;$(QTDIR)\lib\Qt6EntryPoint.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -118,6 +119,7 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AssemblyLinkResource>D:\gihub\GTerm\src\resources\logo\gw.png;%(AssemblyLinkResource)</AssemblyLinkResource>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -157,6 +159,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\Qt6Widgetsd.lib;$(QTDIR)\lib\Qt6Guid.lib;$(QTDIR)\lib\Qt6Cored.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -228,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GTImageView.h" />
+    <QtMoc Include="GTRGBChooser.h" />
     <ClInclude Include="MyDialog.h" />
     <ClInclude Include="PreComRE.h" />
     <QtMoc Include="SetXYDialog.h" />
@@ -242,6 +246,7 @@
     <QtRcc Include="gtResource.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="GTRGBChooser.ui" />
     <QtUic Include="SetXYDialog.ui" />
     <QtUic Include="GTMainWindow.ui" />
     <QtUic Include="GTsubWindow.ui" />

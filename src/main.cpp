@@ -1,5 +1,5 @@
 #include <QApplication>
-#include <QRegularExpression>
+#include <QFontDatabase>
 
 #include "GTMainWindow.h"
 
@@ -7,12 +7,19 @@ int main(int argc, char *argv[])
 {
     QApplication GTerm(argc, argv);
 
-#ifdef _WIN32
-    GTerm.setFont(QFont(QString("Segoe UI"), 12));
+    auto id = QFontDatabase::addApplicationFont(":/fonts/resources/fonts/segoeui.ttf");
+    if (id == -1)
+    {
+#ifdef WIN32
+        GTerm.setFont(QFont(QString("Segoe UI"), 12));
 #elif __APPLE__
-    GTerm.setFont(QFont(QString("Helvetica"), 12));
+        GTerm.setFont(QFont(QString("SF Pro"), 12));
 #endif
-
+    }
+    else
+    {
+        GTerm.setFont(QFont(QFontDatabase::applicationFontFamilies(id).at(0), 12));
+    }
 
     QCoreApplication::setApplicationName(QString("GTerm"));
     QCoreApplication::setOrganizationName(QString("RMIT University"));
