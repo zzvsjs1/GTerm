@@ -3,11 +3,11 @@
   <Class Name="GtMain">
     <Position X="1.25" Y="1" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAACAAEABACAAAAAAAAAAAAAAAgAAAAAAIAEA=</HashCode>
+      <HashCode>AAAAgAAAACAAEABACAAAAAAAAAABAAAAgAAAAAAIAEA=</HashCode>
       <FileName>GTMainWindow.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="GtImageViewer">
+  <Class Name="QT_NAMESPACE::GtImageViewer">
     <Position X="8" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QIAkAACACQAWAAAAASkBBAAAEIAEAAIAIAAEAAAwAAY=</HashCode>
@@ -17,7 +17,7 @@
   <Class Name="GtSubWindow">
     <Position X="4.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQBIAAMAAAAEAAAAYAAAAAAACAAAAAAAABgEQEgAAA=</HashCode>
+      <HashCode>FEQBAIAMAAAAMIAwBYiBAAAARCAAAAAAACBhOQEgAAA=</HashCode>
       <FileName>GTSubWindow.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -34,15 +34,34 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="MyDialog::GetXYFlag" Collapsed="true">
+      <Enum Name="MyDialog::Status" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyDialog.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="MyDialog::ColorPos" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>MyDialog.h</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MyDialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTAboutDialog">
+    <Position X="12" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GTAboutDialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GTRGBChooser">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GTRGBChooser.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
