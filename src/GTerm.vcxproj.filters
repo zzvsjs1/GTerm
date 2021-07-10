@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\logo\logo.png" />
+    <Image Include="resources\logo\java.ico" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="gtResource.qrc" />
@@ -128,5 +129,13 @@
     <QtUic Include="GTRGBChooser.ui">
       <Filter>Froms</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GTerm_resource.res">
+      <Filter>Generated Files</Filter>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GTerm_resource.rc" />
   </ItemGroup>
 </Project>

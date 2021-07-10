@@ -240,6 +240,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\logo\java.ico" />
     <Image Include="resources\logo\logo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +251,12 @@
     <QtUic Include="SetXYDialog.ui" />
     <QtUic Include="GTMainWindow.ui" />
     <QtUic Include="GTsubWindow.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GTerm_resource.res" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GTerm_resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

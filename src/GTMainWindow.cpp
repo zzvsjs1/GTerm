@@ -26,7 +26,7 @@ void GtMain::resetBtnState() noexcept
     ui.setFontColorColorChooser->setEnabled(gtSubWindow);
     ui.setFontName->setEnabled(gtSubWindow);
     ui.setFontSize->setEnabled(gtSubWindow);
-    ui.setFontStyle->setEnabled(gtSubWindow);
+    //ui.setFontStyle->setEnabled(gtSubWindow);
     ui.setTabSize->setEnabled(gtSubWindow);
     ui.setFilePath->setEnabled(gtSubWindow);
     ui.setBackgroundColorColorChooser->setEnabled(gtSubWindow);
@@ -41,7 +41,7 @@ void GtMain::resetBtnState() noexcept
     ui.getSelectedRowFromTable->setEnabled(gtSubWindow);
     */
     ui.getPasswordFromDialog->setEnabled(gtSubWindow);
-    ui.addTextArea->setEnabled(gtSubWindow);
+    //ui.addTextArea->setEnabled(gtSubWindow);
     ui.clear->setEnabled(gtSubWindow);
     ui.close->setEnabled(gtSubWindow);
 }
@@ -62,7 +62,7 @@ void GtMain::connectSignalToSubWin()
     connect(ui.setFontColorColorChooser, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontColorColorChooser);
     connect(ui.setFontName, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontName);
     connect(ui.setFontSize, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontSize);
-    connect(ui.setFontStyle, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontStyle);
+    //connect(ui.setFontStyle, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontStyle);
     connect(ui.setTabSize, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setTabSize);
     connect(ui.setFilePath, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFilePath);
     connect(ui.setBackgroundColorColorChooser, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setBackgroundColorColorChooser);
@@ -72,7 +72,7 @@ void GtMain::connectSignalToSubWin()
 
     */
     connect(ui.getPasswordFromDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getPasswordFromDialog);
-    connect(ui.addTextArea, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addTextArea);
+    //connect(ui.addTextArea, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addTextArea);
     connect(ui.clear, &QPushButton::clicked, gtSubWindow, &GtSubWindow::clear);
     connect(ui.close, &QPushButton::clicked, gtSubWindow, &GtSubWindow::deleteLater);
 }
@@ -85,7 +85,7 @@ void GtMain::menuSystemAboutAction()
 
 void GtMain::menuSystemAboutQtAction()
 {
-    QMessageBox::aboutQt(this, tr("GTerm Qt Information"));
+    QMessageBox::aboutQt(this, QStringLiteral("GTerm Qt Information"));
 }
 
 void GtMain::newGTermBtn()
