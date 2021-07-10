@@ -20,7 +20,7 @@ public:
 
 	~SetXYDialog() override = default;
 
-	QPair<int, int> getXY()
+	QPair<int, int> getXY() const
 	{
 		return { ui.X->value() , ui.Y->value() };
 	}

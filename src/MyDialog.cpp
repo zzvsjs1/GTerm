@@ -9,12 +9,12 @@ QPair<int, int> MyDialog::getXY()
 		return dialog->getXY();
 	}
 
-	if (ret == Status::ERROR)
+	if (ret == ERROR)
 	{
-		return { Status::ERROR, Status::ERROR };
+		return {ERROR, ERROR};
 	}
 
-	return { Status::CANCEL, Status::CANCEL };
+	return {CANCEL, CANCEL};
 }
 
 std::tuple<int, int, int> MyDialog::getRGB()
@@ -26,10 +26,10 @@ std::tuple<int, int, int> MyDialog::getRGB()
 		return dialog->getRGB();
 	}
 
-	if (ret == Status::ERROR)
+	if (ret == ERROR)
 	{
-		return { Status::ERROR, Status::ERROR, Status::ERROR };
+		return {ERROR, ERROR, ERROR};
 	}
 
-	return { Status::CANCEL, Status::CANCEL, Status::CANCEL };
+	return {CANCEL, CANCEL, CANCEL};
 }

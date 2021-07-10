@@ -2,20 +2,16 @@
 #ifndef GTSUB
 #define GTSUB
 
-#include <QMainWindow>
 #include <QWidget>
 #include <QFont>
 #include <QFontMetrics>
 #include <QVector>
-#include <QPalette>
 #include <QColor>
 #include <QFileDialog>
 
 //#include <tuple>
 #include <memory>
 
-#include "GTImageView.h"
-#include "GTAboutDialog.h"
 #include "ui_GTsubWindow.h"
 
 

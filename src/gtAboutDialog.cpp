@@ -7,7 +7,7 @@
 #include <QtGlobal>
 #include <QStringBuilder>
 
-#include "gtAboutDialog.h"
+#include "GTAboutDialog.h"
 
 #define STR_HELPER(x) #x
 #define NUM_TO_STR(x) STR_HELPER(x)
@@ -46,21 +46,22 @@ If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@
         tr(" MSVC ") % QStringLiteral(NUM_TO_STR(_MSC_VER))
 #endif
        , QStringLiteral(__DATE__) % QStringLiteral(" ") % QStringLiteral(__TIME__)))
-    .replace(QStringLiteral("%ABOUT_GTERM%"), QStringLiteral("GTerm allows you to create a GUI application using System.out.println-like statements."));
+    .replace(QStringLiteral("%ABOUT_GTERM%"), 
+        QStringLiteral("GTerm allows you to create a GUI application using System.out.println-like statements."));
 
-    QLabel* textLabel = new QLabel(text);
+    auto textLabel = new QLabel(text);
     textLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
     textLabel->setOpenExternalLinks(true);
 
-    QLabel* gtCopyright = new QLabel(QStringLiteral("<small>%1</small>").arg(
+    auto gtCopyright = new QLabel(QStringLiteral("<small>%1</small>").arg(
         QStringLiteral("\u00A9 2020-2021. Gayan Wijesinghe")));
 
-    QLabel* gtLogo = new QLabel();
+    auto gtLogo = new QLabel();
     gtLogo->setPixmap(QPixmap(QStringLiteral(":/gtres/resources/logo/gw.png")));
     gtLogo->setContentsMargins(30, 0, 30, 0);
 
-    QVBoxLayout* gtMainLayout = new QVBoxLayout;
-    QHBoxLayout* gtHLayout = new QHBoxLayout;
+    auto gtMainLayout = new QVBoxLayout;
+    auto gtHLayout = new QHBoxLayout;
 
     setLayout(gtMainLayout);
     gtMainLayout->addLayout(gtHLayout);

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName(QString("GTerm"));
     QCoreApplication::setOrganizationName(QString("RMIT University"));
     QCoreApplication::setApplicationVersion(QT_VERSION_STR);
-    GtMain gtMain;
+    GTMainWindow gtMain;
     gtMain.show();
     return GTerm.exec();
 }

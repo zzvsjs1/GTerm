@@ -1,16 +1,10 @@
 #include <QColorSpace>
-#include <QInputDialog>
 #include <QImageReader>
 #include <QImageWriter>
 #include <QInputDialog>
-#include <QLabel>
 #include <QMessageBox>
-#include <QPair>
-#include <QRegularExpression>
-#include <QScrollArea>
 #include <QScrollBar>
 #include <QScreen>
-#include <QStringList>
 #include <QStandardPaths>
 #include <QFontDialog>
 #include <QFontDatabase>
@@ -126,8 +120,7 @@ void GtSubWindow::showHelp()
 
 void GtSubWindow::showMessageDialog()
 {
-	const auto userInput = getInputStringImpl();
-	if (!userInput.isEmpty())
+	if (const auto userInput = getInputStringImpl(); !userInput.isEmpty())
 	{
 		QMessageBox::information(
 			this, QStringLiteral("Show Message Dialog/ Get Input String"), userInput, QMessageBox::Ok | QMessageBox::Cancel);
@@ -136,8 +129,7 @@ void GtSubWindow::showMessageDialog()
 
 void GtSubWindow::showErrorDialog()
 {
-	const auto userInput = getInputStringImpl();
-	if (!userInput.isEmpty())
+	if (const auto userInput = getInputStringImpl(); !userInput.isEmpty())
 	{
 		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), userInput, QMessageBox::Ok));
 	}
@@ -145,8 +137,7 @@ void GtSubWindow::showErrorDialog()
 
 void GtSubWindow::showWarningDialog()
 {
-	const auto userInput = getInputStringImpl();
-	if (!userInput.isEmpty())
+	if (const auto userInput = getInputStringImpl(); !userInput.isEmpty())
 	{
 		static_cast<void>(QMessageBox::warning(this, QStringLiteral("Show Warning Dialog"), userInput, QMessageBox::Ok));
 	}
@@ -154,22 +145,22 @@ void GtSubWindow::showWarningDialog()
 	
 void GtSubWindow::setXY()
 {
-	const auto xAndY = MyDialog::getXY();
-	if (xAndY.first == MyDialog::Status::ERROR)
+	const auto [fst, snd] = MyDialog::getXY();
+	if (fst == MyDialog::Status::ERROR)
 	{
 		static_cast<void>(
 			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the XY."), QMessageBox::Ok));
 		return;
 	}
 
-	x = xAndY.first;
-	y = xAndY.second;
+	x = fst;
+	y = snd;
 }
 
 void GtSubWindow::setFontNameStyleSize()
 {
 	bool ok;
-	auto newFont = QFontDialog::getFont(&ok, *gtFont, this, QStringLiteral("GTrem Font Chooser"));
+	const auto newFont = QFontDialog::getFont(&ok, *gtFont, this, QStringLiteral("GTrem Font Chooser"));
 	if (ok)
 	{
 		*gtFont = newFont;
@@ -193,16 +184,15 @@ void GtSubWindow::setFontColorRGB()
 
 void GtSubWindow::setFontColorColorChooser()
 {
-	auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser"));
-	if (color.isValid())
+	if (const auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser")); color.isValid())
 	{
-		*gtColor = std::move(color);
+		*gtColor = color;
 	}
 }
 
 void GtSubWindow::setFontName()
 {
-	auto newName = getInputStringImpl();
+	const auto newName = getInputStringImpl();
 	if (newName.isEmpty())
 	{
 		return;
@@ -364,14 +354,12 @@ inline QString GtSubWindow::getInputStringImpl()
 
 inline bool GtSubWindow::isAddingOverFlow(int a, int b, int first, int second) noexcept
 {
-	return (a > 0 && a > std::numeric_limits<int>::max() - first) || (b > 0 && b > std::numeric_limits<int>::max() - second);
+	return a > 0 && a > std::numeric_limits<int>::max() - first || b > 0 && b > std::numeric_limits<int>::max() - second;
 }
 
 void GtSubWindow::initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMode acceptMode)
 {
-	static bool firstDialog = true;
-
-	if (firstDialog) 
+	if (static bool firstDialog = true; firstDialog) 
 	{
 		firstDialog = false;
 		const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);

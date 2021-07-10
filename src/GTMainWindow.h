@@ -1,20 +1,19 @@
 #ifndef GTMAIN
 #define GTMAIN
 
-#include <QMainWindow>
 #include <QPointer>
 
-#include "gtSubWindow.h"
+#include "GTSubWindow.h"
 #include "ui_GTMainWindow.h"
 
-class GtMain final: public QMainWindow
+class GTMainWindow final: public QMainWindow
 {
     Q_OBJECT
-	Q_DISABLE_COPY_MOVE(GtMain)
+	Q_DISABLE_COPY_MOVE(GTMainWindow)
 
 public:
-    explicit GtMain(QWidget* parent = Q_NULLPTR);
-    ~GtMain() override = default;
+    explicit GTMainWindow(QWidget* parent = Q_NULLPTR);
+    ~GTMainWindow() override = default;
 
 public slots:
     void menuSystemAboutAction();
@@ -24,7 +23,7 @@ public slots:
 private:
     Ui::GTMainWindow ui;
     GtSubWindow* gtSubWindow;
-    void resetBtnState() noexcept;
+    void resetBtnState() noexcept ;
     void connectSignalToSubWin();
     void deleteGTSub() noexcept;
 };

@@ -20,7 +20,7 @@ public:
 
 	~GTRGBChooser() override = default;
 
-	std::tuple<int, int, int> getRGB()
+	std::tuple<int, int, int> getRGB() const
 	{
 		return { ui.R->value(), ui.G->value(), ui.B->value() };
 	}

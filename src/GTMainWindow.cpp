@@ -4,13 +4,13 @@
 #include "GTAboutDialog.h"
 #include "Version.h"
 
-GtMain::GtMain(QWidget* parent)
-	: QMainWindow(parent), gtSubWindow()
+GTMainWindow::GTMainWindow(QWidget* parent)
+	: QMainWindow(parent), ui(), gtSubWindow()
 {
     ui.setupUi(this);
 }
 
-void GtMain::resetBtnState() noexcept
+void GTMainWindow::resetBtnState() noexcept
 {
     ui.newGTerm->setEnabled(!gtSubWindow);
     ui.getInputString->setEnabled(gtSubWindow);
@@ -46,9 +46,9 @@ void GtMain::resetBtnState() noexcept
     ui.close->setEnabled(gtSubWindow);
 }
 
-void GtMain::connectSignalToSubWin()
+void GTMainWindow::connectSignalToSubWin()
 {
-    connect(gtSubWindow, &GtSubWindow::destroyed, this, &GtMain::deleteGTSub);
+    connect(gtSubWindow, &GtSubWindow::destroyed, this, &GTMainWindow::deleteGTSub);
     connect(ui.getInputString, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getInputString);
     connect(ui.showHelp, &QPushButton::clicked, gtSubWindow, &GtSubWindow::showHelp);
     connect(ui.print, &QPushButton::clicked, gtSubWindow, &GtSubWindow::print);
@@ -77,18 +77,18 @@ void GtMain::connectSignalToSubWin()
     connect(ui.close, &QPushButton::clicked, gtSubWindow, &GtSubWindow::deleteLater);
 }
 
-void GtMain::menuSystemAboutAction()
+void GTMainWindow::menuSystemAboutAction()
 {
     GTAboutDialog about(this);
     about.exec();
 }
 
-void GtMain::menuSystemAboutQtAction()
+void GTMainWindow::menuSystemAboutQtAction()
 {
     QMessageBox::aboutQt(this, QStringLiteral("GTerm Qt Information"));
 }
 
-void GtMain::newGTermBtn()
+void GTMainWindow::newGTermBtn()
 {
     gtSubWindow = new GtSubWindow(this);
     gtSubWindow->setAttribute(Qt::WidgetAttribute::WA_DeleteOnClose);
@@ -97,7 +97,7 @@ void GtMain::newGTermBtn()
     gtSubWindow->show();
 }
 
-void GtMain::deleteGTSub() noexcept
+void GTMainWindow::deleteGTSub() noexcept
 {
     gtSubWindow = Q_NULLPTR;
     resetBtnState();
