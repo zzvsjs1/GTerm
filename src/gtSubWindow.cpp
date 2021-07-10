@@ -208,7 +208,7 @@ void GtSubWindow::setFontName()
 		return;
 	}
 
-	gtFont->setFamily(getInputStringImpl());
+	gtFont->setFamily(newName);
 	*gtFontMetrics = QFontMetrics(*gtFont);
 }
 
