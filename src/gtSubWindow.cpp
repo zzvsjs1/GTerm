@@ -18,7 +18,7 @@
 #include "MyDialog.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent)
-	: QMainWindow(parent), ui(), x(), y(),
+	: QMainWindow(parent), ui(), m_x(), m_y(),
 	gtFont(new QFont(QApplication::font())),
 	gtFontMetrics(new QFontMetrics(*gtFont)),
 	gtTab(GTSPE::t), gtColor(new QColor(Qt::black))
@@ -51,8 +51,8 @@ void GtSubWindow::println()
 
 void GtSubWindow::printImpl(QString& input)
 {
-	if (x + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(x)>::max)()) ||
-				y + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(y)>::max)()))
+	if (m_x + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(m_x)>::max)()) ||
+				m_y + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(m_y)>::max)()))
 	{
 		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), QStringLiteral("Overflow"), QMessageBox::Ok));
 		return;
@@ -62,9 +62,9 @@ void GtSubWindow::printImpl(QString& input)
 
 	const auto height = gtFontMetrics->height();
 	const auto width = gtFontMetrics->horizontalAdvance(input);
-	if (y > ui.scrollArea->height())
+	if (m_y > ui.scrollArea->height())
 	{
-		const auto newHeight = y + height;
+		const auto newHeight = m_y + height;
 		ui.scrollAreaWidgetContents->setFixedHeight(newHeight);
 		ui.scrollArea->verticalScrollBar()->setValue(newHeight);
 	}
@@ -79,29 +79,28 @@ void GtSubWindow::printImpl(QString& input)
 
 	newLabel->setText(input);
 	newLabel->setFont(*gtFont);
-	auto a = gtColor->name();
 	newLabel->setStyleSheet(QStringLiteral("color: %1").arg(gtColor->name()));
-	newLabel->setGeometry(x, y, width, height);
+	newLabel->setGeometry(m_x, m_y, width, height);
 	newLabel->show();
 
 #ifdef QT_DEBUG
-	Q_ASSERT(x < std::numeric_limits<int>::max() - width);
+	Q_ASSERT(m_x < (std::numeric_limits<int>::max)() - width);
 #endif // QT_DEBUG
 
-	x += width;
-	if (x > ui.scrollArea->width())
+	m_x += width;
+	if (m_x > ui.scrollArea->width())
 	{
-		ui.scrollAreaWidgetContents->setFixedWidth(x);
+		ui.scrollAreaWidgetContents->setFixedWidth(m_x);
 	}
 }
 
 void GtSubWindow::setNewLine()
 {
-	x = 0;
-	y += gtFontMetrics->height();
-	if (y > ui.scrollArea->height())
+	m_x = 0;
+	m_y += gtFontMetrics->height();
+	if (m_y > ui.scrollArea->height())
 	{
-		ui.scrollAreaWidgetContents->setFixedHeight(y);
+		ui.scrollAreaWidgetContents->setFixedHeight(m_y);
 	}
 }
 
@@ -145,16 +144,16 @@ void GtSubWindow::showWarningDialog()
 	
 void GtSubWindow::setXY()
 {
-	const auto [fst, snd] = MyDialog::getXY();
-	if (fst == MyDialog::Status::ERROR)
+	const auto [x, y] = MyDialog::getXY();
+	if (x == MyDialog::Status::ERROR)
 	{
 		static_cast<void>(
 			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the XY."), QMessageBox::Ok));
 		return;
 	}
 
-	x = fst;
-	y = snd;
+	m_x = x;
+	m_y = y;
 }
 
 void GtSubWindow::setFontNameStyleSize()
@@ -170,16 +169,15 @@ void GtSubWindow::setFontNameStyleSize()
 
 void GtSubWindow::setFontColorRGB()
 {
-	auto colorTuple = MyDialog::getRGB();
-	if (std::get<MyDialog::ColorPos::R>(colorTuple) == MyDialog::Status::ERROR)
+	const auto [r, g, b] = MyDialog::getRGB();
+	if (r == MyDialog::Status::ERROR)
 	{
 		static_cast<void>(
 			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the RGB."), QMessageBox::Ok));
 		return;
 	}
 
-	gtColor->setRgb(
-		std::get<MyDialog::ColorPos::R>(colorTuple), std::get<MyDialog::ColorPos::G>(colorTuple), std::get<MyDialog::ColorPos::B>(colorTuple));
+	gtColor->setRgb(r, g, b);
 }
 
 void GtSubWindow::setFontColorColorChooser()
@@ -213,8 +211,8 @@ void GtSubWindow::setFontSize()
 
 	bool ok;
 	const auto newSize = QInputDialog::getInt(
-		this, QStringLiteral("GTerm Font Size Chooser"), 
-		QStringLiteral("Please enter a font size"), 0, gtFont->pointSize(), pointSizeList.last(), 1, &ok);
+				this, QStringLiteral("GTerm Font Size Chooser"), QStringLiteral("Please enter a font size"), 
+		0, gtFont->pointSize(), pointSizeList.last(), 1, &ok);
 
 	if (ok)
 	{
@@ -258,7 +256,7 @@ void GtSubWindow::setFilePath()
 
 void GtSubWindow::setBackgroundColorColorChooser()
 {
-	auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser"));
+	const auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser"));
 	if (color.isValid())
 	{
 		ui.subCentralwidget->setStyleSheet(QStringLiteral("background-color: %1").arg(color.name()));
@@ -267,18 +265,15 @@ void GtSubWindow::setBackgroundColorColorChooser()
 
 void GtSubWindow::setBackgroundColorRGB()
 {
-	auto colorTuple = MyDialog::getRGB();
-	if (std::get<MyDialog::ColorPos::R>(colorTuple) == MyDialog::Status::ERROR)
+	const auto [r, g, b] = MyDialog::getRGB();
+	if (r == MyDialog::Status::ERROR)
 	{
 		static_cast<void>(
 			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the RGB."), QMessageBox::Ok));
 		return;
 	}
 
-	ui.subCentralwidget->setStyleSheet(QStringLiteral("background-color: %1").arg(
-		QColor(std::get<MyDialog::ColorPos::R>(colorTuple), 
-			std::get<MyDialog::ColorPos::G>(colorTuple), 
-			std::get<MyDialog::ColorPos::B>(colorTuple)).name()));
+	ui.subCentralwidget->setStyleSheet(QStringLiteral("background-color: %1").arg(QColor(r, g, b).name()));
 }
 
 void GtSubWindow::getFilePath()
@@ -329,8 +324,8 @@ void GtSubWindow::clear()
 {
 	ui.subCentralwidget->deleteLater();
 	ui.setupUi(this);
-	x = 0;
-	y = 0;
+	m_x = 0;
+	m_y = 0;
 }
 
 inline QString GtSubWindow::getInputStringImpl()
