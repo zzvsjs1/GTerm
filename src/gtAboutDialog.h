@@ -1,6 +1,7 @@
 #pragma once
-#ifndef GTABOUTDIALOG
-#define GTABOUTDIALOG
+#ifndef GT_ABOUTDIALOG
+#define GT_ABOUTDIALOG
+
 #include <QDialog>
 
 class GTAboutDialog final : public QDialog
@@ -9,7 +10,9 @@ class GTAboutDialog final : public QDialog
 	Q_DISABLE_COPY_MOVE(GTAboutDialog)
 
 public:
+
 	explicit GTAboutDialog(QWidget* parent = Q_NULLPTR);
+
 };
 
-#endif // GTABOUTDIALOG
+#endif // GT_ABOUTDIALOG

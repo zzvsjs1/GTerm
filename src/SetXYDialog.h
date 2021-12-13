@@ -13,19 +13,23 @@ class SetXYDialog final : public QDialog
 	Q_OBJECT
 
 public:
-	explicit SetXYDialog(QWidget* parent = Q_NULLPTR) : QDialog(parent), ui()
+
+	explicit SetXYDialog(QWidget* parent = Q_NULLPTR)
+		: QDialog(parent), ui()
 	{
 		ui.setupUi(this);
 	}
 
 	~SetXYDialog() override = default;
 
-	QPair<int, int> getXY() const
+	[[nodiscard]] QPair<int, int> getXY() const
 	{
 		return { ui.X->value() , ui.Y->value() };
 	}
 
 private:
+
 	Ui::SetXYDialog ui;
 };
+
 #endif // !SETXYDIALOG

@@ -10,18 +10,20 @@
 #include <QFontDatabase>
 #include <QColorDialog>
 
-#include <tuple>
-
 #include "GTSubWindow.h"
 #include "PreComRE.h"
 #include "Version.h"
 #include "MyDialog.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent)
-	: QMainWindow(parent), ui(), m_x(), m_y(),
-	gtFont(new QFont(QApplication::font())),
-	gtFontMetrics(new QFontMetrics(*gtFont)),
-	gtTab(GTSPE::t), gtColor(new QColor(Qt::black))
+	: QMainWindow(parent),
+	ui(),
+	mX(),
+	mY(),
+	gtFont(QApplication::font()),
+	gtFontMetrics(gtFont),
+	gtTab(GTSPE::t),
+	gtColor(Qt::black)
 {
 	ui.setupUi(this);
 }
@@ -51,8 +53,8 @@ void GtSubWindow::println()
 
 void GtSubWindow::printImpl(QString& input)
 {
-	if (m_x + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(m_x)>::max)()) ||
-				m_y + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(m_y)>::max)()))
+	if (mX + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(mX)>::max)()) ||
+				mY + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(mY)>::max)()))
 	{
 		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), QStringLiteral("Overflow"), QMessageBox::Ok));
 		return;
@@ -60,11 +62,11 @@ void GtSubWindow::printImpl(QString& input)
 
 	input.replace(GTRE::findSlasht, gtTab);
 
-	const auto height = gtFontMetrics->height();
-	const auto width = gtFontMetrics->horizontalAdvance(input);
-	if (m_y > ui.scrollArea->height())
+	const auto height = gtFontMetrics.height();
+	const auto width = gtFontMetrics.horizontalAdvance(input);
+	if (mY > ui.scrollArea->height())
 	{
-		const auto newHeight = m_y + height;
+		const auto newHeight = mY + height;
 		ui.scrollAreaWidgetContents->setFixedHeight(newHeight);
 		ui.scrollArea->verticalScrollBar()->setValue(newHeight);
 	}
@@ -73,34 +75,35 @@ void GtSubWindow::printImpl(QString& input)
 	newLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	if (!newLabel)
 	{
-		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), QStringLiteral("No enough memory space"), QMessageBox::Ok));
+		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), 
+			QStringLiteral("No enough memory space"), QMessageBox::Ok));
 		QApplication::exit(1);
 	}
 
 	newLabel->setText(input);
-	newLabel->setFont(*gtFont);
-	newLabel->setStyleSheet(QStringLiteral("color: %1").arg(gtColor->name()));
-	newLabel->setGeometry(m_x, m_y, width, height);
+	newLabel->setFont(gtFont);
+	newLabel->setStyleSheet(QStringLiteral("color: %1").arg(gtColor.name()));
+	newLabel->setGeometry(mX, mY, width, height);
 	newLabel->show();
 
 #ifdef QT_DEBUG
-	Q_ASSERT(m_x < (std::numeric_limits<int>::max)() - width);
+	Q_ASSERT(mX < (std::numeric_limits<int>::max)() - width);
 #endif // QT_DEBUG
 
-	m_x += width;
-	if (m_x > ui.scrollArea->width())
+	mX += width;
+	if (mX > ui.scrollArea->width())
 	{
-		ui.scrollAreaWidgetContents->setFixedWidth(m_x);
+		ui.scrollAreaWidgetContents->setFixedWidth(mX);
 	}
 }
 
 void GtSubWindow::setNewLine()
 {
-	m_x = 0;
-	m_y += gtFontMetrics->height();
-	if (m_y > ui.scrollArea->height())
+	mX = 0;
+	mY += gtFontMetrics.height();
+	if (mY > ui.scrollArea->height())
 	{
-		ui.scrollAreaWidgetContents->setFixedHeight(m_y);
+		ui.scrollAreaWidgetContents->setFixedHeight(mY);
 	}
 }
 
@@ -152,18 +155,18 @@ void GtSubWindow::setXY()
 		return;
 	}
 
-	m_x = x;
-	m_y = y;
+	mX = x;
+	mY = y;
 }
 
 void GtSubWindow::setFontNameStyleSize()
 {
 	bool ok;
-	const auto newFont = QFontDialog::getFont(&ok, *gtFont, this, QStringLiteral("GTrem Font Chooser"));
+	const auto newFont = QFontDialog::getFont(&ok, gtFont, this, QStringLiteral("GTrem Font Chooser"));
 	if (ok)
 	{
-		*gtFont = newFont;
-		*gtFontMetrics = QFontMetrics(*gtFont);
+		gtFont = newFont;
+		gtFontMetrics = QFontMetrics(gtFont);
 	}
 }
 
@@ -177,14 +180,14 @@ void GtSubWindow::setFontColorRGB()
 		return;
 	}
 
-	gtColor->setRgb(r, g, b);
+	gtColor.setRgb(r, g, b);
 }
 
 void GtSubWindow::setFontColorColorChooser()
 {
 	if (const auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser")); color.isValid())
 	{
-		*gtColor = color;
+		gtColor = color;
 	}
 }
 
@@ -196,13 +199,13 @@ void GtSubWindow::setFontName()
 		return;
 	}
 
-	gtFont->setFamily(newName);
-	*gtFontMetrics = QFontMetrics(*gtFont);
+	gtFont.setFamily(newName);
+	gtFontMetrics = QFontMetrics(gtFont);
 }
 
 void GtSubWindow::setFontSize()
 {
-	const auto pointSizeList = QFontDatabase::pointSizes(gtFont->family(), gtFont->styleName());
+	const auto pointSizeList = QFontDatabase::pointSizes(gtFont.family(), gtFont.styleName());
 	if (pointSizeList.isEmpty())
 	{
 		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("Size is empty."), QMessageBox::Ok));
@@ -212,12 +215,12 @@ void GtSubWindow::setFontSize()
 	bool ok;
 	const auto newSize = QInputDialog::getInt(
 				this, QStringLiteral("GTerm Font Size Chooser"), QStringLiteral("Please enter a font size"), 
-		0, gtFont->pointSize(), pointSizeList.last(), 1, &ok);
+		0, gtFont.pointSize(), pointSizeList.last(), 1, &ok);
 
 	if (ok)
 	{
-		gtFont->setPointSize(newSize);
-		*gtFontMetrics = QFontMetrics(*gtFont);
+		gtFont.setPointSize(newSize);
+		gtFontMetrics = QFontMetrics(gtFont);
 	}
 }
 
@@ -324,8 +327,8 @@ void GtSubWindow::clear()
 {
 	ui.subCentralwidget->deleteLater();
 	ui.setupUi(this);
-	m_x = 0;
-	m_y = 0;
+	mX = 0;
+	mY = 0;
 }
 
 inline QString GtSubWindow::getInputStringImpl()

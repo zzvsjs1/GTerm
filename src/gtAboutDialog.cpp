@@ -47,21 +47,23 @@ If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@
 #endif
        , QStringLiteral(__DATE__) % QStringLiteral(" ") % QStringLiteral(__TIME__)))
     .replace(QStringLiteral("%ABOUT_GTERM%"), 
-        QStringLiteral("GTerm allows you to create a GUI application using System.out.println-like statements."));
+        QStringLiteral("GTerm allows you to create a GUI application using ::std::cout-like statements."));
 
-    auto textLabel = new QLabel(text);
+    // TODO: Memory leak.
+
+    const auto textLabel = new QLabel(text);
     textLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
     textLabel->setOpenExternalLinks(true);
 
-    auto gtCopyright = new QLabel(QStringLiteral("<small>%1</small>").arg(
-        QStringLiteral("\u00A9 2020-2021. Gayan Wijesinghe")));
+    const auto gtCopyright = new QLabel(QStringLiteral("<small>%1</small>").arg(
+        QStringLiteral("\u00A9 2021-2022. Gayan Wijesinghe")));
 
-    auto gtLogo = new QLabel();
+    const auto gtLogo = new QLabel();
     gtLogo->setPixmap(QPixmap(QStringLiteral(":/gtres/resources/logo/gw.png")));
     gtLogo->setContentsMargins(30, 0, 30, 0);
 
-    auto gtMainLayout = new QVBoxLayout;
-    auto gtHLayout = new QHBoxLayout;
+    const auto gtMainLayout = new QVBoxLayout;
+    const auto gtHLayout = new QHBoxLayout;
 
     setLayout(gtMainLayout);
     gtMainLayout->addLayout(gtHLayout);

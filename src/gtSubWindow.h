@@ -9,11 +9,10 @@
 #include <QColor>
 #include <QFileDialog>
 
-//#include <tuple>
+#include <tuple>
 #include <memory>
 
 #include "ui_GTsubWindow.h"
-
 
 class GtSubWindow final : public QMainWindow
 {
@@ -33,6 +32,7 @@ private:
 	void setNewLine();
 
 public slots:
+	
 	void getInputString();
 	void showHelp();
 	void showMessageDialog();
@@ -65,13 +65,15 @@ public slots:
 	void clear();
 
 private:
+
 	Ui::GTSubWindow ui;
-	int m_x;
-	int m_y;
-	std::unique_ptr<QFont> gtFont;
-	std::unique_ptr<QFontMetrics> gtFontMetrics;
+	int mX;
+	int mY;
+	QFont gtFont;
+	QFontMetrics gtFontMetrics;
 	QString gtTab;
-	std::unique_ptr<QColor> gtColor;
+	QColor gtColor;
+
 	inline QString getInputStringImpl();
 	inline static bool isAddingOverFlow(int a, int b, int first, int second) noexcept;
 	static void initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMode acceptMode);

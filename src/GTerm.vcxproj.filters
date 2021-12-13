@@ -58,6 +58,9 @@
     <ClCompile Include="MyDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PtrGuard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GTMainWindow.h">
@@ -108,10 +111,6 @@
     <ClInclude Include="MyDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="resources\logo\logo.png" />
-    <Image Include="resources\logo\java.ico" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="gtResource.qrc" />
