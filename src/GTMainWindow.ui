@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>GTMainWindow</class>
  <widget class="QMainWindow" name="GTMainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +14,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -25,7 +28,7 @@
   <property name="maximumSize">
    <size>
     <width>1280</width>
-    <height>742</height>
+    <height>748</height>
    </size>
   </property>
   <property name="font">

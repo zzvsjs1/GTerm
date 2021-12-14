@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
     <width>900</width>
@@ -18,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>900</width>
-    <height>600</height>
+    <width>2560</width>
+    <height>1440</height>
    </size>
   </property>
   <property name="font">
@@ -91,6 +97,12 @@
        <width>898</width>
        <height>598</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </widget>

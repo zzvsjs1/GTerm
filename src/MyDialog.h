@@ -5,29 +5,35 @@
 #include <QPair>
 #include <tuple>
 
+#include <optional>
+
 #include "SetXYDialog.h"
 #include "GTRGBChooser.h"
 
 class MyDialog
 {
-public:
-	static QPair<int, int> getXY();
-	
-	static std::tuple<int, int, int> getRGB();
+private:
 
-	enum Status
+	MyDialog() noexcept { };
+
+public:
+
+	[[nodiscard]] static ::std::optional<QPair<int, int>> getXY();
+	
+	[[nodiscard]] static ::std::optional < std::tuple<int, int, int>> getRGB();
+
+	enum class Status
 	{
-		CANCEL = -2,
+		CANCEL,
 		ERROR,
 		SUCCESS
 	};
 
-	enum ColorPos
+	enum class ColorPos
 	{
 		R,
 		G,
 		B
 	};
-
 };
 #endif // !MY_DIALOG

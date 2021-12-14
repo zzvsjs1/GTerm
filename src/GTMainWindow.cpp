@@ -32,8 +32,9 @@ void GTMainWindow::resetBtnState() noexcept
     ui.setBackgroundColorColorChooser->setEnabled(gtSubWindow);
     ui.setBackgroundColorRGB->setEnabled(gtSubWindow);
     ui.getFilePath->setEnabled(gtSubWindow);
-    /*
     ui.addImageIcon->setEnabled(gtSubWindow);
+
+    /*
     ui.addPasswordField->setEnabled(gtSubWindow);
     ui.addTable​->setEnabled(gtSubWindow);
     ui.addRowToTable->setEnabled(gtSubWindow);
@@ -68,6 +69,8 @@ void GTMainWindow::connectSignalToSubWin()
     connect(ui.setBackgroundColorColorChooser, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setBackgroundColorColorChooser);
     connect(ui.setBackgroundColorRGB, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setBackgroundColorRGB);
     connect(ui.getFilePath, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getFilePath);
+    connect(ui.addImageIcon, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addImageIcon);
+
     /*
 
     */

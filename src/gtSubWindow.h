@@ -8,9 +8,7 @@
 #include <QVector>
 #include <QColor>
 #include <QFileDialog>
-
-#include <tuple>
-#include <memory>
+#include <QResizeEvent>
 
 #include "ui_GTsubWindow.h"
 
@@ -50,8 +48,8 @@ public slots:
 	void setBackgroundColorColorChooser();
 	void setBackgroundColorRGB();
 	void getFilePath();
+	void addImageIcon();
 
-	//void addImageIcon​();
 	/*
 	void addPasswordField();
 	void addTable​();
@@ -75,10 +73,9 @@ private:
 	QColor gtColor;
 
 	inline QString getInputStringImpl();
-	inline static bool isAddingOverFlow(int a, int b, int first, int second) noexcept;
-	static void initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMode acceptMode);
+	QString getImagePath();
+	void resizeEvent(QResizeEvent* event) override;
 
-	// inline std::tuple<QString::size_type, QString::size_type, QString> calNumOfStAndSn(const QString &string);
 };
 
 #endif // GTSUB

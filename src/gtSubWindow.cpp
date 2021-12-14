@@ -1,19 +1,24 @@
+#include "GTSubWindow.h"
+
+#include <QColorDialog>
 #include <QColorSpace>
+#include <QFontDatabase>
+#include <QFontDialog>
 #include <QImageReader>
-#include <QImageWriter>
 #include <QInputDialog>
 #include <QMessageBox>
-#include <QScrollBar>
 #include <QScreen>
+#include <QScrollBar>
 #include <QStandardPaths>
-#include <QFontDialog>
-#include <QFontDatabase>
-#include <QColorDialog>
+#include <QStringList>
 
-#include "GTSubWindow.h"
+#include <tuple>
+#include <memory>
+#include <optional>
+
+#include "MyDialog.h"
 #include "PreComRE.h"
 #include "Version.h"
-#include "MyDialog.h"
 
 GtSubWindow::GtSubWindow(QWidget* parent)
 	: QMainWindow(parent),
@@ -53,13 +58,6 @@ void GtSubWindow::println()
 
 void GtSubWindow::printImpl(QString& input)
 {
-	if (mX + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(mX)>::max)()) ||
-				mY + input.size() > static_cast<QString::size_type>((std::numeric_limits<decltype(mY)>::max)()))
-	{
-		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), QStringLiteral("Overflow"), QMessageBox::Ok));
-		return;
-	}
-
 	input.replace(GTRE::findSlasht, gtTab);
 
 	const auto height = gtFontMetrics.height();
@@ -71,24 +69,13 @@ void GtSubWindow::printImpl(QString& input)
 		ui.scrollArea->verticalScrollBar()->setValue(newHeight);
 	}
 
-	const auto newLabel = new (std::nothrow) QLabel(ui.scrollAreaWidgetContents);
-	newLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-	if (!newLabel)
-	{
-		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), 
-			QStringLiteral("No enough memory space"), QMessageBox::Ok));
-		QApplication::exit(1);
-	}
+	const auto newLabel = new QLabel(ui.scrollAreaWidgetContents);
 
 	newLabel->setText(input);
 	newLabel->setFont(gtFont);
 	newLabel->setStyleSheet(QStringLiteral("color: %1").arg(gtColor.name()));
 	newLabel->setGeometry(mX, mY, width, height);
 	newLabel->show();
-
-#ifdef QT_DEBUG
-	Q_ASSERT(mX < (std::numeric_limits<int>::max)() - width);
-#endif // QT_DEBUG
 
 	mX += width;
 	if (mX > ui.scrollArea->width())
@@ -125,7 +112,7 @@ void GtSubWindow::showMessageDialog()
 	if (const auto userInput = getInputStringImpl(); !userInput.isEmpty())
 	{
 		QMessageBox::information(
-			this, QStringLiteral("Show Message Dialog/ Get Input String"), userInput, QMessageBox::Ok | QMessageBox::Cancel);
+			this, QStringLiteral("Show Message Dialog / Get Input String"), userInput, QMessageBox::Ok | QMessageBox::Cancel);
 	}
 }
 
@@ -147,16 +134,12 @@ void GtSubWindow::showWarningDialog()
 	
 void GtSubWindow::setXY()
 {
-	const auto [x, y] = MyDialog::getXY();
-	if (x == MyDialog::Status::ERROR)
+	if (const auto xY = MyDialog::getXY(); xY)
 	{
-		static_cast<void>(
-			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the XY."), QMessageBox::Ok));
-		return;
+		const auto &[x, y] = *xY;
+		mX = x;
+		mY = y;
 	}
-
-	mX = x;
-	mY = y;
 }
 
 void GtSubWindow::setFontNameStyleSize()
@@ -172,15 +155,11 @@ void GtSubWindow::setFontNameStyleSize()
 
 void GtSubWindow::setFontColorRGB()
 {
-	const auto [r, g, b] = MyDialog::getRGB();
-	if (r == MyDialog::Status::ERROR)
+	if (const auto rgb = MyDialog::getRGB(); rgb)
 	{
-		static_cast<void>(
-			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the RGB."), QMessageBox::Ok));
-		return;
+		const auto &[r, g, b] = *rgb;
+		gtColor.setRgb(r, g, b);
 	}
-
-	gtColor.setRgb(r, g, b);
 }
 
 void GtSubWindow::setFontColorColorChooser()
@@ -236,7 +215,8 @@ void GtSubWindow::setTabSize()
 {
 	bool ok;
 	const auto newTabSize = static_cast<QString::size_type>(
-		QInputDialog::getInt(this, QStringLiteral("Set Tab Size"), QStringLiteral("Please enter a new tab size"), 1, 1, 50, 1, &ok));
+		QInputDialog::getInt(this, QStringLiteral("Set Tab Size"), 
+			QStringLiteral("Please enter a new tab size"), 1, 1, 50, 1, &ok));
 
 	if (ok)
 	{
@@ -259,8 +239,7 @@ void GtSubWindow::setFilePath()
 
 void GtSubWindow::setBackgroundColorColorChooser()
 {
-	const auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser"));
-	if (color.isValid())
+	if (const auto color = QColorDialog::getColor(Qt::white, this, QStringLiteral("GTerm Color Chooser")); color.isValid())
 	{
 		ui.subCentralwidget->setStyleSheet(QStringLiteral("background-color: %1").arg(color.name()));
 	}
@@ -268,21 +247,17 @@ void GtSubWindow::setBackgroundColorColorChooser()
 
 void GtSubWindow::setBackgroundColorRGB()
 {
-	const auto [r, g, b] = MyDialog::getRGB();
-	if (r == MyDialog::Status::ERROR)
+	if (const auto rgb  = MyDialog::getRGB(); rgb)
 	{
-		static_cast<void>(
-			QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("The error occurs when getting the RGB."), QMessageBox::Ok));
-		return;
+		const auto &[r, g, b] = *rgb;
+		ui.subCentralwidget->setStyleSheet(QStringLiteral("background-color: %1").arg(QColor(r, g, b).name()));
 	}
-
-	ui.subCentralwidget->setStyleSheet(QStringLiteral("background-color: %1").arg(QColor(r, g, b).name()));
 }
 
 void GtSubWindow::getFilePath()
 {
 	const auto filePath = QFileDialog::getSaveFileName(
-		this, QString(), QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+		this, QString{}, QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
 
 	if (filePath.isEmpty())
 	{
@@ -291,13 +266,6 @@ void GtSubWindow::getFilePath()
 
 	static_cast<void>(QMessageBox::information(this, QStringLiteral("File Path"), filePath, QMessageBox::StandardButton::Ok));
 }
-
-/*
-void GtSubWindow::addImageIcon​​()
-{
-
-}
-*/
 
 void GtSubWindow::getPasswordFromDialog()
 {
@@ -310,7 +278,7 @@ void GtSubWindow::getPasswordFromDialog()
 		return;
 	}
 
-	if (userInput.isEmpty())
+	[[unlikely]] if (userInput.isEmpty())
 	{
 		userInput = "null";
 	}
@@ -339,7 +307,7 @@ inline QString GtSubWindow::getInputStringImpl()
 
 	if (!ok)
 	{
-		return QString();
+		return QString{};
 	}
 
 	if (userInput.isEmpty())
@@ -350,142 +318,75 @@ inline QString GtSubWindow::getInputStringImpl()
 	return userInput;
 }
 
-inline bool GtSubWindow::isAddingOverFlow(int a, int b, int first, int second) noexcept
+QString GtSubWindow::getImagePath()
 {
-	return a > 0 && a > std::numeric_limits<int>::max() - first || b > 0 && b > std::numeric_limits<int>::max() - second;
-}
+	QFileDialog dialog(this, tr("Open File"));
 
-void GtSubWindow::initializeImageFileDialog(QFileDialog& dialog, QFileDialog::AcceptMode acceptMode)
-{
-	if (static bool firstDialog = true; firstDialog) 
+	const auto format = QImageReader::supportedMimeTypes();
+	QStringList formatList;
+	for (const auto& eachName : format)
 	{
-		firstDialog = false;
-		const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-		dialog.setDirectory(picturesLocations.isEmpty() ? QDir::home() : picturesLocations.last());
+		formatList.emplaceBack(eachName);
 	}
 
-	QStringList mimeTypeFilters;
-	const QByteArrayList supportedMimeTypes = acceptMode == QFileDialog::AcceptOpen
-		? QImageReader::supportedMimeTypes() : QImageWriter::supportedMimeTypes();
+	formatList.sort();
 
-	for (const QByteArray& mimeTypeName : supportedMimeTypes)
-	{
-		mimeTypeFilters.append(mimeTypeName);
-	}
-
-	mimeTypeFilters.sort();
-	dialog.setMimeTypeFilters(mimeTypeFilters);
+	dialog.setMimeTypeFilters(formatList);
 	dialog.selectMimeTypeFilter("image/jpeg");
-	dialog.setAcceptMode(acceptMode);
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setDirectory(QDir::currentPath());
+	dialog.setWindowModality(Qt::ApplicationModal);
 
-	if (acceptMode == QFileDialog::AcceptSave)
-	{
-		dialog.setDefaultSuffix("jpg");
-	}
+	return dialog.exec() == QDialog::Accepted ? dialog.selectedFiles().first() : QString{};
 }
-
-/*
-inline std::tuple<QString::size_type, QString::size_type, QString> GtSubWindow::calNumOfStAndSn(const QString& string)
-{
-	QString reString;
-	decltype(string.size()) numberOfSlashT = 0;
-	decltype(string.size()) numberOfSlashN = 0;
-
-	for (decltype(string.size()) i = 0; i < string.size(); i++)
-	{
-		if (string[i] == GTSPE::slash)
-		{
-			if (i + 1 < string.size())
-			{
-				if (string[i + 1] == GTSPE::t)
-				{
-					++numberOfSlashT;
-					reString += gtTab;
-					++i;
-				}
-				else if (string[i + 1] == GTSPE::n)
-				{
-					++numberOfSlashN;
-					reString += GTSPE::newline;
-					++i;
-				}
-				else
-				{
-					reString += string[i];
-				}
-			}
-			else
-			{
-				reString += string[i];
-			}
-		}
-		else
-		{
-			reString += string[i];
-		}
-	}
-
-	return { numberOfSlashT, numberOfSlashN, reString };
-}
-*/
-
-/*
 
 void GtSubWindow::addImageIcon()
 {
-	const QString imageIconPath = QFileDialog::getOpenFileName(this, tr("Select a image icon"), 
-		QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), tr("Image Icon (*.png *.xpm *.jpg)"));
-
-	if (imageIconPath.isNull())
+	const auto filePath = getImagePath();
+	if (filePath.isEmpty())
+	{
 		return;
-	
-	if (!gtImageViewer)
-	{
-		gtImageViewer = new GtImageViewer();
-		gtImageViewer->setAttribute(Qt::WA_DeleteOnClose);
-		connect(gtImageViewer, &QWidget::destroyed, this, qOverload<>(&GtSubWindow::deleteImageView));
 	}
 
-	gtImageViewer->loadFile(imageIconPath);
-	gtImageViewer->show();
-}
-*/
-
-/*
-int backUpx = x;
-auto eachLine = input.split(GTRE::findSlashn);
-auto height = gtFontMetrics->height();
-try
-{
-	for (auto start = eachLine.cbegin(), end = eachLine.cend(); start != end; ++start)
+	QImageReader reader(filePath);
+	reader.setAutoTransform(true);
+	auto newImage = reader.read();
+	if (newImage.isNull())
 	{
-		if (start->isEmpty())
-		{
-			y += height;
-			continue;
-		}
+		QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
+			tr("Cannot load %1: %2")
+			.arg(QDir::toNativeSeparators(filePath), reader.errorString()));
+		return;
+	}
 
-		x = 0;
-		auto width = gtFontMetrics->horizontalAdvance(*start);
-		auto newLabel = new QLabel(ui.subCentralwidget);
+	if (newImage.colorSpace().isValid())
+	{
+		newImage.convertToColorSpace(QColorSpace::SRgb);
+	}
 
-		newLabel->setText(*start);
-		newLabel->setFont(*gtFont);
+	auto* newLabel = new QLabel(ui.scrollAreaWidgetContents);
 
-		newLabel->setGeometry(x, y, width, height);
-		newLabel->show();
+	newLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+	newLabel->setPixmap(QPixmap::fromImage(newImage));
+	newLabel->setGeometry(mX, mY, newImage.width(), newImage.height());
+	newLabel->show();
 
-		x += width;
-		y += height;
+	if (const auto temp = mX + newImage.width(); temp > ui.scrollArea->width())
+	{
+		ui.scrollAreaWidgetContents->setFixedWidth(temp);
+	}
+
+	mY += newImage.height();
+	if (mY > ui.scrollArea->height())
+	{
+		ui.scrollAreaWidgetContents->setFixedHeight(mY);
 	}
 }
-catch (const std::exception&)
+
+void GtSubWindow::resizeEvent(QResizeEvent* event)
 {
-	x = backUpx;
+	ui.subCentralwidget->setFixedSize(event->size());
+	ui.scrollArea->setFixedSize(event->size());
+	event->accept();
 }
 
-if (eachLine.size() < 2)
-{
-	y -= height;
-}
-*/

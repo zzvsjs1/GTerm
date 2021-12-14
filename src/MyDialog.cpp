@@ -1,35 +1,23 @@
 #include "MyDialog.h"
 
-QPair<int, int> MyDialog::getXY()
+::std::optional<QPair<int, int>> MyDialog::getXY()
 {
 	const auto dialog = ::std::make_unique<SetXYDialog>();
-	const int ret = dialog->exec();
-	if (ret)
+	if (const int ret = dialog->exec(); ret > 0)
 	{
 		return dialog->getXY();
 	}
 
-	if (ret == ERROR)
-	{
-		return {ERROR, ERROR};
-	}
-
-	return {CANCEL, CANCEL};
+	return ::std::nullopt;
 }
 
-std::tuple<int, int, int> MyDialog::getRGB()
+::std::optional<std::tuple<int, int, int>> MyDialog::getRGB()
 {
 	const auto dialog = ::std::make_unique<GTRGBChooser>();
-	const auto ret = dialog->exec();
-	if (ret)
+	if (const auto ret = dialog->exec(); ret > 0)
 	{
 		return dialog->getRGB();
 	}
 
-	if (ret == ERROR)
-	{
-		return {ERROR, ERROR, ERROR};
-	}
-
-	return {CANCEL, CANCEL, CANCEL};
+	return ::std::nullopt;
 }

@@ -26,6 +26,7 @@ public:
 	}
 
 private:
+
 	Ui::GTermRGBChooser ui;
 
 };
