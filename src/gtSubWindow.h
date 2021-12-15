@@ -49,15 +49,11 @@ public slots:
 	void setBackgroundColorRGB();
 	void getFilePath();
 	void addImageIcon();
-
-	/*
 	void addPasswordField();
-	void addTable​();
+	void addTable();
 	void addRowToTable();
-	void getIndexOfSelectedRowFromTable​();
+	void getIndexOfSelectedRowFromTable();
 	void getSelectedRowFromTable();
-	*/
-
 	void getPasswordFromDialog();
 	void addTextArea();
 	void clear();

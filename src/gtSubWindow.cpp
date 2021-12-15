@@ -11,10 +11,14 @@
 #include <QScrollBar>
 #include <QStandardPaths>
 #include <QStringList>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QTableView>
 
 #include <tuple>
 #include <memory>
 #include <optional>
+#include <stdexcept>
 
 #include "MyDialog.h"
 #include "PreComRE.h"
@@ -288,7 +292,60 @@ void GtSubWindow::getPasswordFromDialog()
 
 void GtSubWindow::addTextArea()
 {
+	bool ok;
+	const auto text = QInputDialog::getText(this, 
+		tr("Enter default text"), tr("Enter default text"), QLineEdit::Normal, QString{}, &ok);
+	if (!ok)
+	{
+		return;
+	}
 
+	const auto width = QInputDialog::getText(this,
+		tr("Enter width"), tr("Enter width"), QLineEdit::Normal, QString{}, &ok);
+	if (!ok)
+	{
+		return;
+	}
+
+	const auto widthInt = width.toInt(&ok);
+	if (!ok)
+	{
+		QMessageBox::critical(this, tr("Not a digit or out of range."), tr("Not a digit or out of range."));
+		return;
+	}
+
+	const auto height = QInputDialog::getText(this,
+		tr("Enter height"), tr("Enter height"), QLineEdit::Normal, QString{}, &ok);
+	if (!ok)
+	{
+		return;
+	}
+
+	const auto heightInt = height.toInt(&ok);
+	if (!ok)
+	{
+		QMessageBox::critical(this, tr("Not a digit or out of range."), tr("Not a digit or out of range."));
+		return;
+	}
+
+	QTextEdit* textEdit = nullptr;
+	try
+	{
+		textEdit = new QTextEdit(ui.scrollAreaWidgetContents);
+	}
+	catch (const ::std::bad_alloc& e)
+	{
+		QMessageBox::critical(this, tr("Error."), tr(e.what()));
+		return;
+	}
+
+	textEdit->setText(text);
+	textEdit->setFont(gtFont);
+	textEdit->setFixedSize(widthInt, heightInt);
+	textEdit->setGeometry(mX, mY, textEdit->width(), textEdit->height());
+	textEdit->show();
+
+	mY += textEdit->height();
 }
 
 void GtSubWindow::clear()
@@ -364,23 +421,106 @@ void GtSubWindow::addImageIcon()
 		newImage.convertToColorSpace(QColorSpace::SRgb);
 	}
 
-	auto* newLabel = new QLabel(ui.scrollAreaWidgetContents);
+	QLabel* newLabel = nullptr;
+
+	try
+	{
+		newLabel = new QLabel(ui.scrollAreaWidgetContents);
+	}
+	catch (const ::std::bad_alloc& e)
+	{
+		QMessageBox::critical(this, tr("Error."), tr(e.what()));
+		return;
+	}
+
+	int newWidth = newImage.width();
+	int newHeight = newImage.height();
+	if (newImage.width() > width() || newImage.height() > height())
+	{
+		if (const auto button = QMessageBox::information(
+			this, QGuiApplication::applicationDisplayName(),tr("Image too big. Resize?"),
+			QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel); 
+			button == QMessageBox::Ok)
+		{
+			newHeight = height() / 3 * 2;
+			const double radio = static_cast<double>(newHeight) / newImage.height();
+			newWidth = static_cast<int>(newWidth * radio);
+			newImage = newImage.scaled(newWidth, newHeight);
+		}
+	}
 
 	newLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	newLabel->setPixmap(QPixmap::fromImage(newImage));
-	newLabel->setGeometry(mX, mY, newImage.width(), newImage.height());
+	newLabel->setGeometry(mX, mY, newWidth, newHeight);
 	newLabel->show();
 
-	if (const auto temp = mX + newImage.width(); temp > ui.scrollArea->width())
+	if (const auto temp = mX + newLabel->width(); temp > ui.scrollArea->width())
 	{
 		ui.scrollAreaWidgetContents->setFixedWidth(temp);
 	}
 
-	mY += newImage.height();
+	mY += newHeight;
 	if (mY > ui.scrollArea->height())
 	{
 		ui.scrollAreaWidgetContents->setFixedHeight(mY);
 	}
+}
+
+void GtSubWindow::addPasswordField()
+{
+	bool ok;
+	const auto input =
+		QInputDialog::getText(this, tr("Enter default text"), tr("Enter default text"), QLineEdit::Normal, QString{}, &ok);
+	if (!ok)
+	{
+		return;
+	}
+
+	const auto width =
+		QInputDialog::getText(this, tr("Enter width in pixel"), tr("Enter width in pixel"), QLineEdit::Normal, QString{}, &ok);
+	if (!ok)
+	{
+		return;
+	}
+
+	const auto widthInt = width.toInt(&ok);
+	if (!ok)
+	{
+		QMessageBox::critical(this, tr("Error."), tr("Out of range or not a digit."));
+		return;
+	}
+
+	auto* qLineEdit = new QLineEdit(ui.scrollAreaWidgetContents);
+
+	qLineEdit->setEchoMode(QLineEdit::Password);
+	qLineEdit->setFixedWidth(widthInt);
+	qLineEdit->setGeometry(mY, mY, qLineEdit->width(), qLineEdit->height());
+	qLineEdit->setText(input);
+	qLineEdit->setFont(gtFont);
+
+	mY += qLineEdit->height();
+
+	qLineEdit->show();
+}
+
+void GtSubWindow::addTable()
+{
+	
+}
+
+void GtSubWindow::addRowToTable()
+{
+
+}
+
+void GtSubWindow::getIndexOfSelectedRowFromTable()
+{
+
+}
+
+void GtSubWindow::getSelectedRowFromTable()
+{
+
 }
 
 void GtSubWindow::resizeEvent(QResizeEvent* event)

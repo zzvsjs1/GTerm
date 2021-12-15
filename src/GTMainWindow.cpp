@@ -33,16 +33,13 @@ void GTMainWindow::resetBtnState() noexcept
     ui.setBackgroundColorRGB->setEnabled(gtSubWindow);
     ui.getFilePath->setEnabled(gtSubWindow);
     ui.addImageIcon->setEnabled(gtSubWindow);
-
-    /*
     ui.addPasswordField->setEnabled(gtSubWindow);
-    ui.addTable​->setEnabled(gtSubWindow);
+    ui.addTable->setEnabled(gtSubWindow);
     ui.addRowToTable->setEnabled(gtSubWindow);
     ui.getIndexOfSelectedRowFromTable->setEnabled(gtSubWindow);
     ui.getSelectedRowFromTable->setEnabled(gtSubWindow);
-    */
     ui.getPasswordFromDialog->setEnabled(gtSubWindow);
-    //ui.addTextArea->setEnabled(gtSubWindow);
+    ui.addTextArea->setEnabled(gtSubWindow);
     ui.clear->setEnabled(gtSubWindow);
     ui.close->setEnabled(gtSubWindow);
 }
@@ -70,12 +67,13 @@ void GTMainWindow::connectSignalToSubWin()
     connect(ui.setBackgroundColorRGB, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setBackgroundColorRGB);
     connect(ui.getFilePath, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getFilePath);
     connect(ui.addImageIcon, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addImageIcon);
-
-    /*
-
-    */
+    connect(ui.addPasswordField, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addPasswordField);
+    connect(ui.addTable, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addTable);
+    connect(ui.addRowToTable, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addRowToTable);
+    connect(ui.getIndexOfSelectedRowFromTable, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getIndexOfSelectedRowFromTable);
+    connect(ui.getSelectedRowFromTable, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getSelectedRowFromTable);
     connect(ui.getPasswordFromDialog, &QPushButton::clicked, gtSubWindow, &GtSubWindow::getPasswordFromDialog);
-    //connect(ui.addTextArea, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addTextArea);
+    connect(ui.addTextArea, &QPushButton::clicked, gtSubWindow, &GtSubWindow::addTextArea);
     connect(ui.clear, &QPushButton::clicked, gtSubWindow, &GtSubWindow::clear);
     connect(ui.close, &QPushButton::clicked, gtSubWindow, &GtSubWindow::deleteLater);
 }
