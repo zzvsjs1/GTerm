@@ -4,3 +4,4 @@
 #define slots
 #define QT_BEGIN_NAMESPACE
 #define QT_BEGIN_NAMESPACE namespace QT_NAMESPACE {
+#define Q_NULLPTR

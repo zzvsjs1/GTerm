@@ -13,14 +13,24 @@ class GTRGBChooser final : public QDialog
 	Q_DISABLE_COPY_MOVE(GTRGBChooser)
 
 public:
-	explicit GTRGBChooser(QWidget* parent = Q_NULLPTR) : QDialog(parent)
+
+	explicit GTRGBChooser(QWidget* parent = Q_NULLPTR)
+	: QDialog(parent), ui()
 	{
 		ui.setupUi(this);
 	}
 
+	GTRGBChooser(QWidget* parent, const int r, const int g, const int b)
+		: GTRGBChooser(parent)
+	{
+		ui.R->setValue(r);
+		ui.G->setValue(g);
+		ui.B->setValue(b);
+	}
+
 	~GTRGBChooser() override = default;
 
-	std::tuple<int, int, int> getRGB() const
+	[[nodiscard]] std::tuple<int, int, int> getRGB() const
 	{
 		return { ui.R->value(), ui.G->value(), ui.B->value() };
 	}

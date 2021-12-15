@@ -26,7 +26,7 @@ void GTMainWindow::resetBtnState() noexcept
     ui.setFontColorColorChooser->setEnabled(gtSubWindow);
     ui.setFontName->setEnabled(gtSubWindow);
     ui.setFontSize->setEnabled(gtSubWindow);
-    //ui.setFontStyle->setEnabled(gtSubWindow);
+    ui.setFontStyle->setEnabled(gtSubWindow);
     ui.setTabSize->setEnabled(gtSubWindow);
     ui.setFilePath->setEnabled(gtSubWindow);
     ui.setBackgroundColorColorChooser->setEnabled(gtSubWindow);
@@ -60,7 +60,7 @@ void GTMainWindow::connectSignalToSubWin()
     connect(ui.setFontColorColorChooser, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontColorColorChooser);
     connect(ui.setFontName, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontName);
     connect(ui.setFontSize, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontSize);
-    //connect(ui.setFontStyle, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontStyle);
+    connect(ui.setFontStyle, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFontStyle);
     connect(ui.setTabSize, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setTabSize);
     connect(ui.setFilePath, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setFilePath);
     connect(ui.setBackgroundColorColorChooser, &QPushButton::clicked, gtSubWindow, &GtSubWindow::setBackgroundColorColorChooser);

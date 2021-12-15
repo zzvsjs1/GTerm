@@ -20,6 +20,14 @@ public:
 		ui.setupUi(this);
 	}
 
+	explicit SetXYDialog(QWidget* parent, const int x, const int y)
+		: QDialog(parent), ui()
+	{
+		ui.setupUi(this);
+		ui.X->setValue(x);
+		ui.Y->setValue(y);
+	}
+
 	~SetXYDialog() override = default;
 
 	[[nodiscard]] QPair<int, int> getXY() const

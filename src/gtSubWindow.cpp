@@ -124,7 +124,7 @@ void GtSubWindow::showErrorDialog()
 {
 	if (const auto userInput = getInputStringImpl(); !userInput.isEmpty())
 	{
-		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), userInput, QMessageBox::Ok));
+		QMessageBox::critical(this, QStringLiteral("Show Error Dialog"), userInput, QMessageBox::Ok);
 	}
 }
 
@@ -138,7 +138,7 @@ void GtSubWindow::showWarningDialog()
 	
 void GtSubWindow::setXY()
 {
-	if (const auto xY = MyDialog::getXY(); xY)
+	if (const auto xY = MyDialog::getXY(mX, mY); xY)
 	{
 		const auto &[x, y] = *xY;
 		mX = x;
@@ -159,7 +159,7 @@ void GtSubWindow::setFontNameStyleSize()
 
 void GtSubWindow::setFontColorRGB()
 {
-	if (const auto rgb = MyDialog::getRGB(); rgb)
+	if (const auto rgb = MyDialog::getRGB(gtColor.red(), gtColor.green(), gtColor.blue()); rgb)
 	{
 		const auto &[r, g, b] = *rgb;
 		gtColor.setRgb(r, g, b);
@@ -191,7 +191,7 @@ void GtSubWindow::setFontSize()
 	const auto pointSizeList = QFontDatabase::pointSizes(gtFont.family(), gtFont.styleName());
 	if (pointSizeList.isEmpty())
 	{
-		static_cast<void>(QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("Size is empty."), QMessageBox::Ok));
+		QMessageBox::critical(this, QStringLiteral("Error raise"), QStringLiteral("Size is empty."), QMessageBox::Ok);
 		return;
 	}
 
@@ -209,10 +209,49 @@ void GtSubWindow::setFontSize()
 
 void GtSubWindow::setFontStyle()
 {
-	
+	bool ok;
+	const auto fontWeight = QInputDialog::getInt(this, tr("Enter weight"),
+		tr("Enter weight"), gtFont.weight(), QFont::Thin, QFont::Black, 100, &ok);
+	if (!ok)
+	{
+		return;
+	}
 
+	QFont::Weight weight;
+	switch (fontWeight)
+	{
+	case 100:
+		weight = QFont::Thin;
+		break;
+	case 200:
+		weight = QFont::ExtraLight;
+		break;
+	case 300:
+		weight = QFont::Light;
+		break;
+	case 400:
+		weight = QFont::Normal;
+		break;
+	case 500:
+		weight = QFont::Medium;
+		break;
+	case 600:
+		weight = QFont::DemiBold;
+		break;
+	case 700:
+		weight = QFont::Bold;
+		break;
+	case 800:
+		weight = QFont::ExtraBold;
+		break;
+	case 900:
+		weight = QFont::Black;
+		break;
+	default:
+		weight = gtFont.weight();
+	}
 
-
+	gtFont.setWeight(weight);
 }
 
 void GtSubWindow::setTabSize()
@@ -238,7 +277,7 @@ void GtSubWindow::setFilePath()
 		return;
 	}
 
-	static_cast<void>(QMessageBox::information(this, QStringLiteral("File Path"), filePath, QMessageBox::StandardButton::Ok));
+	QMessageBox::information(this, QStringLiteral("File Path"), filePath, QMessageBox::StandardButton::Ok);
 }
 
 void GtSubWindow::setBackgroundColorColorChooser()
@@ -268,7 +307,7 @@ void GtSubWindow::getFilePath()
 		return;
 	}
 
-	static_cast<void>(QMessageBox::information(this, QStringLiteral("File Path"), filePath, QMessageBox::StandardButton::Ok));
+	QMessageBox::information(this, QStringLiteral("File Path"), filePath, QMessageBox::StandardButton::Ok);
 }
 
 void GtSubWindow::getPasswordFromDialog()
@@ -287,7 +326,7 @@ void GtSubWindow::getPasswordFromDialog()
 		userInput = "null";
 	}
 
-	static_cast<void>(QMessageBox::information(this, QStringLiteral("You enter password"), userInput, QMessageBox::Ok));
+	QMessageBox::information(this, QStringLiteral("You enter password"), userInput, QMessageBox::Ok);
 }
 
 void GtSubWindow::addTextArea()
@@ -343,6 +382,7 @@ void GtSubWindow::addTextArea()
 	textEdit->setFont(gtFont);
 	textEdit->setFixedSize(widthInt, heightInt);
 	textEdit->setGeometry(mX, mY, textEdit->width(), textEdit->height());
+	textEdit->setStyleSheet(tr("background-color: white;"));
 	textEdit->show();
 
 	mY += textEdit->height();
@@ -425,7 +465,7 @@ void GtSubWindow::addImageIcon()
 
 	try
 	{
-		newLabel = new QLabel(ui.scrollAreaWidgetContents);
+		newLabel = new QLabel(ui.scrollAreaWidgetContents); // throw
 	}
 	catch (const ::std::bad_alloc& e)
 	{
@@ -449,7 +489,6 @@ void GtSubWindow::addImageIcon()
 		}
 	}
 
-	newLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	newLabel->setPixmap(QPixmap::fromImage(newImage));
 	newLabel->setGeometry(mX, mY, newWidth, newHeight);
 	newLabel->show();
@@ -490,13 +529,14 @@ void GtSubWindow::addPasswordField()
 		return;
 	}
 
-	auto* qLineEdit = new QLineEdit(ui.scrollAreaWidgetContents);
+	auto* qLineEdit = new QLineEdit(ui.scrollAreaWidgetContents); // throw
 
 	qLineEdit->setEchoMode(QLineEdit::Password);
 	qLineEdit->setFixedWidth(widthInt);
 	qLineEdit->setGeometry(mY, mY, qLineEdit->width(), qLineEdit->height());
 	qLineEdit->setText(input);
 	qLineEdit->setFont(gtFont);
+	qLineEdit->setStyleSheet(tr("background-color: white;"));
 
 	mY += qLineEdit->height();
 
