@@ -152,5 +152,7 @@ Version History:
 
 2021.12.04: GTerm now support addImageIcon feature.
 
+2021.12.16: GTerm now support drag and drop image into the sub window.
+
 ### Author:
 Gayan Wijesinghe

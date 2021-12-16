@@ -10,6 +10,8 @@
 #include <QFileDialog>
 #include <QResizeEvent>
 
+#include <type_traits>
+
 #include "ui_GTsubWindow.h"
 
 class GtSubWindow final : public QMainWindow
@@ -24,6 +26,9 @@ public:
 public slots:
 	void print();
 	void println();
+	void dragEnterEvent(QDragEnterEvent* event) override;
+	void dropEvent(QDropEvent* event) override;
+	void dragLeaveEvent(QDragLeaveEvent* event) override;
 
 private:
 	void printImpl(QString& input);
@@ -67,10 +72,13 @@ private:
 	QFontMetrics gtFontMetrics;
 	QString gtTab;
 	QColor gtColor;
+	QString imageMimeType;
 
 	inline QString getInputStringImpl();
 	QString getImagePath();
 	void resizeEvent(QResizeEvent* event) override;
+	void addImage(QImage& newImage);
+	void addImage(QImage& newImage, std::false_type);
 
 };
 

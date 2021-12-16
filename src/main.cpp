@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QFontDatabase>
+#include <QDebug>
 
 #include "GTMainWindow.h"
 
@@ -27,5 +28,11 @@ int main(int argc, char *argv[])
     GTMainWindow gtMain;
     gtMain.show();
 
-    return QApplication::exec();
+    qDebug() << "Start";
+
+    const auto ret = QApplication::exec();
+
+    qDebug() << "Exit";
+
+    return ret;
 }

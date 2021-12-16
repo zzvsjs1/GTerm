@@ -12,10 +12,16 @@
 #define STR_HELPER(x) #x
 #define NUM_TO_STR(x) STR_HELPER(x)
 
-GTAboutDialog::GTAboutDialog(QWidget* parent) : QDialog(parent)
+GTAboutDialog::GTAboutDialog(QWidget* parent)
+	: QDialog(parent)
 {
-	setWindowTitle(QStringLiteral("About GTerm"));
-	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setUp();
+}
+
+void GTAboutDialog::setUp()
+{
+    setWindowTitle(QStringLiteral("About GTerm"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     const QString text =
         QStringLiteral(R"(
@@ -37,7 +43,7 @@ Check for update: <a href='https://jupiter.csit.rmit.edu.au/~e58140/GTerm/'>http
 If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@rmit.edu.au'>contact Gayan</a> .
 </p>
 )").replace(QStringLiteral("%QT_VERSION%"),
-    tr("Using Qt %1. Build by %2 on %3").arg(QStringLiteral(QT_VERSION_STR), 
+    tr("Using Qt %1. Build by %2 on %3").arg(QStringLiteral(QT_VERSION_STR),
 #if defined(__clang__)
         tr(" Build By Clang on: ")
 #elif defined(__GNUC__) || defined(__GNUG__)
@@ -45,9 +51,9 @@ If you need an older version of GTerm, please <a href='mailto: gayan.wijesinghe@
 #elif defined(_MSC_VER)        
         tr(" MSVC ") % QStringLiteral(NUM_TO_STR(_MSC_VER))
 #endif
-       , QStringLiteral(__DATE__) % QStringLiteral(" ") % QStringLiteral(__TIME__)))
-    .replace(QStringLiteral("%ABOUT_GTERM%"), 
-        QStringLiteral("GTerm allows you to create a GUI application using ::std::cout-like statements."));
+        , QStringLiteral(__DATE__) % QStringLiteral(" ") % QStringLiteral(__TIME__)))
+        .replace(QStringLiteral("%ABOUT_GTERM%"),
+            QStringLiteral("GTerm allows you to create a GUI application using ::std::cout-like statements."));
 
     // TODO: Memory leak.
 

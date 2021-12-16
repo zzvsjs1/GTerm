@@ -14,6 +14,10 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QTableView>
+#include <QDrag>
+#include <QMimeData>
+#include <QDropEvent>
+#include <QDebug>
 
 #include <tuple>
 #include <memory>
@@ -32,9 +36,15 @@ GtSubWindow::GtSubWindow(QWidget* parent)
 	gtFont(QApplication::font()),
 	gtFontMetrics(gtFont),
 	gtTab(GTSPE::t),
-	gtColor(Qt::black)
+	gtColor(Qt::black),
+	imageMimeType()
 {
 	ui.setupUi(this);
+
+	foreach (const auto & e, QImageReader::supportedMimeTypes())
+	{
+		imageMimeType += e;
+	}
 }
 
 void GtSubWindow::print()
@@ -58,6 +68,56 @@ void GtSubWindow::println()
 
 	printImpl(input);
 	setNewLine();
+}
+
+void GtSubWindow::dragEnterEvent(QDragEnterEvent* event)
+{
+	qDebug() << event->type();
+	if (!event->spontaneous() && event->mimeData()->hasUrls())
+	{
+		event->acceptProposedAction();
+		ui.scrollAreaWidgetContents->setStyleSheet(tr("border: 2px solid skyblue;"));
+		return;
+	}
+
+	event->ignore();
+}
+
+void GtSubWindow::dropEvent(QDropEvent* event)
+{
+	const auto urls = event->mimeData()->urls(); // Must be a copy.
+	foreach (const auto& e, urls)
+	{
+		if (!e.isLocalFile())
+		{
+
+			event->ignore();
+			return;
+		}
+
+		const auto filePath = e.toLocalFile();
+		QImageReader reader(filePath);
+		reader.setAutoTransform(true);
+		auto newImage = reader.read();
+		if (newImage.isNull())
+		{
+			QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
+				tr("Cannot load %1: %2")
+				.arg(QDir::toNativeSeparators(filePath), reader.errorString()));
+			event->ignore();
+			return;
+		}
+
+		addImage(newImage, ::std::false_type{});
+	}
+
+	ui.scrollAreaWidgetContents->setStyleSheet(tr("border: none;"));
+	event->acceptProposedAction();
+}
+
+void GtSubWindow::dragLeaveEvent(QDragLeaveEvent* event)
+{
+	ui.scrollAreaWidgetContents->setStyleSheet(tr("border: none;"));
 }
 
 void GtSubWindow::printImpl(QString& input)
@@ -314,7 +374,8 @@ void GtSubWindow::getPasswordFromDialog()
 {
 	bool ok;
 	auto userInput = QInputDialog::getText(
-		this, QStringLiteral("GTerm Password Dialog"), QStringLiteral("Please enter a Password"), QLineEdit::Password, QString(), &ok);
+		this, QStringLiteral("GTerm Password Dialog"), 
+		QStringLiteral("Please enter a Password"), QLineEdit::Password, QString(), &ok);
 
 	if (!ok)
 	{
@@ -456,53 +517,7 @@ void GtSubWindow::addImageIcon()
 		return;
 	}
 
-	if (newImage.colorSpace().isValid())
-	{
-		newImage.convertToColorSpace(QColorSpace::SRgb);
-	}
-
-	QLabel* newLabel = nullptr;
-
-	try
-	{
-		newLabel = new QLabel(ui.scrollAreaWidgetContents); // throw
-	}
-	catch (const ::std::bad_alloc& e)
-	{
-		QMessageBox::critical(this, tr("Error."), tr(e.what()));
-		return;
-	}
-
-	int newWidth = newImage.width();
-	int newHeight = newImage.height();
-	if (newImage.width() > width() || newImage.height() > height())
-	{
-		if (const auto button = QMessageBox::information(
-			this, QGuiApplication::applicationDisplayName(),tr("Image too big. Resize?"),
-			QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel); 
-			button == QMessageBox::Ok)
-		{
-			newHeight = height() / 3 * 2;
-			const double radio = static_cast<double>(newHeight) / newImage.height();
-			newWidth = static_cast<int>(newWidth * radio);
-			newImage = newImage.scaled(newWidth, newHeight);
-		}
-	}
-
-	newLabel->setPixmap(QPixmap::fromImage(newImage));
-	newLabel->setGeometry(mX, mY, newWidth, newHeight);
-	newLabel->show();
-
-	if (const auto temp = mX + newLabel->width(); temp > ui.scrollArea->width())
-	{
-		ui.scrollAreaWidgetContents->setFixedWidth(temp);
-	}
-
-	mY += newHeight;
-	if (mY > ui.scrollArea->height())
-	{
-		ui.scrollAreaWidgetContents->setFixedHeight(mY);
-	}
+	addImage(newImage);
 }
 
 void GtSubWindow::addPasswordField()
@@ -568,5 +583,101 @@ void GtSubWindow::resizeEvent(QResizeEvent* event)
 	ui.subCentralwidget->setFixedSize(event->size());
 	ui.scrollArea->setFixedSize(event->size());
 	event->accept();
+}
+
+void GtSubWindow::addImage(QImage& newImage)
+{
+	if (newImage.colorSpace().isValid())
+	{
+		newImage.convertToColorSpace(QColorSpace::SRgb);
+	}
+
+	QLabel* newLabel = nullptr;
+
+	try
+	{
+		newLabel = new QLabel(ui.scrollAreaWidgetContents); // throw
+	}
+	catch (const ::std::bad_alloc& e)
+	{
+		QMessageBox::critical(this, tr("Error."), tr(e.what()));
+		return;
+	}
+
+	int newWidth = newImage.width();
+	int newHeight = newImage.height();
+	if (newImage.width() > width() || newImage.height() > height())
+	{
+		if (const auto button = QMessageBox::information(
+			this, QGuiApplication::applicationDisplayName(), tr("Image too big. Resize?"),
+			QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel);
+			button == QMessageBox::Ok)
+		{
+			newHeight = height() / 3 * 2;
+			const double radio = static_cast<double>(newHeight) / newImage.height();
+			newWidth = static_cast<int>(newWidth * radio);
+			newImage = newImage.scaled(newWidth, newHeight);
+		}
+	}
+
+	newLabel->setPixmap(QPixmap::fromImage(newImage));
+	newLabel->setGeometry(mX, mY, newWidth, newHeight);
+	newLabel->show();
+
+	if (const auto temp = mX + newLabel->width(); temp > ui.scrollArea->width())
+	{
+		ui.scrollAreaWidgetContents->setFixedWidth(temp);
+	}
+
+	mY += newHeight;
+	if (mY > ui.scrollArea->height())
+	{
+		ui.scrollAreaWidgetContents->setFixedHeight(mY);
+	}
+}
+
+void GtSubWindow::addImage(QImage& newImage, std::false_type)
+{
+	if (newImage.colorSpace().isValid())
+	{
+		newImage.convertToColorSpace(QColorSpace::SRgb);
+	}
+
+	QLabel* newLabel = nullptr;
+
+	try
+	{
+		newLabel = new QLabel(ui.scrollAreaWidgetContents); // throw
+	}
+	catch (const ::std::bad_alloc& e)
+	{
+		QMessageBox::critical(this, tr("Error."), tr(e.what()));
+		return;
+	}
+
+	int newWidth = newImage.width();
+	int newHeight = newImage.height();
+	if (newImage.width() > width() || newImage.height() > height())
+	{
+		newHeight = height() / 3 * 2;
+		const double radio = static_cast<double>(newHeight) / newImage.height();
+		newWidth = static_cast<int>(newWidth * radio);
+		newImage = newImage.scaled(newWidth, newHeight);
+	}
+
+	newLabel->setPixmap(QPixmap::fromImage(newImage));
+	newLabel->setGeometry(mX, mY, newWidth, newHeight);
+	newLabel->show();
+
+	if (const auto temp = mX + newLabel->width(); temp > ui.scrollArea->width())
+	{
+		ui.scrollAreaWidgetContents->setFixedWidth(temp);
+	}
+
+	mY += newHeight;
+	if (mY > ui.scrollArea->height())
+	{
+		ui.scrollAreaWidgetContents->setFixedHeight(mY);
+	}
 }
 

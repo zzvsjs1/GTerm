@@ -13,6 +13,10 @@ public:
 
 	explicit GTAboutDialog(QWidget* parent = Q_NULLPTR);
 
+private:
+
+	void setUp();
+
 };
 
 #endif // GT_ABOUTDIALOG

@@ -57,6 +57,7 @@
     <IntDir>debug\</IntDir>
     <TargetName>GTerm</TargetName>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>release\</OutDir>
@@ -68,12 +69,12 @@
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtModules>core;gui;widgets</QtModules>
     <QtQMLDebugEnable>false</QtQMLDebugEnable>
-    <QtInstall>6.2.1_msvc2019_64</QtInstall>
+    <QtInstall>6.2.2_msvc2019_64</QtInstall>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <QtModules>core;gui;widgets</QtModules>
     <QtQMLDebugEnable>false</QtQMLDebugEnable>
-    <QtInstall>6.2.1_msvc2019_64</QtInstall>
+    <QtInstall>6.2.2_msvc2019_64</QtInstall>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnabled>false</VcpkgEnabled>
